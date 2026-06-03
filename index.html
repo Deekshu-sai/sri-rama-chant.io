@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sri Rama Chanting Counter</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Telugu:wght@400;700&family=Noto+Serif+Hindi:wght@400;700&family=Noto+Serif+Kannada:wght@400;700&family=Poppins:wght@600&display=swap');
+
+        :root {
+            --saffron: #FF6B00;
+            --deep: #E85500;
+            --gold: #FFD700;
+            --cream: #FFF8F0;
+            --dark: #3D1A00;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', serif;
+            background: radial-gradient(ellipse at top, #4a1000, #1a0500 60%, #0d0200);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .topbar {
+            height: 7px;
+            background: linear-gradient(90deg, var(--deep), var(--gold), var(--saffron), var(--gold), var(--deep));
+            box-shadow: 0 0 18px var(--gold);
+        }
+
+        /* Language selector */
+        .lang-selector {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 100;
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            padding: 8px;
+        }
+
+        .lang-btn {
+            background: rgba(255, 215, 0, 0.15);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            color: var(--gold);
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.7rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .lang-btn:hover {
+            background: rgba(255, 215, 0, 0.25);
+        }
+
+        .lang-btn.active {
+            background: var(--gold);
+            color: #000;
+        }
+
+        header {
+            text-align: center;
+            padding: 14px 10px 6px;
+        }
+
+        .om {
+            font-size: 2.6rem;
+            color: var(--gold);
+            display: block;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 20px var(--gold); }
+            to { text-shadow: 0 0 50px var(--gold), 0 0 80px rgba(255, 215, 0, 0.6); }
+        }
+
+        h1 {
+            font-size: clamp(1.3rem, 5vw, 2.3rem);
+            color: var(--gold);
+            text-shadow: 2px 2px 8px #000;
+            letter-spacing: 1px;
+            margin: 4px 0 2px;
+        }
+
+        h2 {
+            font-size: clamp(0.65rem, 2vw, 0.9rem);
+            color: #FFD98A;
+            font-weight: 400;
+        }
+
+        .save-status {
+            text-align: center;
+            font-size: 0.65rem;
+            padding: 3px 10px;
+            min-height: 18px;
+        }
+
+        .save-ok { color: #4CAF50; }
+        .save-warn { color: #FF6B6B; }
+        .save-info { color: rgba(255, 215, 0, 0.5); }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            padding: 8px 12px;
+            flex-wrap: wrap;
+            background: rgba(255, 255, 255, 0.05);
+            border-top: 1px solid rgba(255, 215, 0, 0.2);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.15);
+        }
+
+        .sbox {
+            text-align: center;
+            min-width: 60px;
+        }
+
+        .snum {
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
+            font-weight: 700;
+            color: var(--gold);
+            text-shadow: 0 0 12px rgba(255, 215, 0, 0.5);
+            display: block;
+            line-height: 1;
+        }
+
+        .slbl {
+            font-size: 0.58rem;
+            color: #FFD98A;
+            opacity: 0.85;
+            margin-top: 2px;
+        }
+
+        .lifetime {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            padding: 7px 12px;
+            background: rgba(255, 215, 0, 0.06);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.12);
+        }
+
+        .lnum {
+            font-size: clamp(1rem, 3.5vw, 1.5rem);
+            font-weight: 700;
+            color: #FFB347;
+            text-shadow: 0 0 10px rgba(255, 180, 70, 0.4);
+            display: block;
+            line-height: 1;
+        }
+
+        .llbl {
+            font-size: 0.56rem;
+            color: #FFD98A;
+            opacity: 0.8;
+            margin-top: 2px;
+            text-align: center;
+        }
+
+        .ldiv {
+            color: rgba(255, 215, 0, 0.25);
+            font-size: 1.3rem;
+            align-self: center;
+        }
+
+        .datebar {
+            text-align: center;
+            font-size: 0.68rem;
+            color: rgba(255, 215, 0, 0.5);
+            padding: 3px 0;
+        }
+
+        .progwrap {
+            padding: 7px 14px 3px;
+        }
+
+        .progbg {
+            height: 9px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 215, 0, 0.25);
+        }
+
+        .progfill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--deep), var(--gold));
+            border-radius: 5px;
+            transition: width 0.4s;
+            box-shadow: 0 0 7px var(--saffron);
+        }
+
+        .progtxt {
+            font-size: 0.67rem;
+            color: #FFD98A;
+            text-align: center;
+            margin-top: 3px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 9px 14px 5px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 9px 18px;
+            border: none;
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 600;
+        }
+
+        .btnmic {
+            background: linear-gradient(135deg, var(--saffron), var(--deep));
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(255, 107, 0, 0.45);
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 0.87rem;
+        }
+
+        .btnmic:hover {
+            transform: translateY(-2px);
+        }
+
+        .btnmic.on {
+            background: linear-gradient(135deg, #C0392B, #922B21);
+            animation: pbtn 1s ease-in-out infinite;
+        }
+
+        @keyframes pbtn {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .btnman {
+            background: linear-gradient(135deg, var(--gold), #FFB347);
+            color: #000;
+            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.35);
+            font-size: 1.1rem;
+            font-weight: 700;
+            min-width: 80px;
+        }
+
+        .btnman:hover {
+            transform: translateY(-2px);
+        }
+
+        .btnman:active {
+            transform: scale(0.98);
+        }
+
+        .vstatus {
+            text-align: center;
+            font-size: 0.75rem;
+            color: rgba(255, 215, 0, 0.6);
+            height: 20px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .vstatus.on {
+            color: #4CAF50;
+        }
+
+        .vstatus.err {
+            color: #FF6B6B;
+        }
+
+        .container {
+            max-width: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 0;
+            padding: 0;
+        }
+
+        .section {
+            background: rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            font-size: 0.75rem;
+            color: rgba(255, 215, 0, 0.5);
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        footer p {
+            margin: 2px 0;
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 1.5rem; }
+            .controls { gap: 8px; }
+            .btn { padding: 8px 14px; font-size: 0.85rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="topbar"></div>
+    
+    <div class="lang-selector" id="langSelector">
+        <button class="lang-btn active" data-lang="en">🇬🇧 EN</button>
+        <button class="lang-btn" data-lang="te">🇮🇳 TE</button>
+        <button class="lang-btn" data-lang="hi">🇮🇳 HI</button>
+        <button class="lang-btn" data-lang="ka">🇮🇳 KN</button>
+    </div>
+
+    <div class="container">
+        <div class="section">
+            <header>
+                <span class="om">🕉️</span>
+                <h1 id="title">Sri Rama Chanting</h1>
+                <h2 id="subtitle">Om Sri Ramaya Namaha</h2>
+                <div class="save-status" id="saveStatus"></div>
+            </header>
+
+            <div class="stats">
+                <div class="sbox">
+                    <span class="snum" id="countDisplay">0</span>
+                    <span class="slbl" id="todayLabel">Today's Count</span>
+                </div>
+                <div class="sbox">
+                    <span class="snum" id="streakNum">0</span>
+                    <span class="slbl" id="streakLabel">🔥 Streak</span>
+                </div>
+                <div class="sbox">
+                    <span class="snum" id="sessionNum">0</span>
+                    <span class="slbl" id="sessionLabel">Sessions</span>
+                </div>
+            </div>
+
+            <div class="lifetime">
+                <div class="sbox">
+                    <span class="lnum" id="totalChants">0</span>
+                    <span class="llbl" id="allTimeLabel">All-Time Chants</span>
+                </div>
+            </div>
+
+            <div class="datebar" id="dateDisplay"></div>
+
+            <div class="progwrap">
+                <div class="progbg"><div class="progfill" id="progfill"></div></div>
+                <div class="progtxt" id="progtext">0 / 108</div>
+            </div>
+
+            <div class="controls">
+                <button class="btnmic" id="micBtn">🎤 <span id="micLabel">Listen</span></button>
+                <button class="btnman" id="manualBtn">+</button>
+            </div>
+
+            <div class="vstatus" id="vstatus"></div>
+        </div>
+
+        <footer>
+            <p>🙏 Om Sri Ramaya Namaha 🙏</p>
+            <p>May all beings find peace and happiness</p>
+        </footer>
+    </div>
+
+    <script>
+        const translations = {
+            en: {
+                title: 'Sri Rama Chanting',
+                subtitle: 'Om Sri Ramaya Namaha',
+                todayLabel: "Today's Count",
+                streakLabel: '🔥 Streak',
+                sessionLabel: 'Sessions',
+                allTimeLabel: 'All-Time Chants',
+                micLabel: 'Listen',
+                listening: '🎤 Listening...',
+                micDisabled: '🎤 Microphone not available',
+                ramHeard: '✓ Ram heard!',
+                working: 'Processing...'
+            },
+            te: {
+                title: 'రామ జపం',
+                subtitle: 'ఓం శ్రీ రామాయ నమః',
+                todayLabel: 'ఈ రోజు',
+                streakLabel: '🔥 స్ట్రీక్',
+                sessionLabel: 'సెషన్‌లు',
+                allTimeLabel: 'సర్వకాల జపం',
+                micLabel: 'వినండి',
+                listening: '🎤 వింటున్నాం...',
+                micDisabled: '🎤 మైక్రోఫోన్ అందుబాటులో లేదు',
+                ramHeard: '✓ రామ విని',
+                working: 'ప్రక్రియ...'
+            },
+            hi: {
+                title: 'राम जाप',
+                subtitle: 'ॐ श्री रामाय नमः',
+                todayLabel: 'आज',
+                streakLabel: '🔥 स्ट्रीक',
+                sessionLabel: 'सत्र',
+                allTimeLabel: 'सर्वकाल जाप',
+                micLabel: 'सुनो',
+                listening: '🎤 सुन रहे हैं...',
+                micDisabled: '🎤 माइक्रोफोन उपलब्ध नहीं',
+                ramHeard: '✓ राम सुना',
+                working: 'प्रक्रिया...'
+            },
+            ka: {
+                title: 'ರಾಮ ಜಾಪ',
+                subtitle: 'ಓಂ ಶ್ರೀ ರಾಮಾಯ ನಮಃ',
+                todayLabel: 'ಇಂದು',
+                streakLabel: '🔥 ಸ್ಟ್ರೀಕ್',
+                sessionLabel: 'ಸೆಷನ್‌ಗಳು',
+                allTimeLabel: 'ಸರ್ವಕಾಲ ಜಾಪ',
+                micLabel: 'ಆಲಿಸು',
+                listening: '🎤 ಆಲಿಸುತ್ತಿದೆ...',
+                micDisabled: '🎤 ಮೈಕ್ರೋಫೋನ್ ಲಭ್ಯವಿಲ್ಲ',
+                ramHeard: '✓ ರಾಮ ಕೇಳಿದೆ',
+                working: 'ಪ್ರಕ್ರಿಯೆ...'
+            }
+        };
+
+        let currentLang = 'en';
+        let count = 0;
+        let listening = false;
+        let mem = {};
+        let rec;
+
+        const store = (()=>{ try { localStorage.setItem('__t','1'); localStorage.removeItem('__t'); return localStorage; } catch(e) { return { getItem: k=>mem[k]||null, setItem: (k,v)=>mem[k]=v, removeItem: k=>delete mem[k] }; }})();
+
+        function t(key) { return translations[currentLang][key] || translations['en'][key] || key; }
+
+        function saveStatus(msg, cls) {
+            const el = document.getElementById('saveStatus');
+            el.textContent = msg;
+            el.className = 'save-status ' + (cls || '');
+            setTimeout(() => { el.textContent = ''; el.className = 'save-status'; }, 3000);
+        }
+
+        function updateUI() {
+            document.getElementById('countDisplay').textContent = count;
+            const prog = (count / 108) * 100;
+            document.getElementById('progfill').style.width = prog + '%';
+            document.getElementById('progtext').textContent = count + ' / 108';
+            
+            const today = new Date().toLocaleDateString();
+            document.getElementById('dateDisplay').textContent = today;
+            
+            store.setItem('count_' + today, count);
+            saveStatus('✓ Saved', 'save-ok');
+        }
+
+        function increment() {
+            count++;
+            updateUI();
+            if (count % 108 === 0) saveStatus('🎉 108 Reached!', 'save-warn');
+        }
+
+        function resetCount() {
+            if (confirm('Reset counter?')) {
+                count = 0;
+                updateUI();
+                saveStatus('Counter reset', 'save-info');
+            }
+        }
+
+        function setStatus(msg, cls) {
+            const el = document.getElementById('vstatus');
+            el.textContent = msg;
+            el.className = 'vstatus' + (cls ? ' ' + cls : '');
+        }
+
+        function initSpeechRec() {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) {
+                setStatus('❌ Speech Recognition not supported', 'err');
+                return;
+            }
+
+            rec = new SpeechRecognition();
+            rec.continuous = true;
+            rec.interimResults = false;
+            rec.lang = currentLang === 'te' ? 'te-IN' : currentLang === 'hi' ? 'hi-IN' : currentLang === 'ka' ? 'kn-IN' : 'en-IN';
+
+            rec.onstart = () => {
+                listening = true;
+                document.getElementById('micBtn').classList.add('on');
+                setStatus(t('listening'), 'on');
+            };
+
+            rec.onresult = (e) => {
+                for (let i = e.resultIndex; i < e.results.length; i++) {
+                    const txt = e.results[i][0].transcript.toLowerCase();
+                    if (txt.includes('ram') || txt.includes('राम') || txt.includes('రామ') || txt.includes('ರಾಮ')) {
+                        increment();
+                        setStatus(t('ramHeard'), 'on');
+                    }
+                }
+            };
+
+            rec.onerror = (e) => {
+                if (e.error !== 'no-speech' && e.error !== 'aborted') {
+                    if (e.error === 'not-allowed') {
+                        setStatus(t('micDisabled'), 'err');
+                        stopMic();
+                    } else {
+                        setStatus('Error: ' + e.error, 'err');
+                    }
+                }
+            };
+
+            rec.onend = () => {
+                if (listening) setTimeout(() => { if (listening) try { rec.start(); } catch(e) {} }, 500);
+            };
+        }
+
+        function toggleMic() {
+            if (!rec) initSpeechRec();
+            if (!rec) return;
+            
+            if (listening) {
+                stopMic();
+            } else {
+                try {
+                    rec.start();
+                } catch(e) {
+                    setStatus('Error starting mic', 'err');
+                }
+            }
+        }
+
+        function stopMic() {
+            if (rec) {
+                listening = false;
+                rec.stop();
+                document.getElementById('micBtn').classList.remove('on');
+                setStatus('', '');
+            }
+        }
+
+        function updateLanguage() {
+            document.getElementById('title').textContent = t('title');
+            document.getElementById('subtitle').textContent = t('subtitle');
+            document.getElementById('todayLabel').textContent = t('todayLabel');
+            document.getElementById('streakLabel').textContent = t('streakLabel');
+            document.getElementById('sessionLabel').textContent = t('sessionLabel');
+            document.getElementById('allTimeLabel').textContent = t('allTimeLabel');
+            document.getElementById('micLabel').textContent = t('micLabel');
+            
+            if (rec) {
+                rec.lang = currentLang === 'te' ? 'te-IN' : currentLang === 'hi' ? 'hi-IN' : currentLang === 'ka' ? 'kn-IN' : 'en-IN';
+            }
+        }
+
+        // Event listeners
+        document.getElementById('micBtn').addEventListener('click', toggleMic);
+        document.getElementById('manualBtn').addEventListener('click', increment);
+
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentLang = btn.dataset.lang;
+                updateLanguage();
+            });
+        });
+
+        // Initialize
+        updateUI();
+        initSpeechRec();
+    </script>
+</body>
+</html>
