@@ -55,7 +55,7 @@
   .header {
     background: linear-gradient(180deg, rgba(61, 26, 0, 0.9), rgba(26, 5, 0, 0.8));
     border-bottom: 2px solid var(--accent);
-    padding: 16px 12px;
+    padding: 12px 12px;
     text-align: center;
     box-shadow: 0 4px 15px rgba(255, 107, 0, 0.3);
     flex-shrink: 0;
@@ -65,11 +65,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
+    gap: 8px;
   }
 
   .om-icon {
-    font-size: 2.2rem;
+    font-size: 1.8rem;
     animation: glow 2s ease-in-out infinite alternate;
   }
 
@@ -79,34 +80,169 @@
   }
 
   .header h1 {
-    font-size: clamp(1.2rem, 4vw, 1.8rem);
+    font-size: clamp(1rem, 3vw, 1.5rem);
     color: var(--gold);
     text-shadow: 2px 2px 8px #000;
     letter-spacing: 1px;
-    margin: 5px 0;
+    margin: 3px 0;
   }
 
   .header-subtitle {
-    font-size: clamp(0.6rem, 2vw, 0.8rem);
+    font-size: clamp(0.55rem, 1.5vw, 0.75rem);
     color: #FFD98A;
     opacity: 0.9;
   }
 
-  .theme-toggle {
-    background: rgba(255, 215, 0, 0.15);
-    border: 1px solid rgba(255, 215, 0, 0.3);
-    color: var(--gold);
-    padding: 7px 12px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 0.85rem;
-    transition: all 0.3s;
-    min-width: 60px;
+  .header-controls {
+    display: flex;
+    gap: 6px;
   }
 
-  .theme-toggle:hover {
-    background: rgba(255, 215, 0, 0.25);
+  .header-btn {
+    background: rgba(255, 215, 0, 0.12);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    color: var(--gold);
+    padding: 5px 10px;
+    border-radius: 16px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    transition: all 0.3s;
+    min-width: auto;
+  }
+
+  .header-btn:hover {
+    background: rgba(255, 215, 0, 0.22);
     transform: scale(1.05);
+  }
+
+  /* ═══ SETTINGS PANEL ═══ */
+  .settings-panel {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 999;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .settings-panel.show {
+    display: flex;
+  }
+
+  .settings-box {
+    background: linear-gradient(135deg, #3D1A00, #1a0500);
+    border: 3px solid var(--gold);
+    border-radius: 20px;
+    padding: 24px;
+    max-width: 450px;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+    animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  @keyframes slideUp {
+    from { transform: translateY(100px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .settings-box h2 {
+    color: var(--gold);
+    font-size: 1.3rem;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+
+  .settings-group {
+    margin-bottom: 18px;
+  }
+
+  .settings-label {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text-primary);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .settings-select, .settings-input {
+    width: 100%;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    color: var(--gold);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.9rem;
+  }
+
+  .settings-select:focus, .settings-input:focus {
+    outline: none;
+    border-color: var(--gold);
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  .settings-select option {
+    background: #1a0500;
+    color: var(--gold);
+  }
+
+  .reminder-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .reminder-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background: rgba(255, 215, 0, 0.08);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .reminder-item:hover {
+    background: rgba(255, 215, 0, 0.12);
+  }
+
+  .reminder-item input {
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+  }
+
+  .reminder-time {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  .reminder-time input {
+    flex: 1;
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    color: var(--gold);
+    border-radius: 6px;
+    font-size: 0.9rem;
+  }
+
+  .close-settings {
+    width: 100%;
+    margin-top: 18px;
+    padding: 12px;
+    background: linear-gradient(135deg, var(--saffron), var(--deep));
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
   }
 
   /* ═══ MAIN CONTENT ═══ */
@@ -116,9 +252,9 @@
     overflow-x: hidden;
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    padding: 12px;
-    padding-bottom: 80px;
+    gap: 10px;
+    padding: 10px;
+    padding-bottom: 70px;
     scroll-behavior: smooth;
   }
 
@@ -140,7 +276,7 @@
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid var(--border-color);
     border-radius: 12px;
-    padding: 14px;
+    padding: 12px;
     backdrop-filter: blur(10px);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
   }
@@ -149,13 +285,13 @@
   .quote-card {
     background: linear-gradient(135deg, rgba(255, 107, 0, 0.15), rgba(232, 85, 0, 0.1));
     border-left: 4px solid var(--saffron);
-    padding: 12px 14px;
+    padding: 10px 12px;
     text-align: center;
     font-style: italic;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: var(--text-primary);
     border-radius: 8px;
-    min-height: 45px;
+    min-height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -166,8 +302,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
-    padding: 15px;
+    gap: 8px;
+    padding: 12px;
     background: linear-gradient(135deg, rgba(61, 26, 0, 0.4), rgba(26, 5, 0, 0.3));
     border-radius: 12px;
     border: 1px solid var(--border-color);
@@ -175,8 +311,8 @@
 
   .progress-ring-container {
     position: relative;
-    width: 180px;
-    height: 180px;
+    width: 150px;
+    height: 150px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -216,7 +352,7 @@
   }
 
   .progress-count {
-    font-size: 2.2rem;
+    font-size: 1.8rem;
     font-weight: 700;
     color: var(--gold);
     text-shadow: 0 0 12px rgba(255, 215, 0, 0.5);
@@ -224,7 +360,7 @@
   }
 
   .progress-label {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     color: #FFD98A;
     opacity: 0.85;
   }
@@ -233,7 +369,7 @@
     display: flex;
     justify-content: space-around;
     width: 100%;
-    gap: 10px;
+    gap: 8px;
   }
 
   .progress-stat {
@@ -242,14 +378,14 @@
   }
 
   .progress-stat-value {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     font-weight: 700;
     color: var(--gold);
     display: block;
   }
 
   .progress-stat-label {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
     color: #FFD98A;
     opacity: 0.8;
   }
@@ -258,34 +394,34 @@
   .settings-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 10px;
+    gap: 8px;
   }
 
-  .goal-card {
+  .goal-card, .category-card {
     background: rgba(255, 215, 0, 0.08);
     border: 1px solid rgba(255, 215, 0, 0.25);
-    padding: 12px;
+    padding: 10px;
     border-radius: 10px;
     text-align: center;
   }
 
-  .goal-card label {
+  .goal-card label, .category-label {
     display: block;
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     color: rgba(255, 215, 0, 0.7);
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     font-weight: 600;
   }
 
   .goal-input {
     width: 100%;
-    padding: 8px;
+    padding: 6px;
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 215, 0, 0.4);
     color: var(--gold);
     border-radius: 6px;
-    font-family: 'Noto Serif Telugu', serif;
-    font-size: 1rem;
+    font-family: inherit;
+    font-size: 0.9rem;
     text-align: center;
     font-weight: 600;
   }
@@ -294,38 +430,21 @@
     outline: none;
     border-color: var(--gold);
     background: rgba(255, 255, 255, 0.15);
-    box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
-  }
-
-  /* ═══ CATEGORIES ═══ */
-  .category-card {
-    background: rgba(255, 215, 0, 0.08);
-    border: 1px solid rgba(255, 215, 0, 0.25);
-    padding: 12px;
-    border-radius: 10px;
-  }
-
-  .category-label {
-    display: block;
-    font-size: 0.7rem;
-    color: rgba(255, 215, 0, 0.7);
-    margin-bottom: 8px;
-    font-weight: 600;
   }
 
   .category-buttons {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 6px;
+    gap: 4px;
   }
 
   .cat-btn {
-    padding: 8px 6px;
+    padding: 6px 4px;
     background: rgba(255, 215, 0, 0.1);
     border: 1px solid rgba(255, 215, 0, 0.3);
     color: var(--text-primary);
-    border-radius: 8px;
-    font-size: 0.65rem;
+    border-radius: 6px;
+    font-size: 0.6rem;
     cursor: pointer;
     transition: all 0.3s;
     font-weight: 500;
@@ -339,119 +458,113 @@
     background: var(--saffron);
     color: #fff;
     border-color: var(--saffron);
-    box-shadow: 0 0 12px rgba(255, 107, 0, 0.4);
+    box-shadow: 0 0 10px rgba(255, 107, 0, 0.4);
   }
 
   /* ═══ TIMER ═══ */
   .timer-card {
     background: linear-gradient(135deg, rgba(232, 85, 0, 0.15), rgba(255, 107, 0, 0.1));
     border: 1px solid rgba(255, 107, 0, 0.3);
-    padding: 14px;
+    padding: 10px;
     border-radius: 10px;
     text-align: center;
   }
 
   .timer-label {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     color: rgba(255, 215, 0, 0.7);
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     display: block;
     font-weight: 600;
   }
 
   .timer-display {
-    font-size: 2rem;
+    font-size: 1.6rem;
     color: var(--gold);
     font-weight: 700;
-    margin: 8px 0;
+    margin: 6px 0;
     font-family: 'Courier New', monospace;
     text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
   }
 
   .timer-btn {
     width: 100%;
-    padding: 8px;
+    padding: 6px;
     background: linear-gradient(135deg, var(--saffron), var(--deep));
     color: #fff;
     border: none;
-    border-radius: 8px;
+    border-radius: 6px;
     cursor: pointer;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-weight: 600;
     transition: all 0.3s;
   }
 
   .timer-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(255, 107, 0, 0.4);
   }
 
   /* ═══ STATS ═══ */
   .stats-section {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+    gap: 8px;
   }
 
   .stat-box {
     background: rgba(255, 215, 0, 0.08);
     border: 1px solid rgba(255, 215, 0, 0.25);
-    padding: 12px 8px;
+    padding: 10px 6px;
     border-radius: 10px;
     text-align: center;
   }
 
   .stat-number {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     font-weight: 700;
     color: var(--gold);
     text-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
     display: block;
-    margin-bottom: 4px;
+    margin-bottom: 3px;
   }
 
   .stat-label {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
     color: #FFD98A;
     opacity: 0.8;
-    line-height: 1.2;
+    line-height: 1.1;
   }
 
   /* ═══ BUTTONS ═══ */
   .button-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 10px;
+    gap: 8px;
   }
 
   .btn {
-    padding: 12px 16px;
+    padding: 10px 12px;
     border: none;
-    border-radius: 10px;
-    font-family: 'Noto Serif Telugu', serif;
+    border-radius: 8px;
+    font-family: inherit;
     cursor: pointer;
     transition: all 0.3s;
     font-weight: 600;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 6px;
+    gap: 4px;
   }
 
   .btn-primary {
     background: linear-gradient(135deg, var(--saffron), var(--deep));
     color: #fff;
-    box-shadow: 0 4px 12px rgba(255, 107, 0, 0.35);
+    grid-column: 1 / -1;
   }
 
   .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(255, 107, 0, 0.45);
-  }
-
-  .btn-primary:active {
-    transform: scale(0.95);
   }
 
   .btn-secondary {
@@ -462,112 +575,23 @@
 
   .btn-secondary:hover {
     background: rgba(255, 215, 0, 0.2);
-    transform: translateY(-1px);
   }
 
-  .btn-mic {
-    grid-column: 1 / -1;
-    background: linear-gradient(135deg, #C0392B, #922B21);
-    color: #fff;
-    box-shadow: 0 4px 12px rgba(192, 57, 43, 0.4);
-  }
-
-  .btn-mic.off {
-    background: linear-gradient(135deg, var(--saffron), var(--deep));
-    box-shadow: 0 4px 12px rgba(255, 107, 0, 0.35);
-  }
-
-  .btn-mic:hover {
-    transform: translateY(-2px);
-  }
-
-  .btn-mic.on {
-    animation: pulse 1s ease-in-out infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { box-shadow: 0 4px 12px rgba(192, 57, 43, 0.4); }
-    50% { box-shadow: 0 4px 20px rgba(192, 57, 43, 0.7); }
-  }
-
-  /* ═══ STATUS & HISTORY ═══ */
+  /* ═══ STATUS ═══ */
   .status-bar {
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid var(--border-color);
-    padding: 10px;
+    padding: 8px;
     border-radius: 8px;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     text-align: center;
     color: #FFD98A;
-    min-height: 18px;
+    min-height: 16px;
   }
 
   .status-ok { color: #4CAF50; }
   .status-warn { color: #FF6B6B; }
   .status-info { color: rgba(255, 215, 0, 0.7); }
-
-  .history-btn {
-    width: 100%;
-    background: rgba(255, 215, 0, 0.06);
-    border: 1px solid rgba(255, 215, 0, 0.2);
-    color: #FFD98A;
-    padding: 10px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 0.8rem;
-    transition: all 0.3s;
-    font-weight: 600;
-  }
-
-  .history-btn:hover {
-    background: rgba(255, 215, 0, 0.12);
-  }
-
-  .history-content {
-    display: none;
-    max-height: 250px;
-    overflow-y: auto;
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 215, 0, 0.15);
-    border-top: none;
-    border-radius: 0 0 8px 8px;
-  }
-
-  .history-content.open {
-    display: block;
-  }
-
-  .history-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.75rem;
-  }
-
-  .history-table th {
-    background: rgba(255, 215, 0, 0.1);
-    color: var(--gold);
-    padding: 8px 6px;
-    text-align: center;
-    position: sticky;
-    top: 0;
-    font-weight: 600;
-  }
-
-  .history-table td {
-    color: #FFD98A;
-    padding: 6px 6px;
-    text-align: center;
-    border-bottom: 1px solid rgba(255, 215, 0, 0.08);
-  }
-
-  .history-table tr:last-child td {
-    border-bottom: none;
-  }
-
-  .history-done {
-    color: #4CAF50;
-    font-weight: 700;
-  }
 
   /* ═══ GRID VISUALIZATION ═══ */
   .grid-section {
@@ -576,52 +600,46 @@
 
   .grid-title {
     text-align: center;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: var(--gold);
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     font-weight: 600;
   }
 
   .grid-container {
     background: var(--cream);
     border: 2px solid var(--saffron);
-    border-radius: 10px;
-    padding: 6px;
-    box-shadow: 0 0 25px rgba(255, 107, 0, 0.25);
+    border-radius: 8px;
+    padding: 4px;
+    box-shadow: 0 0 20px rgba(255, 107, 0, 0.25);
   }
 
   .grid {
     display: grid;
-    grid-template-columns: repeat(20, 1fr);
-    gap: 2px;
+    grid-template-columns: repeat(18, 1fr);
+    gap: 1px;
   }
 
   @media (max-width: 500px) {
-    .grid { grid-template-columns: repeat(15, 1fr); gap: 1.5px; }
+    .grid { grid-template-columns: repeat(12, 1fr); }
   }
 
   @media (max-width: 380px) {
-    .grid { grid-template-columns: repeat(10, 1fr); gap: 1.5px; }
+    .grid { grid-template-columns: repeat(8, 1fr); }
   }
 
   .cell {
     aspect-ratio: 1;
     border: 1px solid #DEB887;
-    border-radius: 3px;
+    border-radius: 2px;
     background: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: clamp(2px, 1vw, 6px);
-    font-family: 'Noto Serif Telugu', serif;
+    font-size: 0.5rem;
     position: relative;
     color: #8B6914;
     cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .cell:hover {
-    transform: scale(1.05);
   }
 
   .cell.f {
@@ -631,19 +649,8 @@
     font-weight: 700;
   }
 
-  .cell.f::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.7), transparent 60%);
-    pointer-events: none;
-    border-radius: 3px;
-  }
-
   .cell.pop {
     animation: pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    background: linear-gradient(135deg, #FFD700, #FFA500) !important;
-    border-color: var(--deep) !important;
   }
 
   @keyframes pop {
@@ -652,22 +659,59 @@
     100% { transform: scale(1); opacity: 1; }
   }
 
+  /* ═══ HISTORY ═══ */
+  .history-btn {
+    width: 100%;
+    background: rgba(255, 215, 0, 0.06);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    color: #FFD98A;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    transition: all 0.3s;
+  }
+
+  .history-content {
+    display: none;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+
+  .history-content.open {
+    display: block;
+  }
+
+  .history-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.7rem;
+  }
+
+  .history-table th {
+    background: rgba(255, 215, 0, 0.1);
+    color: var(--gold);
+    padding: 6px 4px;
+    text-align: center;
+  }
+
+  .history-table td {
+    color: #FFD98A;
+    padding: 4px 4px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 215, 0, 0.08);
+  }
+
   /* ═══ COMPLETION MODAL ═══ */
   .modal {
     display: none;
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.9);
-    z-index: 1000;
+    z-index: 998;
     align-items: center;
     justify-content: center;
     padding: 20px;
-    animation: fadeIn 0.3s ease;
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
   }
 
   .modal.show {
@@ -677,95 +721,38 @@
   .modal-box {
     background: linear-gradient(135deg, #3D1A00, #1a0500);
     border: 3px solid var(--gold);
-    border-radius: 20px;
-    padding: 28px;
-    box-shadow: 0 0 70px rgba(255, 215, 0, 0.45);
-    max-width: 380px;
+    border-radius: 16px;
+    padding: 20px;
+    max-width: 320px;
     width: 100%;
     text-align: center;
-    animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-
-  @keyframes slideUp {
-    from {
-      transform: translateY(100px);
-      opacity: 0;
-    }
-    to {
-      transform: translateY(0);
-      opacity: 1;
-    }
   }
 
   .modal-icon {
-    font-size: 3.5rem;
-    margin-bottom: 12px;
-    animation: glow 1.5s ease-in-out infinite alternate;
+    font-size: 3rem;
+    margin-bottom: 10px;
   }
 
   .modal-title {
-    font-size: clamp(1rem, 5vw, 1.6rem);
+    font-size: 1.3rem;
     color: var(--gold);
-    margin: 8px 0 12px;
-    line-height: 1.4;
+    margin: 6px 0 10px;
   }
 
   .modal-text {
     color: #FFD98A;
-    margin-bottom: 12px;
-    font-size: 0.9rem;
-    line-height: 1.5;
+    margin-bottom: 10px;
+    font-size: 0.85rem;
   }
 
   .modal-btn {
     background: linear-gradient(135deg, var(--saffron), var(--deep));
     color: #fff;
-    padding: 12px 28px;
+    padding: 10px 20px;
     border: none;
-    border-radius: 25px;
+    border-radius: 20px;
     cursor: pointer;
-    font-size: 1rem;
     font-weight: 600;
-    transition: all 0.3s;
-  }
-
-  .modal-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(255, 107, 0, 0.4);
-  }
-
-  /* ═══ PARTICLES ═══ */
-  .particles {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    overflow: hidden;
-    z-index: -1;
-  }
-
-  .particle {
-    position: absolute;
-    color: rgba(255, 215, 0, 0.1);
-    animation: float linear infinite;
-    pointer-events: none;
-    font-family: 'Noto Serif Telugu', serif;
-  }
-
-  @keyframes float {
-    0% { transform: translateY(100vh) rotate(0); opacity: 0; }
-    10% { opacity: 1; }
-    90% { opacity: 0.8; }
-    100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
-  }
-
-  /* ═══ RESPONSIVE ═══ */
-  @media (max-width: 600px) {
-    .header h1 { font-size: 1.3rem; }
-    .progress-ring-container { width: 140px; height: 140px; }
-    .progress-count { font-size: 1.8rem; }
-    .settings-grid { grid-template-columns: 1fr; }
-    .stats-section { grid-template-columns: repeat(2, 1fr); }
-    .button-grid { grid-template-columns: 1fr; }
   }
 
   /* ═══ BOTTOM NAVIGATION ═══ */
@@ -776,10 +763,10 @@
     right: 0;
     background: linear-gradient(180deg, rgba(61, 26, 0, 0.95), rgba(26, 5, 0, 0.98));
     border-top: 2px solid var(--accent);
-    padding: 8px 12px;
+    padding: 6px 8px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
+    gap: 6px;
     box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.4);
     z-index: 100;
   }
@@ -788,19 +775,19 @@
     background: rgba(255, 215, 0, 0.1);
     border: 1px solid rgba(255, 215, 0, 0.25);
     color: var(--text-primary);
-    border-radius: 8px;
-    padding: 8px 6px;
+    border-radius: 6px;
+    padding: 6px 4px;
     cursor: pointer;
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     transition: all 0.3s;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
+    gap: 2px;
   }
 
   .nav-btn-icon {
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
 
   .nav-btn:hover {
@@ -810,29 +797,93 @@
   .nav-btn.active {
     background: var(--saffron);
     color: #fff;
-    box-shadow: 0 0 10px rgba(255, 107, 0, 0.4);
+  }
+
+  .notification-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #FF6B6B;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
   }
 
   .save-code {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
     color: rgba(255, 215, 0, 0.5);
     word-break: break-all;
     text-align: center;
-    margin: 8px 0;
+    margin: 6px 0;
   }
 </style>
 </head>
 <body>
-<div class="particles" id="ptc"></div>
+<div id="ptc"></div>
 
 <!-- HEADER -->
 <div class="header">
   <div class="header-top">
     <span class="om-icon">ॐ</span>
-    <h1>🪷 శ్రీరామ నామ 🪷</h1>
-    <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+    <div>
+      <h1 id="headerTitle">🪷 శ్రీరామ నామ 🪷</h1>
+      <div class="header-subtitle" id="headerSubtitle">వెయ్యి నామాల జప పుస్తకం</div>
+    </div>
+    <div class="header-controls">
+      <button class="header-btn" onclick="toggleSettings()" title="⚙️">⚙️</button>
+      <button class="header-btn" onclick="toggleTheme()" title="🌙">🌙</button>
+    </div>
   </div>
-  <div class="header-subtitle">వెయ్యి నామాల జప పుస్తకం</div>
+</div>
+
+<!-- SETTINGS PANEL -->
+<div class="settings-panel" id="settingsPanel">
+  <div class="settings-box">
+    <h2>⚙️ సెట్టింగ్‌లు</h2>
+    
+    <div class="settings-group">
+      <label class="settings-label">భాష / Language</label>
+      <select class="settings-select" id="languageSelect" onchange="changeLanguage(this.value)">
+        <option value="te">🇮🇳 తెలుగు (Telugu)</option>
+        <option value="en">🇬🇧 English</option>
+        <option value="hi">🇮🇳 हिंदी (Hindi)</option>
+        <option value="ta">🇮🇳 தமிழ் (Tamil)</option>
+      </select>
+    </div>
+
+    <div class="settings-group">
+      <label class="settings-label">✨ విషయం / Theme</label>
+      <select class="settings-select" id="themeSelect">
+        <option value="dark">🌙 Dark</option>
+        <option value="light">☀️ Light</option>
+      </select>
+    </div>
+
+    <div class="settings-group">
+      <label class="settings-label">🔔 రిమైండర్ సెట్ చేయండి</label>
+      <div class="reminder-options">
+        <label class="reminder-item">
+          <input type="checkbox" id="reminderEnabled" onchange="updateReminder()">
+          <span>దినిక రిమైండర్ ఎనేబల్ చేయండి</span>
+        </label>
+      </div>
+      <div class="reminder-time">
+        <input type="time" id="reminderTime" value="09:00" onchange="updateReminder()">
+        <select class="settings-select" id="reminderFreq" style="flex:1;" onchange="updateReminder()">
+          <option value="daily">రోజూ</option>
+          <option value="weekdays">సోమ-శుక్ర</option>
+          <option value="custom">కస్టమ్</option>
+        </select>
+      </div>
+    </div>
+
+    <button class="close-settings" onclick="toggleSettings()">✕ మూసివేయు</button>
+  </div>
 </div>
 
 <!-- MAIN CONTENT -->
@@ -861,11 +912,11 @@
     <div class="progress-info">
       <div class="progress-stat">
         <span class="progress-stat-value" id="todayRemain">1000</span>
-        <span class="progress-stat-label">మిగిలినవి</span>
+        <span class="progress-stat-label" id="remainLabel">మిగిలినవి</span>
       </div>
       <div class="progress-stat">
         <span class="progress-stat-value" id="todayPct">0%</span>
-        <span class="progress-stat-label">శాతం</span>
+        <span class="progress-stat-label" id="percentLabel">శాతం</span>
       </div>
     </div>
   </div>
@@ -873,12 +924,12 @@
   <!-- SETTINGS -->
   <div class="settings-grid">
     <div class="goal-card">
-      <label>రోజువారీ లక్ష్యం</label>
+      <label id="goalLabel">రోజువారీ లక్ష్యం</label>
       <input type="number" class="goal-input" id="goalInput" min="1" max="10000" value="1000" onchange="setGoal(this.value)">
     </div>
     
     <div class="category-card">
-      <label class="category-label">సెషన్ రకం</label>
+      <label class="category-label" id="categoryLabel">సెషన్ రకం</label>
       <div class="category-buttons">
         <button class="cat-btn" onclick="setCategory('morning')" id="cat-morning">🌅</button>
         <button class="cat-btn" onclick="setCategory('evening')" id="cat-evening">🌆</button>
@@ -890,7 +941,7 @@
 
   <!-- TIMER -->
   <div class="timer-card">
-    <label class="timer-label">సెషన్ టైమర్</label>
+    <label class="timer-label" id="timerLabel">సెషన్ టైమర్</label>
     <div class="timer-display" id="timerDisplay">00:00</div>
     <button class="timer-btn" onclick="toggleTimer()">⏱️ <span id="timerToggle">ప్రారంభించు</span></button>
   </div>
@@ -899,15 +950,15 @@
   <div class="stats-section">
     <div class="stat-box">
       <span class="stat-number" id="ltTotal">0</span>
-      <span class="stat-label">మొత్తం</span>
+      <span class="stat-label" id="totalLabel">మొత్తం</span>
     </div>
     <div class="stat-box">
       <span class="stat-number" id="ltDays">0</span>
-      <span class="stat-label">పూర్తి రోజులు</span>
+      <span class="stat-label" id="completeLabel">పూర్తి రోజులు</span>
     </div>
     <div class="stat-box">
       <span class="stat-number" id="ltStreak">0</span>
-      <span class="stat-label">వరుస 🔥</span>
+      <span class="stat-label" id="streakLabel">వరుస 🔥</span>
     </div>
   </div>
 
@@ -916,21 +967,21 @@
 
   <!-- BUTTONS -->
   <div class="button-grid">
-    <button class="btn btn-mic off" id="micBtn" onclick="toggleMic()">🎤 మైక్</button>
-    <button class="btn btn-secondary" onclick="showStats()">📊 గణాంకాలు</button>
-    <button class="btn btn-secondary" onclick="resetToday()">🔄 రీసెట్</button>
-    <button class="btn btn-secondary" onclick="manualSave()">💾 సేవ్</button>
+    <button class="btn btn-primary" onclick="addOne()">🪷 <span id="addLabel">గణన</span></button>
+    <button class="btn btn-secondary" onclick="toggleMic()">🎤 <span id="micLabel">మైక్</span></button>
+    <button class="btn btn-secondary" onclick="showStats()">📊 <span id="statsLabel">గణాంకాలు</span></button>
+    <button class="btn btn-secondary" onclick="resetToday()">🔄 <span id="resetLabel">రీసెట్</span></button>
   </div>
 
   <div class="save-code" id="savecode"></div>
 
   <!-- HISTORY -->
-  <div style="margin-bottom: 10px;">
-    <button class="history-btn" onclick="toggleHist()">📅 చరిత్ర ▼</button>
+  <div>
+    <button class="history-btn" onclick="toggleHist()" id="historyBtn">📅 చరిత్ర ▼</button>
     <div class="history-content" id="histwrap">
       <table class="history-table">
         <thead>
-          <tr><th>తేదీ</th><th>నామాలు</th><th>స్థితి</th></tr>
+          <tr><th id="dateHeader">తేదీ</th><th id="countHeader">నామాలు</th><th id="statusHeader">స్థితి</th></tr>
         </thead>
         <tbody id="histbody"></tbody>
       </table>
@@ -939,7 +990,7 @@
 
   <!-- GRID -->
   <div class="grid-section">
-    <div class="grid-title">✦ శ్రీరామ నామ జప వీక్ష్యం ✦</div>
+    <div class="grid-title" id="gridTitle">✦ శ్రీరామ నామ జప వీక్ష్యం ✦</div>
     <div class="grid-container">
       <div class="grid" id="grid"></div>
     </div>
@@ -950,19 +1001,19 @@
 <div class="bottom-nav">
   <button class="nav-btn active" onclick="scrollToTop()">
     <span class="nav-btn-icon">🏠</span>
-    <span>హోమ్</span>
+    <span id="homeLabel">హోమ్</span>
   </button>
   <button class="nav-btn" onclick="addOne()">
     <span class="nav-btn-icon">🪷</span>
-    <span>గణన</span>
+    <span id="countLabel">గణన</span>
   </button>
   <button class="nav-btn" onclick="showStats()">
     <span class="nav-btn-icon">📊</span>
-    <span>స్టాట్‌లు</span>
+    <span id="statsNavLabel">స్టాట్‌లు</span>
   </button>
-  <button class="nav-btn" onclick="showMoreMenu()">
-    <span class="nav-btn-icon">⋯</span>
-    <span>మరిన్ని</span>
+  <button class="nav-btn" onclick="toggleSettings()">
+    <span class="nav-btn-icon">⚙️</span>
+    <span id="settingsLabel">సెట్టింగ్‌లు</span>
   </button>
 </div>
 
@@ -970,9 +1021,9 @@
 <div class="modal" id="overlay">
   <div class="modal-box">
     <div class="modal-icon">ॐ</div>
-    <div class="modal-title">శ్రీరామ జయరామ<br>జయ జయ రామ!</div>
-    <div id="comptotal" style="color: var(--gold); font-weight: 700; margin: 10px 0;"></div>
-    <p class="modal-text">ఈ రోజు లక్ష్యం పూర్తయ్యాయి!<br>శ్రీరాముని కృప మీకు సదా లభించుటకు!</p>
+    <div class="modal-title" id="modalTitle">శ్రీరామ జయరామ<br>జయ జయ రామ!</div>
+    <div id="comptotal" style="color: var(--gold); font-weight: 700; margin: 8px 0;"></div>
+    <p class="modal-text" id="modalText">ఈ రోజు లక్ష్యం పూర్తయ్యాయి!<br>శ్రీరాముని కృప మీకు సదా లభించుటకు!</p>
     <button class="modal-btn" onclick="document.getElementById('overlay').classList.remove('show')">సరే 🙏</button>
   </div>
 </div>
@@ -981,39 +1032,156 @@
 <div class="modal" id="statsModal">
   <div class="modal-box">
     <div class="modal-icon">📊</div>
-    <div class="modal-title">మీ గణాంకాలు</div>
-    <div id="statsBody" style="text-align: left; color: var(--text-primary); font-size: 0.9rem; margin: 15px 0;"></div>
+    <div class="modal-title" id="statsTitle">మీ గణాంకాలు</div>
+    <div id="statsBody" style="text-align: left; color: var(--text-primary); font-size: 0.85rem; margin: 12px 0;"></div>
     <button class="modal-btn" onclick="closeStats()">✕ మూసివేయు</button>
   </div>
 </div>
 
 <script>
+// ═══ LANGUAGE STRINGS ═══
+const strings = {
+  te: {
+    headerTitle: '🪷 శ్రీరామ నామ 🪷',
+    subtitle: 'వెయ్యి నామాల జప పుస్తకం',
+    goalLabel: 'రోజువారీ లక్ష్యం',
+    categoryLabel: 'సెషన్ రకం',
+    timerLabel: 'సెషన్ టైమర్',
+    remainLabel: 'మిగిలినవి',
+    percentLabel: 'శాతం',
+    totalLabel: 'మొత్తం',
+    completeLabel: 'పూర్తి రోజులు',
+    streakLabel: 'వరుస 🔥',
+    addLabel: 'గణన',
+    micLabel: 'మైక్',
+    statsLabel: 'గణాంకాలు',
+    resetLabel: 'రీసెట్',
+    homeLabel: 'హోమ్',
+    countLabel: 'గణన',
+    statsNavLabel: 'స్టాట్‌లు',
+    settingsLabel: 'సెట్టింగ్‌లు',
+    modalTitle: 'శ్రీరామ జయరామ<br>జయ జయ రామ!',
+    modalText: 'ఈ రోజు లక్ష్యం పూర్తయ్యాయి!<br>శ్రీరాముని కృప మీకు సదా లభించుటకు!',
+    statsTitle: 'మీ గణాంకాలు',
+    historyBtn: '📅 చరిత్ర ▼',
+    gridTitle: '✦ శ్రీరామ నామ జప వీక్ష్యం ✦',
+    dateHeader: 'తేదీ',
+    countHeader: 'నామాలు',
+    statusHeader: 'స్థితి',
+  },
+  en: {
+    headerTitle: '🪷 Sri Ram Names 🪷',
+    subtitle: 'One Thousand Names Chanting Book',
+    goalLabel: 'Daily Goal',
+    categoryLabel: 'Session Type',
+    timerLabel: 'Session Timer',
+    remainLabel: 'Remaining',
+    percentLabel: 'Percent',
+    totalLabel: 'Total',
+    completeLabel: 'Complete Days',
+    streakLabel: 'Streak 🔥',
+    addLabel: 'Count',
+    micLabel: 'Mic',
+    statsLabel: 'Stats',
+    resetLabel: 'Reset',
+    homeLabel: 'Home',
+    countLabel: 'Count',
+    statsNavLabel: 'Stats',
+    settingsLabel: 'Settings',
+    modalTitle: 'Sri Ram<br>Victory to Ram!',
+    modalText: 'Daily goal completed!<br>Blessings of Lord Ram upon you!',
+    statsTitle: 'Your Statistics',
+    historyBtn: '📅 History ▼',
+    gridTitle: '✦ Sri Ram Names Progress ✦',
+    dateHeader: 'Date',
+    countHeader: 'Names',
+    statusHeader: 'Status',
+  },
+  hi: {
+    headerTitle: '🪷 श्री राम नाम 🪷',
+    subtitle: 'हज़ार नामों की पूजा',
+    goalLabel: 'दैनिक लक्ष्य',
+    categoryLabel: 'सत्र प्रकार',
+    timerLabel: 'सत्र टाइमर',
+    remainLabel: 'बचा हुआ',
+    percentLabel: 'प्रतिशत',
+    totalLabel: 'कुल',
+    completeLabel: 'पूर्ण दिन',
+    streakLabel: 'धारावाहिक 🔥',
+    addLabel: 'गिनती',
+    micLabel: 'माइक',
+    statsLabel: 'आंकड़े',
+    resetLabel: 'रीसेट',
+    homeLabel: 'होम',
+    countLabel: 'गिनती',
+    statsNavLabel: 'आंकड़े',
+    settingsLabel: 'सेटिंग्स',
+    modalTitle: 'श्री राम जय राम<br>जय जय राम!',
+    modalText: 'आज का लक्ष्य पूरा हुआ!<br>भगवान राम का आशीर्वाद आपको सदा मिले!',
+    statsTitle: 'आपकी आंकड़े',
+    historyBtn: '📅 इतिहास ▼',
+    gridTitle: '✦ श्री राम नाम पूजा ✦',
+    dateHeader: 'तारीख',
+    countHeader: 'नाम',
+    statusHeader: 'स्थिति',
+  },
+  ta: {
+    headerTitle: '🪷 இராம் நாம் 🪷',
+    subtitle: 'ஆயிரம் நாமாவலி பூஜை',
+    goalLabel: 'தினசரி இலக்கு',
+    categoryLabel: 'அமர்வு வகை',
+    timerLabel: 'அமர்வு நேர மணி',
+    remainLabel: 'மீதம்',
+    percentLabel: 'சதவீதம்',
+    totalLabel: 'மொத்தம்',
+    completeLabel: 'முடிந்த நாட்கள்',
+    streakLabel: 'தொடர்ச்சி 🔥',
+    addLabel: 'எண்ணு',
+    micLabel: 'மைக்',
+    statsLabel: 'புள்ளிவிபரங்கள்',
+    resetLabel: 'மீட்டமை',
+    homeLabel: 'முகப்பு',
+    countLabel: 'எண்ணு',
+    statsNavLabel: 'புள்ளிவிபரங்கள்',
+    settingsLabel: 'அமைப்புகள்',
+    modalTitle: 'இராம் ஜய இராம்<br>ஜய ஜய இராம்!',
+    modalText: 'இன்றைய இலக்கு நிறைவேறிவிட்டது!<br>இறைவன் இராமனின் ஆசீர்வாதம் என்றுமே உன்னை அடைய வேண்டும்!',
+    statsTitle: 'உங்கள் புள்ளிவிபரங்கள்',
+    historyBtn: '📅 வரலாறு ▼',
+    gridTitle: '✦ இராம் நாம பூஜை பிரகாரம் ✦',
+    dateHeader: 'தேதி',
+    countHeader: 'நாமாவலி',
+    statusHeader: 'நிலை',
+  }
+};
+
+let currentLang = 'te';
+let reminders = [];
+
 (function(){
   var T = 1000, cells = [], rec = null, listening = false, lastT = 0, CD = 1000;
   var todayN = 0, hist = {}, streak = {n: 0, last: ''}, currentGoal = 1000;
   var currentCategory = 'general', timerRunning = false, timerSeconds = 0, timerInterval;
   
-  var quotes = [
-    '🙏 రోజూ ఆచరణ చేసిన సాధకుడు చివరకు నిశ్చయమైన ఫలాన్ని పొందుతాడు',
-    '✨ ప్రతిదిన ఒక చిన్న ప్రయత్నం గతి చేస్తుంది',
-    '🌟 వినీతసేవ ఏవిధం చేసిన జనుల్ని దేవుడు భాగ్యవంతులుచేస్తాడు',
-    '💫 శ్రీరామ నామ జపం గర్భ రక్షణకు అత్యుత్తమం',
-    '🪷 చిరకాల జపం చేసిన భక్తుడు మోక్షం చేరును',
-    '🎺 నామ జపం అందరికీ సద్ధతర ఉపాయం',
-    '✋ మీ ఆత్మను నేమ్ ద్వారా పవిత్రపరుచుకోండి'
-  ];
+  var quotes = {
+    te: ['🙏 రోజూ ఆచరణ చేసిన సాధకుడు చివరకు నిశ్చయమైన ఫలాన్ని పొందుతాడు', '✨ ప్రతిదిన ఒక చిన్న ప్రయత్నం గతి చేస్తుంది', '🌟 వినీతసేవ ఏవిధం చేసిన జనుల్ని దేవుడు భాగ్యవంతులుచేస్తాడు'],
+    en: ['🙏 Daily practice leads to certain results', '✨ Small efforts daily lead to success', '🌟 God blesses those who serve with humility'],
+    hi: ['🙏 रोज़ का अभ्यास निश्चित परिणाम देता है', '✨ प्रतिदिन छोटे प्रयास सफलता की ओर ले जाते हैं', '🌟 भगवान विनम्रता से सेवा करने वालों को आशीर्वाद देते हैं'],
+    ta: ['🙏 தினசரி பயிற்சி உறுதியான ফలம் தரும்', '✨ தினந்தோறும் சிறிய முயற்சிகள் வெற்றிக்கு வழிவகுக்கும்', '🌟 கடவுள்��働ிமையுடன் சேவை செய்பவர்களை ஆசீர்வதிக்கிறார்']
+  };
 
   // Particles
   var pc = document.getElementById('ptc');
-  var ws = ['రామ', 'శ్రీ', 'జయ', 'ॐ', 'రా', 'మ'];
-  for(var i = 0; i < 12; i++){
+  for(var i = 0; i < 10; i++){
     var p = document.createElement('div');
-    p.className = 'particle';
-    p.textContent = ws[i % ws.length];
+    p.style.position = 'fixed';
+    p.style.color = 'rgba(255,215,0,0.1)';
+    p.style.fontSize = (0.5 + Math.random() * 0.9) + 'rem';
     p.style.left = Math.random() * 100 + '%';
+    p.style.animation = 'float linear infinite';
     p.style.animationDuration = (8 + Math.random() * 14) + 's';
     p.style.animationDelay = (Math.random() * 12) + 's';
-    p.style.fontSize = (0.5 + Math.random() * 0.9) + 'rem';
+    p.textContent = ['రామ', 'శ్రీ', 'జయ', 'ॐ', 'రా', 'మ'][i % 6];
     pc.appendChild(p);
   }
 
@@ -1022,7 +1190,7 @@
   for(var i = 0; i < T; i++){
     var c = document.createElement('div');
     c.className = 'cell';
-    c.innerHTML = '<span style="opacity:.12;font-size:60%">రా</span>';
+    c.innerHTML = '<span style="opacity:.12">రా</span>';
     g.appendChild(c);
     cells.push(c);
   }
@@ -1039,10 +1207,80 @@
     }
   }
 
+  // Language
+  window.changeLanguage = function(lang){
+    currentLang = lang;
+    localStorage.setItem('lang', lang);
+    updateUI();
+    updateLanguage();
+  };
+
+  function updateLanguage(){
+    var s = strings[currentLang];
+    document.getElementById('headerTitle').textContent = s.headerTitle;
+    document.getElementById('headerSubtitle').textContent = s.subtitle;
+    document.getElementById('goalLabel').textContent = s.goalLabel;
+    document.getElementById('categoryLabel').textContent = s.categoryLabel;
+    document.getElementById('timerLabel').textContent = s.timerLabel;
+    document.getElementById('remainLabel').textContent = s.remainLabel;
+    document.getElementById('percentLabel').textContent = s.percentLabel;
+    document.getElementById('totalLabel').textContent = s.totalLabel;
+    document.getElementById('completeLabel').textContent = s.completeLabel;
+    document.getElementById('streakLabel').textContent = s.streakLabel;
+    document.getElementById('addLabel').textContent = s.addLabel;
+    document.getElementById('micLabel').textContent = s.micLabel;
+    document.getElementById('statsLabel').textContent = s.statsLabel;
+    document.getElementById('resetLabel').textContent = s.resetLabel;
+    document.getElementById('homeLabel').textContent = s.homeLabel;
+    document.getElementById('countLabel').textContent = s.countLabel;
+    document.getElementById('statsNavLabel').textContent = s.statsNavLabel;
+    document.getElementById('settingsLabel').textContent = s.settingsLabel;
+    document.getElementById('gridTitle').textContent = s.gridTitle;
+    document.getElementById('dateHeader').textContent = s.dateHeader;
+    document.getElementById('countHeader').textContent = s.countHeader;
+    document.getElementById('statusHeader').textContent = s.statusHeader;
+  }
+
+  // Settings
+  window.toggleSettings = function(){
+    document.getElementById('settingsPanel').classList.toggle('show');
+    document.getElementById('languageSelect').value = currentLang;
+  };
+
+  // Reminder
+  window.updateReminder = function(){
+    var enabled = document.getElementById('reminderEnabled').checked;
+    var time = document.getElementById('reminderTime').value;
+    if(enabled && time){
+      localStorage.setItem('reminderTime', time);
+      setSaveStatus('ok', '✅ రిమైండర్ సెట్: ' + time);
+      scheduleReminder(time);
+    }
+  };
+
+  function scheduleReminder(time){
+    var [h, m] = time.split(':').map(Number);
+    var now = new Date();
+    var reminder = new Date();
+    reminder.setHours(h, m, 0, 0);
+    if(reminder <= now) reminder.setDate(reminder.getDate() + 1);
+    var diff = reminder - now;
+    setTimeout(function(){
+      showNotification('🪷 రిమైండర్', 'శ్రీరామ నామ జపం చేయండి!');
+      scheduleReminder(time);
+    }, diff);
+  }
+
+  function showNotification(title, message){
+    if('Notification' in window && Notification.permission === 'granted'){
+      new Notification(title, {body: message, icon: '🪷'});
+    }
+  }
+
   // Quote
   function updateQuote(){
-    var q = quotes[Math.floor(Math.random() * quotes.length)];
-    document.getElementById('quoteBox').textContent = q;
+    var q = quotes[currentLang] || quotes.te;
+    document.getElementById('quoteBox').textContent = q[Math.floor(Math.random() * q.length)];
   }
 
   // Goal
@@ -1055,7 +1293,7 @@
       for(var i = 0; i < newCells; i++){
         var c = document.createElement('div');
         c.className = 'cell';
-        c.innerHTML = '<span style="opacity:.12;font-size:60%">రా</span>';
+        c.innerHTML = '<span style="opacity:.12">రా</span>';
         g.appendChild(c);
         cells.push(c);
       }
@@ -1074,7 +1312,8 @@
   // Timer
   window.toggleTimer = function(){
     timerRunning = !timerRunning;
-    document.getElementById('timerToggle').textContent = timerRunning ? 'ఆపు' : 'ప్రారంభించు';
+    var toggleSpan = document.getElementById('timerToggle');
+    toggleSpan.textContent = timerRunning ? (currentLang === 'en' ? 'Stop' : 'ఆపు') : (currentLang === 'en' ? 'Start' : 'ప్రారంభించు');
     if(timerRunning){
       timerInterval = setInterval(function(){
         if(!timerRunning){ clearInterval(timerInterval); return; }
@@ -1114,6 +1353,7 @@
 
   function load(){
     var ok = false;
+    currentLang = localStorage.getItem('lang') || 'te';
     try{
       var raw = store.getItem('SR_today');
       if(raw){ var o = JSON.parse(raw); if(o.date === today()){ todayN = o.count || 0; } }
@@ -1126,6 +1366,7 @@
       ok = true;
     } catch(e){}
 
+    updateLanguage();
     document.getElementById('goalInput').value = currentGoal;
     setGoal(currentGoal);
     for(var i = 0; i < todayN; i++){ cells[i].innerHTML = 'శ్రీరామ'; cells[i].className = 'cell f'; }
@@ -1135,11 +1376,20 @@
     renderHist();
 
     if(ok && todayN > 0){
-      setSaveStatus('ok','✅ లోడ్: ' + todayN + ' నామాలు');
+      setSaveStatus('ok','✅ ' + todayN);
     } else if(ok){
-      setSaveStatus('ok','✅ సిద్ధంగా ఉన్నది');
-    } else {
-      setSaveStatus('warn','⚠️ నోట్‌కు storage లేదు');
+      setSaveStatus('ok','✅');
+    }
+
+    if('Notification' in window && Notification.permission === 'default'){
+      Notification.requestPermission();
+    }
+
+    var reminderTime = localStorage.getItem('reminderTime');
+    if(reminderTime){
+      document.getElementById('reminderEnabled').checked = true;
+      document.getElementById('reminderTime').value = reminderTime;
+      scheduleReminder(reminderTime);
     }
   }
 
@@ -1148,10 +1398,10 @@
       store.setItem('SR_today', JSON.stringify({date: today(), count: todayN}));
       hist[today()] = todayN;
       store.setItem('SR_hist', JSON.stringify(hist));
-      setSaveStatus('ok','✅ సేవ్');
-      setTimeout(function(){ setSaveStatus('info','💾 స్వయం సేవ్'); }, 2000);
+      setSaveStatus('ok','✅');
+      setTimeout(function(){ setSaveStatus('info','💾'); }, 2000);
     } catch(e){
-      setSaveStatus('warn','⚠️ సేవ్ విఫలమైంది');
+      setSaveStatus('warn','⚠️');
     }
   }
 
@@ -1161,40 +1411,9 @@
     document.getElementById('savecode').textContent = 'Code: ' + code;
     if(navigator.clipboard){
       navigator.clipboard.writeText(code).then(function(){
-        setSaveStatus('ok','✅ కాపీ!');
+        setSaveStatus('ok','✅');
       });
     }
-  };
-
-  window.showRestore = function(){
-    var code = window.prompt('కోడ్ paste చేయండి:');
-    if(!code || !code.trim()) return;
-    try{
-      var data = JSON.parse(decodeURIComponent(escape(atob(code.trim()))));
-      if(data.n !== undefined){ todayN = data.n; }
-      if(data.h){ hist = data.h; }
-      if(data.s){ streak = data.s; }
-      if(data.g){ currentGoal = data.g; T = currentGoal; }
-      for(var i = 0; i < cells.length; i++){ cells[i].className = 'cell'; cells[i].innerHTML = '<span style="opacity:.12;font-size:60%">రా</span>'; }
-      for(var i = 0; i < todayN; i++){ cells[i].innerHTML = 'శ్రీరామ'; cells[i].className = 'cell f'; }
-      save(); updateUI(); renderHist();
-      setSaveStatus('ok','✅ ' + todayN + ' పునరు!');
-    } catch(e){
-      setSaveStatus('warn','⚠️ తప్పు!');
-    }
-  };
-
-  window.exportData = function(){
-    var data = { date: today(), count: todayN, history: hist, streak: streak, goal: currentGoal, timestamp: new Date().toISOString() };
-    var json = JSON.stringify(data, null, 2);
-    var blob = new Blob([json], {type: 'application/json'});
-    var url = URL.createObjectURL(blob);
-    var a = document.createElement('a');
-    a.href = url;
-    a.download = 'rama-chant-' + today() + '.json';
-    a.click();
-    URL.revokeObjectURL(url);
-    setSaveStatus('ok','✅ Export!');
   };
 
   function updateUI(){
@@ -1237,7 +1456,7 @@
       try{ store.setItem('SR_streak', JSON.stringify(streak)); } catch(e){}
       updateUI();
       var t = document.getElementById('ltTotal').textContent;
-      document.getElementById('comptotal').textContent = '🙏 మొత్తం: ' + t + ' | ' + streak.n + ' 🔥';
+      document.getElementById('comptotal').textContent = '🙏 ' + t + ' | ' + streak.n + ' 🔥';
       setTimeout(function(){ document.getElementById('overlay').classList.add('show'); }, 700);
     }
   };
@@ -1261,11 +1480,11 @@
     var tb = document.getElementById('histbody');
     tb.innerHTML = '';
     var ks = Object.keys(hist).sort().reverse();
-    if(!ks.length){ tb.innerHTML = '<tr><td colspan="3" style="opacity:0.5;">చరిత్ర లేదు</td></tr>'; return; }
+    if(!ks.length) return;
     for(var i = 0; i < ks.length; i++){
       var d = ks[i], n = hist[d] || 0, done = n >= 1000;
       var tr = document.createElement('tr');
-      tr.innerHTML = '<td>' + fmtD(d) + '</td><td class="' + (done ? 'history-done' : '') + '">' + n + '</td><td>' + (done ? '✅' : '⏳ ' + Math.round(n / 1000 * 100) + '%') + '</td>';
+      tr.innerHTML = '<td>' + fmtD(d) + '</td><td>' + n + '</td><td>' + (done ? '✅' : '⏳') + '</td>';
       tb.appendChild(tr);
     }
   }
@@ -1273,7 +1492,6 @@
   window.toggleHist = function(){
     var w = document.getElementById('histwrap');
     w.classList.toggle('open');
-    document.querySelector('.history-btn').textContent = w.classList.contains('open') ? '📅 చరిత్ర ▲' : '📅 చరిత్ర ▼';
   };
 
   window.showStats = function(){
@@ -1281,14 +1499,7 @@
     var ks = Object.keys(hist);
     for(var i = 0; i < ks.length; i++){ var n = hist[ks[i]] || 0; total += n; if(n >= 1000) days++; }
     avg = ks.length > 0 ? Math.round(total / ks.length) : 0;
-    var html = '<div style="display:grid;gap:8px;">';
-    html += '<div style="display:flex;justify-content:space-between;"><span>మొత్తం:</span><span style="color:var(--gold);font-weight:700;">' + total.toLocaleString('en-IN') + '</span></div>';
-    html += '<div style="display:flex;justify-content:space-between;"><span>పూర్తి రోజులు:</span><span style="color:var(--gold);font-weight:700;">' + days + '</span></div>';
-    html += '<div style="display:flex;justify-content:space-between;"><span>రోజుల సంఖ్య:</span><span style="color:var(--gold);font-weight:700;">' + ks.length + '</span></div>';
-    html += '<div style="display:flex;justify-content:space-between;"><span>సగటు:</span><span style="color:var(--gold);font-weight:700;">' + avg + '</span></div>';
-    html += '<div style="display:flex;justify-content:space-between;"><span>ఈ రోజు:</span><span style="color:var(--gold);font-weight:700;">' + todayN + ' / ' + T + '</span></div>';
-    html += '<div style="display:flex;justify-content:space-between;"><span>వరుస 🔥:</span><span style="color:var(--gold);font-weight:700;">' + streak.n + '</span></div>';
-    html += '</div>';
+    var html = '<div style="display:grid;gap:8px;"><div style="display:flex;justify-content:space-between;"><span>Total:</span><span style="color:var(--gold);font-weight:700;">' + total + '</span></div><div style="display:flex;justify-content:space-between;"><span>Days:</span><span style="color:var(--gold);font-weight:700;">' + days + '</span></div></div>';
     document.getElementById('statsBody').innerHTML = html;
     document.getElementById('statsModal').classList.add('show');
   };
@@ -1297,19 +1508,13 @@
     document.getElementById('statsModal').classList.remove('show');
   };
 
-  window.showMoreMenu = function(){
-    var choice = window.prompt('ఎంచుకోండి:\n1. Export\n2. Restore\n3. More Info', '1');
-    if(choice === '1') exportData();
-    else if(choice === '2') showRestore();
-  };
-
   window.scrollToTop = function(){
     document.querySelector('.container').scrollTo({top: 0, behavior: 'smooth'});
   };
 
   window.toggleMic = function(){
     if(!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)){
-      setSaveStatus('warn', 'Chrome కోసం వాడండి');
+      setSaveStatus('warn', 'Chrome');
       return;
     }
     listening ? stopMic() : startMic();
@@ -1320,57 +1525,32 @@
     rec = new SR();
     rec.lang = 'te-IN';
     rec.continuous = true;
-    rec.interimResults = true;
-    rec.maxAlternatives = 5;
-    rec.onstart = function(){
-      listening = true;
-      document.getElementById('micBtn').classList.remove('off');
-      document.getElementById('micBtn').classList.add('on');
-      setSaveStatus('info', '🔴 వింటున్నాను...');
-    };
     rec.onresult = function(e){
       var now = Date.now();
       if(now - lastT < CD) return;
       for(var i = e.resultIndex; i < e.results.length; i++)
         for(var j = 0; j < e.results[i].length; j++){
-          var t = e.results[i][j].transcript.toLowerCase().trim();
-          if(matchR(t)){ lastT = now; addOne(); setSaveStatus('ok', '✅ విన్నాను! 🙏'); }
+          var t = e.results[i][j].transcript.toLowerCase();
+          if(t.indexOf('రామ') !== -1 || t.indexOf('राम') !== -1 || t.indexOf('ram') !== -1){ lastT = now; addOne(); }
         }
     };
-    rec.onerror = function(e){
-      if(e.error === 'no-speech' || e.error === 'aborted') return;
-      if(e.error === 'not-allowed'){ setSaveStatus('warn', 'Mic అనుమతి'); stopMic(); return; }
-      setSaveStatus('warn', '⚠️ ' + e.error);
-    };
-    rec.onend = function(){ if(listening) setTimeout(function(){ if(listening) try{ rec.start(); } catch(e){} }, 500); };
-    try{ rec.start(); } catch(e){ setSaveStatus('warn', '⚠️ ' + e.message); }
+    try{ rec.start(); listening = true; } catch(e){}
   }
 
   function stopMic(){
     listening = false;
     if(rec){ try{ rec.abort(); } catch(e){} rec = null; }
-    document.getElementById('micBtn').classList.remove('on');
-    document.getElementById('micBtn').classList.add('off');
-    setSaveStatus('info', '✅ మైక్ ఆపబడింది');
-  }
-
-  function matchR(t){
-    var p = ['రామ', 'రాం', 'राम', 'ram', 'rama', 'shriram', 'sriram', 'శ్రీరామ'];
-    for(var i = 0; i < p.length; i++)
-      if(t.indexOf(p[i].toLowerCase()) !== -1) return true;
-    return false;
   }
 
   window.resetToday = function(){
     if(!todayN) return;
-    if(!confirm('రీసెట్ చేయాలా? చరిత్ర భద్రంగా ఉంటుంది')) return;
+    if(!confirm('Reset?')) return;
     todayN = 0;
     stopMic();
-    for(var i = 0; i < T; i++){ cells[i].className = 'cell'; cells[i].innerHTML = '<span style="opacity:.12;font-size:60%">రా</span>'; }
+    for(var i = 0; i < T; i++){ cells[i].className = 'cell'; cells[i].innerHTML = '<span style="opacity:.12">రా</span>'; }
     save();
     updateUI();
-    renderHist();
-    setSaveStatus('ok', '✅ రీసెట్ కంపలీట్');
+    setSaveStatus('ok', '✅');
   };
 
   loadTheme();
