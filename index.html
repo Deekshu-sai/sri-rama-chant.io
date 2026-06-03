@@ -6,10 +6,51 @@
 <title>శ్రీరామ నామ పుస్తకం</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Telugu:wght@400;700&display=swap');
-  :root { --saffron:#FF6B00; --deep:#E85500; --gold:#FFD700; --cream:#FFF8F0; --dark:#3D1A00; }
+  :root { 
+    --saffron:#FF6B00; 
+    --deep:#E85500; 
+    --gold:#FFD700; 
+    --cream:#FFF8F0; 
+    --dark:#3D1A00;
+    --bg-primary: #1a0500;
+    --bg-secondary: #2d0d00;
+    --text-primary: #FFD98A;
+    --text-secondary: #FFD700;
+  }
+  
   *{box-sizing:border-box;margin:0;padding:0;}
-  body{font-family:'Noto Serif Telugu',serif;background:radial-gradient(ellipse at top,#4a1000,#1a0500 60%,#0d0200);min-height:100vh;overflow-x:hidden;}
+  body{font-family:'Noto Serif Telugu',serif;background:radial-gradient(ellipse at top,#4a1000,#1a0500 60%,#0d0200);min-height:100vh;overflow-x:hidden;transition:background 0.3s;}
+  
+  body.light-theme {
+    background: linear-gradient(135deg, #f5f5f5, #e8e8e8);
+    --bg-primary: #ffffff;
+    --bg-secondary: #f9f9f9;
+    --text-primary: #333333;
+    --text-secondary: #555555;
+  }
+  
   .topbar{height:7px;background:linear-gradient(90deg,var(--deep),var(--gold),var(--saffron),var(--gold),var(--deep));box-shadow:0 0 18px var(--gold);}
+  
+  .theme-toggle {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 500;
+    background: rgba(255,215,0,.15);
+    border: 1px solid rgba(255,215,0,.3);
+    color: var(--gold);
+    padding: 8px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+  }
+  
+  .theme-toggle:hover {
+    background: rgba(255,215,0,.25);
+    transform: scale(1.05);
+  }
+  
   header{text-align:center;padding:14px 10px 6px;}
   .om{font-size:2.6rem;color:var(--gold);display:block;animation:glow 2s ease-in-out infinite alternate;}
   @keyframes glow{from{text-shadow:0 0 20px var(--gold)}to{text-shadow:0 0 50px var(--gold),0 0 80px rgba(255,215,0,.6)}}
@@ -19,6 +60,50 @@
   /* save status */
   .save-status{text-align:center;font-size:.65rem;padding:3px 10px;min-height:18px;}
   .save-ok{color:#4CAF50;} .save-warn{color:#FF6B6B;} .save-info{color:rgba(255,215,0,.5);}
+
+  /* motivation quote */
+  .quote-box {
+    text-align: center;
+    padding: 10px 12px;
+    background: rgba(255,215,0,.06);
+    border-left: 3px solid var(--saffron);
+    font-size: 0.75rem;
+    color: var(--text-primary);
+    font-style: italic;
+    margin: 0 12px 8px;
+    border-radius: 4px;
+    min-height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* custom goal */
+  .goal-section {
+    text-align: center;
+    padding: 8px 12px;
+    background: rgba(255,215,0,.04);
+    border-bottom: 1px solid rgba(255,215,0,.12);
+    font-size: 0.7rem;
+    color: var(--text-primary);
+  }
+
+  .goal-input {
+    width: 60px;
+    padding: 4px 6px;
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,215,0,.3);
+    color: var(--gold);
+    border-radius: 4px;
+    font-family: 'Noto Serif Telugu',serif;
+    margin: 0 5px;
+  }
+
+  .goal-input:focus {
+    outline: none;
+    border-color: var(--gold);
+    background: rgba(255,255,255,.15);
+  }
 
   /* today stats */
   .stats{display:flex;justify-content:center;gap:12px;padding:8px 12px;flex-wrap:wrap;background:rgba(255,255,255,.05);border-top:1px solid rgba(255,215,0,.2);border-bottom:1px solid rgba(255,215,0,.2);}
@@ -57,13 +142,61 @@
 
   /* manual save row */
   .saverow{display:flex;justify-content:center;align-items:center;gap:8px;padding:4px 14px 6px;flex-wrap:wrap;}
-  .btnsave{background:rgba(255,215,0,.12);color:var(--gold);border:1px solid rgba(255,215,0,.3);font-size:.72rem;padding:5px 14px;border-radius:20px;font-family:'Noto Serif Telugu',serif;cursor:pointer;}
+  .btnsave{background:rgba(255,215,0,.12);color:var(--gold);border:1px solid rgba(255,215,0,.3);font-size:.72rem;padding:5px 14px;border-radius:20px;font-family:'Noto Serif Telugu',serif;cursor:pointer;transition:all .2s;}
   .btnsave:hover{background:rgba(255,215,0,.2);}
   .savecode{font-size:.6rem;color:rgba(255,215,0,.45);word-break:break-all;max-width:300px;text-align:center;}
 
+  /* category tags */
+  .category-section {
+    padding: 8px 14px;
+    text-align: center;
+    background: rgba(255,215,0,.04);
+    border-bottom: 1px solid rgba(255,215,0,.12);
+  }
+
+  .cat-label {
+    font-size: 0.65rem;
+    color: rgba(255,215,0,.6);
+    margin-bottom: 5px;
+  }
+
+  .cat-btn {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 3px;
+    background: rgba(255,215,0,.1);
+    border: 1px solid rgba(255,215,0,.3);
+    color: var(--text-primary);
+    border-radius: 15px;
+    font-size: 0.65rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .cat-btn.active {
+    background: var(--saffron);
+    color: #fff;
+    border-color: var(--saffron);
+  }
+
+  /* timer */
+  .timer-section {
+    text-align: center;
+    padding: 8px 14px;
+    background: rgba(255,215,0,.04);
+    border-bottom: 1px solid rgba(255,215,0,.12);
+  }
+
+  .timer-display {
+    font-size: 1.2rem;
+    color: var(--gold);
+    font-weight: 700;
+    margin: 5px 0;
+  }
+
   /* history */
   .histsec{max-width:700px;margin:0 auto 5px;padding:0 12px;}
-  .histbtn{width:100%;background:rgba(255,215,0,.06);border:1px solid rgba(255,215,0,.18);color:#FFD98A;font-family:'Noto Serif Telugu',serif;font-size:.72rem;padding:6px;border-radius:7px;cursor:pointer;text-align:center;}
+  .histbtn{width:100%;background:rgba(255,215,0,.06);border:1px solid rgba(255,215,0,.18);color:#FFD98A;font-family:'Noto Serif Telugu',serif;font-size:.72rem;padding:6px;border-radius:7px;cursor:pointer;transition:all .2s;}
   .histbtn:hover{background:rgba(255,215,0,.12);}
   .histwrap{display:none;overflow:auto;background:rgba(0,0,0,.3);border:1px solid rgba(255,215,0,.13);border-top:none;border-radius:0 0 7px 7px;max-height:190px;}
   .histwrap.open{display:block;}
@@ -80,7 +213,7 @@
   .grid{display:grid;grid-template-columns:repeat(25,1fr);gap:2px;}
   @media(max-width:500px){.grid{grid-template-columns:repeat(20,1fr);gap:1.5px;}}
   @media(max-width:380px){.grid{grid-template-columns:repeat(10,1fr);}}
-  .cell{aspect-ratio:1;border:1px solid #DEB887;border-radius:2px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:clamp(3px,1.2vw,7px);font-family:'Noto Serif Telugu',serif;color:var(--dark);position:relative;overflow:hidden;line-height:1;}
+  .cell{aspect-ratio:1;border:1px solid #DEB887;border-radius:2px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:clamp(3px,1.2vw,7px);font-family:'Noto Serif Telugu',serif;position:relative;color:#8B6914;}
   .cell.f{background:linear-gradient(135deg,#FFF3CC,#FFE082);border-color:var(--saffron);color:var(--deep);font-weight:700;font-size:clamp(3px,1vw,6px);}
   .cell.f::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.7),transparent 60%);pointer-events:none;}
   .cell.pop{animation:pop .5s cubic-bezier(.175,.885,.32,1.275);background:linear-gradient(135deg,#FFD700,#FFA500)!important;border-color:var(--deep)!important;}
@@ -89,7 +222,7 @@
   /* completion */
   .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:1000;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:20px;}
   .overlay.show{display:flex;}
-  .compbox{background:linear-gradient(135deg,#3D1A00,#1a0500);border:3px solid var(--gold);border-radius:18px;padding:26px 30px;box-shadow:0 0 70px rgba(255,215,0,.45);max-width:360px;width:100%;animation:zin .5s cubic-bezier(.175,.885,.32,1.275);}
+  .compbox{background:linear-gradient(135deg,#3D1A00,#1a0500);border:3px solid var(--gold);border-radius:18px;padding:26px 30px;box-shadow:0 0 70px rgba(255,215,0,.45);max-width:360px;width:100%;animation:zin .5s cubic-bezier(.34,1.56,.64,1);}
   @keyframes zin{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
   .compom{font-size:3.2rem;color:var(--gold);animation:glow 1.5s ease-in-out infinite alternate;display:block;}
   .jayatxt{font-size:clamp(1.1rem,5vw,1.55rem);color:var(--gold);margin:7px 0 5px;line-height:1.4;}
@@ -102,11 +235,78 @@
   .particles{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0;}
   .pt{position:absolute;color:rgba(255,215,0,.14);animation:fl linear infinite;pointer-events:none;font-family:'Noto Serif Telugu',serif;}
   @keyframes fl{0%{transform:translateY(100vh) rotate(0);opacity:0}10%{opacity:1}90%{opacity:.8}100%{transform:translateY(-100px) rotate(360deg);opacity:0}}
+
+  /* stats modal */
+  .stats-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.88);
+    z-index: 900;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .stats-modal.show {
+    display: flex;
+  }
+
+  .stats-content {
+    background: linear-gradient(135deg,#3D1A00,#1a0500);
+    border: 3px solid var(--gold);
+    border-radius: 18px;
+    padding: 26px 30px;
+    max-width: 500px;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+    animation: zin .5s cubic-bezier(.34,1.56,.64,1);
+  }
+
+  .stats-content h3 {
+    color: var(--gold);
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+
+  .stat-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,215,0,.2);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+  }
+
+  .stat-label {
+    font-weight: 600;
+  }
+
+  .stat-value {
+    color: var(--gold);
+    font-weight: 700;
+  }
+
+  .close-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: var(--saffron);
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    width: 100%;
+  }
 </style>
 </head>
 <body>
 <div class="particles" id="ptc"></div>
 <div class="topbar"></div>
+
+<button class="theme-toggle" onclick="toggleTheme()" title="Toggle Theme">🌙 Theme</button>
+
 <header>
   <span class="om">ॐ</span>
   <h1>🪷 శ్రీరామ నామ పుస్తకం 🪷</h1>
@@ -114,6 +314,27 @@
 </header>
 
 <div class="save-status save-info" id="saveStatus">⏳ లోడ్ అవుతున్నది...</div>
+
+<div class="quote-box" id="quoteBox">🙏 ఆశీర్వాదాలు... 🙏</div>
+
+<div class="goal-section">
+  <span>రోజువారీ లక్ష్యం:</span>
+  <input type="number" class="goal-input" id="goalInput" min="1" max="10000" value="1000" onchange="setGoal(this.value)">
+</div>
+
+<div class="category-section">
+  <div class="cat-label">ఎన్నికించు:</div>
+  <button class="cat-btn" onclick="setCategory('morning')" id="cat-morning">🌅 ఉదయం</button>
+  <button class="cat-btn" onclick="setCategory('evening')" id="cat-evening">🌆 సాయం</button>
+  <button class="cat-btn" onclick="setCategory('meditation')" id="cat-meditation">🧘 ధ్యానం</button>
+  <button class="cat-btn" onclick="setCategory('general')" id="cat-general">✨ సాధారణ</button>
+</div>
+
+<div class="timer-section">
+  <div class="cat-label">సెషన్ టైమర్:</div>
+  <div class="timer-display" id="timerDisplay">00:00</div>
+  <button class="btnsave" onclick="toggleTimer()">⏱️ <span id="timerToggle">ప్రారంభించు</span></button>
+</div>
 
 <div class="stats">
   <div class="sbox"><span class="snum" id="todayCount">0</span><div class="slbl">ఈ రోజు పూర్తయినవి</div></div>
@@ -138,18 +359,20 @@
 <div class="controls">
   <button class="btn btnmic" id="micBtn" onclick="toggleMic()">🎤 <span id="micTxt">మైక్ ప్రారంభించు</span></button>
   <button class="btn btnrama" onclick="addOne()">శ్రీరామ</button>
-  <button class="btn btnreset" onclick="resetToday()">🔄 రోజు రీసెట్</button>
+  <button class="btn btnreset" onclick="resetToday()">🔄 రీసెట్</button>
+  <button class="btn btnreset" onclick="showStats()">📊 గణాంకాలు</button>
 </div>
 <div class="vstatus" id="vstatus">మైక్రోఫోన్ ప్రారంభించి "శ్రీరామ" అని పలకండి</div>
 
 <div class="saverow">
-  <button class="btnsave" onclick="manualSave()">💾 ఇప్పుడు సేవ్ చేయి</button>
-  <button class="btnsave" onclick="showRestore()">📥 Count పునరుద్ధరించు</button>
+  <button class="btnsave" onclick="manualSave()">💾 సేవ్</button>
+  <button class="btnsave" onclick="showRestore()">📥 పునరుద్ధరించు</button>
+  <button class="btnsave" onclick="exportData()">📤 Export</button>
 </div>
 <div class="savecode" id="savecode"></div>
 
 <div class="histsec">
-  <button class="histbtn" onclick="toggleHist()">📅 రోజువారీ చరిత్ర చూడండి ▼</button>
+  <button class="histbtn" onclick="toggleHist()">📅 చరిత్ర ▼</button>
   <div class="histwrap" id="histwrap">
     <table><thead><tr><th>తేదీ</th><th>నామాలు</th><th>స్థితి</th></tr></thead>
     <tbody id="histbody"></tbody></table>
@@ -157,7 +380,7 @@
 </div>
 
 <div class="bookcont">
-  <div class="booktitle">✦ శ్రీ రామ రామ రామ నమస్తే మారుతే — వెయ్యి నామ జప పుస్తకం ✦</div>
+  <div class="booktitle">✦ శ్రీ రామ రామ రామ నమస్తే మారుతే ✦</div>
   <div class="gridwrap"><div class="grid" id="grid"></div></div>
 </div>
 
@@ -167,15 +390,46 @@
     <span class="fw">🪷 🎺 🪷</span>
     <div class="jayatxt">శ్రీరామ జయరామ<br>జయ జయ రామ!</div>
     <div class="comptotal" id="comptotal"></div>
-    <p class="compp">ఈ రోజు వెయ్యి నామాలు పూర్తయ్యాయి!<br>శ్రీరాముని కృప మీకు సదా లభించుగాక 🌸</p>
+    <p class="compp">ఈ రోజు లక్ష్యం పూర్తయ్యాయి!<br>శ్రీరాముని కృప మీకు సదా లభించుటకు!</p>
     <button class="btn btnnew" onclick="document.getElementById('overlay').classList.remove('show')">సరే 🙏</button>
+  </div>
+</div>
+
+<div class="stats-modal" id="statsModal">
+  <div class="stats-content">
+    <h3>📊 మీ గణాంకాలు</h3>
+    <div id="statsBody"></div>
+    <button class="close-btn" onclick="closeStats()">✕ మూసివేయు</button>
   </div>
 </div>
 
 <script>
 (function(){
   var T=1000, cells=[], rec=null, listening=false, lastT=0, CD=1000;
-  var todayN=0, hist={}, streak={n:0,last:''};
+  var todayN=0, hist={}, streak={n:0,last:''}, currentGoal=1000;
+  var currentCategory='general', timerRunning=false, timerSeconds=0, timerInterval;
+  var quotes=[
+    '🙏 రోజూ ఆచరణ చేసిన సాధకుడు చివరకు నిశ్చయమైన ఫలాన్ని పొందుతాడు',
+    '✨ ప్రతిదిన ఒక చిన్న ప్రయత్నం గతి చేస్తుంది',
+    '🌟 వినీతసేవ ఏవిధం చేసిన జనుల్ని దేవుడు భాగ్యవంతులుచేస్తాడు',
+    '💫 శ్రీరామ నామ జపం గర్భ రక్షణకు అత్యుత్తమం',
+    '🪷 చిరకాల జపం చేసిన భక్తుడు మోక్షం చేరును',
+    '🎺 నామ జపం అందరికీ సద్ధతర ఉపాయం',
+    '✋ మీ ఆత్మను నేమ్ ద్వారా పవిత్రపరుచుకోండి'
+  ];
+
+  // ── Theme Toggle ──
+  window.toggleTheme=function(){
+    document.body.classList.toggle('light-theme');
+    localStorage.setItem('theme', document.body.classList.contains('light-theme') ? 'light' : 'dark');
+  };
+
+  // ── Load Theme ──
+  function loadTheme(){
+    if(localStorage.getItem('theme')==='light'){
+      document.body.classList.add('light-theme');
+    }
+  }
 
   // ── Particles ──
   var pc=document.getElementById('ptc');
@@ -198,6 +452,53 @@
     g.appendChild(c); cells.push(c);
   }
 
+  // ── Quote System ──
+  function updateQuote(){
+    var q=quotes[Math.floor(Math.random()*quotes.length)];
+    document.getElementById('quoteBox').textContent=q;
+  }
+
+  // ── Goal System ──
+  window.setGoal=function(val){
+    currentGoal=Math.max(1,Math.min(10000,parseInt(val)||1000));
+    document.getElementById('goalInput').value=currentGoal;
+    localStorage.setItem('goal', currentGoal);
+    var newCells=currentGoal-T;
+    if(newCells>0){
+      for(var i=0;i<newCells;i++){
+        var c=document.createElement('div'); c.className='cell';
+        c.innerHTML='<span style="opacity:.12;font-size:60%">రా</span>';
+        g.appendChild(c); cells.push(c);
+      }
+    }
+    T=currentGoal;
+    updateUI();
+  };
+
+  // ── Category System ──
+  window.setCategory=function(cat){
+    currentCategory=cat;
+    document.querySelectorAll('.cat-btn').forEach(function(b){b.classList.remove('active');});
+    document.getElementById('cat-'+cat).classList.add('active');
+  };
+
+  // ── Timer System ──
+  window.toggleTimer=function(){
+    timerRunning=!timerRunning;
+    document.getElementById('timerToggle').textContent=timerRunning?'ఆపు':'ప్రారంభించు';
+    if(timerRunning){
+      timerInterval=setInterval(function(){
+        if(!timerRunning){clearInterval(timerInterval);return;}
+        timerSeconds++;
+        var m=Math.floor(timerSeconds/60);
+        var s=timerSeconds%60;
+        document.getElementById('timerDisplay').textContent=pad(m)+':'+pad(s);
+      },1000);
+    }else{
+      clearInterval(timerInterval);
+    }
+  };
+
   // ── Date helpers ──
   function today(){
     var d=new Date();
@@ -212,7 +513,7 @@
     return dy[d.getDay()]+'వారం, '+d.getDate()+' '+mn[d.getMonth()]+' '+d.getFullYear();
   }
 
-  // ── Storage: try localStorage, fallback sessionStorage, fallback memory ──
+  // ── Storage ──
   var store=(function(){
     function test(s){try{s.setItem('__t','1');s.removeItem('__t');return true;}catch(e){return false;}}
     if(test(localStorage)) return localStorage;
@@ -236,22 +537,26 @@
       if(hr){hist=JSON.parse(hr);}
       var sr=store.getItem('SR_streak');
       if(sr){streak=JSON.parse(sr);}
+      var g=store.getItem('goal');
+      if(g){currentGoal=parseInt(g);T=currentGoal;}
       ok=true;
     }catch(e){}
 
-    // restore cells
+    document.getElementById('goalInput').value=currentGoal;
+    setGoal(currentGoal);
     for(var i=0;i<todayN;i++){cells[i].innerHTML='శ్రీరామ';cells[i].className='cell f';}
 
     document.getElementById('datebar').textContent='📅 '+teDate();
+    updateQuote();
     updateUI();
     renderHist();
 
     if(ok && todayN>0){
-      setSaveStatus('save-ok','✅ సేవ్ అయింది — '+todayN+' నామాలు లోడ్ అయ్యాయి');
+      setSaveStatus('save-ok','✅ లోడ్: '+todayN+' నామాలు');
     } else if(ok){
-      setSaveStatus('save-ok','✅ Storage పని చేస్తోంది — నామాలు స్వయంచాలకంగా సేవ్ అవుతాయి');
+      setSaveStatus('save-ok','✅ సిద్ధంగా ఉన్నది');
     } else {
-      setSaveStatus('save-warn','⚠️ Storage అందుబాటులో లేదు — "💾 ఇప్పుడు సేవ్ చేయి" వాడండి');
+      setSaveStatus('save-warn','⚠️ నోట్‌కు storage అందుబాటులో లేదు');
     }
   }
 
@@ -260,40 +565,64 @@
       store.setItem('SR_today',JSON.stringify({date:today(),count:todayN}));
       hist[today()]=todayN;
       store.setItem('SR_hist',JSON.stringify(hist));
-      setSaveStatus('save-ok','✅ సేవ్ అయింది');
-      setTimeout(function(){setSaveStatus('save-info','💾 స్వయంచాలకంగా సేవ్ అవుతుంది');},2000);
+      setSaveStatus('save-ok','✅ సేవ్');
+      setTimeout(function(){setSaveStatus('save-info','💾 స్వయం సేవ్');},2000);
     }catch(e){
-      setSaveStatus('save-warn','⚠️ Auto-save విఫలమైంది — "💾 సేవ్ చేయి" నొక్కండి');
+      setSaveStatus('save-warn','⚠️ సేవ్ విఫలమైంది');
     }
   }
 
-  // ── Manual save: show backup code ──
+  // ── Manual save ──
   window.manualSave=function(){
-    var data=JSON.stringify({d:today(),n:todayN,h:hist,s:streak});
+    var data=JSON.stringify({d:today(),n:todayN,h:hist,s:streak,g:currentGoal});
     var code=btoa(unescape(encodeURIComponent(data)));
-    document.getElementById('savecode').textContent='మీ code: '+code;
-    // also try copy
-    if(navigator.clipboard){navigator.clipboard.writeText(code).then(function(){
-      setSaveStatus('save-ok','✅ Code copied! ఎక్కడైనా paste చేసి పెట్టుకోండి');
-    });}
-    else { setSaveStatus('save-ok','✅ Code కనిపిస్తోంది — copy చేసి safe గా పెట్టుకోండి'); }
+    document.getElementById('savecode').textContent='Code: '+code;
+    if(navigator.clipboard){
+      navigator.clipboard.writeText(code).then(function(){
+        setSaveStatus('save-ok','✅ కాపీ చేసారు!');
+      });
+    }else{
+      setSaveStatus('save-ok','✅ కాపీ చేసి సేవ్ చేయండి');
+    }
   };
 
   window.showRestore=function(){
-    var code=window.prompt('మీ save code ఇక్కడ paste చేయండి:');
+    var code=window.prompt('కోడ్ paste చేయండి:');
     if(!code||!code.trim()) return;
     try{
       var data=JSON.parse(decodeURIComponent(escape(atob(code.trim()))));
       if(data.n!==undefined){todayN=data.n;}
       if(data.h){hist=data.h;}
       if(data.s){streak=data.s;}
-      for(var i=0;i<T;i++){cells[i].className='cell';cells[i].innerHTML='<span style="opacity:.12;font-size:60%">రా</span>';}
+      if(data.g){currentGoal=data.g;T=currentGoal;}
+      for(var i=0;i<cells.length;i++){cells[i].className='cell';cells[i].innerHTML='<span style="opacity:.12;font-size:60%">రా</span>';}
       for(var i=0;i<todayN;i++){cells[i].innerHTML='శ్రీరామ';cells[i].className='cell f';}
       save(); updateUI(); renderHist();
-      setSaveStatus('save-ok','✅ '+todayN+' నామాలు పునరుద్ధరించబడ్డాయి!');
+      setSaveStatus('save-ok','✅ '+todayN+' నామాలు పునరు!');
     }catch(e){
-      setSaveStatus('save-warn','⚠️ Code తప్పుగా ఉంది. మళ్ళీ ప్రయత్నించండి.');
+      setSaveStatus('save-warn','⚠️ కోడ్ తప్పు!');
     }
+  };
+
+  // ── Export Data ──
+  window.exportData=function(){
+    var data={
+      date:today(),
+      count:todayN,
+      history:hist,
+      streak:streak,
+      goal:currentGoal,
+      timestamp:new Date().toISOString()
+    };
+    var json=JSON.stringify(data,null,2);
+    var blob=new Blob([json],{type:'application/json'});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement('a');
+    a.href=url;
+    a.download='rama-chant-'+today()+'.json';
+    a.click();
+    URL.revokeObjectURL(url);
+    setSaveStatus('save-ok','✅ Export!');
   };
 
   // ── Update UI ──
@@ -303,11 +632,11 @@
     var pct=Math.round(todayN/T*100);
     document.getElementById('todayPct').textContent=pct+'%';
     document.getElementById('progfill').style.width=pct+'%';
-    document.getElementById('progtxt').textContent=todayN+' / '+T+' నేటి నామాలు';
+    document.getElementById('progtxt').textContent=todayN+' / '+T;
 
     var total=0,days=0;
     var ks=Object.keys(hist);
-    for(var i=0;i<ks.length;i++){var n=hist[ks[i]]||0;total+=n;if(n>=T)days++;}
+    for(var i=0;i<ks.length;i++){var n=hist[ks[i]]||0;total+=n;if(n>=1000)days++;}
     document.getElementById('ltTotal').textContent=total.toLocaleString('en-IN');
     document.getElementById('ltDays').textContent=days;
     document.getElementById('ltStreak').textContent=streak.n;
@@ -318,10 +647,10 @@
     if(todayN>=T) return;
     var c=cells[todayN];
     c.innerHTML='శ్రీరామ'; c.className='cell f pop';
+    playSound();
     setTimeout(function(){c.classList.remove('pop');},600);
     todayN++; save(); updateUI(); renderHist();
     if(todayN>=T){
-      // update streak
       var yest=new Date(); yest.setDate(yest.getDate()-1);
       var ys=yest.getFullYear()+'-'+pad(yest.getMonth()+1)+'-'+pad(yest.getDate());
       if(streak.last===ys||streak.last===today()) { if(streak.last!==today()) streak.n++; }
@@ -330,50 +659,86 @@
       try{store.setItem('SR_streak',JSON.stringify(streak));}catch(e){}
       updateUI();
       var t=document.getElementById('ltTotal').textContent;
-      document.getElementById('comptotal').textContent='🙏 మొత్తం: '+t+' నామాలు | '+streak.n+' రోజుల వరుస';
+      document.getElementById('comptotal').textContent='🙏 మొత్తం: '+t+' | '+streak.n+' 🔥';
       setTimeout(function(){document.getElementById('overlay').classList.add('show');},700);
     }
   };
+
+  // ── Sound ──
+  function playSound(){
+    try{
+      var ctx=new (window.AudioContext||window.webkitAudioContext)();
+      var osc=ctx.createOscillator();
+      var gain=ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.frequency.value=800;
+      gain.gain.setValueAtTime(0.1,ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01,ctx.currentTime+0.1);
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime+0.1);
+    }catch(e){}
+  }
 
   // ── History ──
   function renderHist(){
     var tb=document.getElementById('histbody');
     tb.innerHTML='';
     var ks=Object.keys(hist).sort().reverse();
-    if(!ks.length){tb.innerHTML='<tr><td colspan="3" style="color:rgba(255,215,0,.35);padding:10px">ఇంకా చరిత్ర లేదు</td></tr>';return;}
+    if(!ks.length){tb.innerHTML='<tr><td colspan="3">ఇంకా చరిత్ర లేదు</td></tr>';return;}
     for(var i=0;i<ks.length;i++){
-      var d=ks[i],n=hist[d]||0,done=n>=T;
+      var d=ks[i],n=hist[d]||0,done=n>=1000;
       var tr=document.createElement('tr');
-      tr.innerHTML='<td>'+fmtD(d)+'</td><td class="'+(done?'done':'')+'">'+n+'</td><td>'+(done?'✅ పూర్తి':'⏳ '+Math.round(n/T*100)+'%')+'</td>';
+      tr.innerHTML='<td>'+fmtD(d)+'</td><td class="'+(done?'done':'')+'">'+n+'</td><td>'+(done?'✅':'⏳ '+Math.round(n/1000*100)+'%')+'</td>';
       tb.appendChild(tr);
     }
   }
 
   window.toggleHist=function(){
     var w=document.getElementById('histwrap'); w.classList.toggle('open');
-    document.querySelector('.histbtn').textContent=w.classList.contains('open')?'📅 చరిత్ర మూయు ▲':'📅 రోజువారీ చరిత్ర చూడండి ▼';
+    document.querySelector('.histbtn').textContent=w.classList.contains('open')?'📅 చరిత్ర ▲':'📅 చరిత్ర ▼';
+  };
+
+  // ── Stats Modal ──
+  window.showStats=function(){
+    var total=0,days=0,avg=0;
+    var ks=Object.keys(hist);
+    for(var i=0;i<ks.length;i++){var n=hist[ks[i]]||0;total+=n;if(n>=1000)days++;}
+    avg=ks.length>0?Math.round(total/ks.length):0;
+    var html='<div class="stat-row"><span class="stat-label">మొత్తం:</span><span class="stat-value">'+total.toLocaleString('en-IN')+'</span></div>';
+    html+='<div class="stat-row"><span class="stat-label">పూర్తి రోజులు:</span><span class="stat-value">'+days+'</span></div>';
+    html+='<div class="stat-row"><span class="stat-label">రోజుల సంఖ్య:</span><span class="stat-value">'+ks.length+'</span></div>';
+    html+='<div class="stat-row"><span class="stat-label">సగటు:</span><span class="stat-value">'+avg+'</span></div>';
+    html+='<div class="stat-row"><span class="stat-label">ఈ రోజు:</span><span class="stat-value">'+todayN+' / '+T+'</span></div>';
+    html+='<div class="stat-row"><span class="stat-label">వరుస 🔥:</span><span class="stat-value">'+streak.n+'</span></div>';
+    document.getElementById('statsBody').innerHTML=html;
+    document.getElementById('statsModal').classList.add('show');
+  };
+
+  window.closeStats=function(){
+    document.getElementById('statsModal').classList.remove('show');
   };
 
   // ── Mic ──
   window.toggleMic=function(){
     if(!('webkitSpeechRecognition' in window)&&!('SpeechRecognition' in window)){
-      setV('','⚠️ Voice కోసం Chrome వాడండి.');return;
+      setV('','Chrome కోసం వాడండి');return;
     }
     listening?stopMic():startMic();
   };
   function startMic(){
     var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
     rec=new SR(); rec.lang='te-IN'; rec.continuous=true; rec.interimResults=true; rec.maxAlternatives=5;
-    rec.onstart=function(){listening=true;document.getElementById('micBtn').classList.add('on');document.getElementById('micTxt').textContent='వింటున్నాను... (ఆపు)';setV('act','🔴 వింటున్నాను — "శ్రీరామ" అని పలకండి');};
+    rec.onstart=function(){listening=true;document.getElementById('micBtn').classList.add('on');document.getElementById('micTxt').textContent='వింటున్నాను...';setV('','🔴 వింటున్నాను...');};
     rec.onresult=function(e){
       var now=Date.now(); if(now-lastT<CD) return;
       for(var i=e.resultIndex;i<e.results.length;i++)
         for(var j=0;j<e.results[i].length;j++){
           var t=e.results[i][j].transcript.toLowerCase().trim();
-          if(matchR(t)){lastT=now;addOne();setV('ok','✅ విన్నాను! నామం పడింది 🙏');setTimeout(function(){if(listening)setV('act','🔴 వింటున్నాను — "శ్రీరామ" అని పలకండి');},1500);return;}
+          if(matchR(t)){lastT=now;addOne();setV('ok','✅ విన్నాను! 🙏');setTimeout(function(){if(listening)setV('act','🔴 వింటున్నాను...');},1500);}
         }
     };
-    rec.onerror=function(e){if(e.error==='no-speech'||e.error==='aborted')return;if(e.error==='not-allowed'){setV('','⚠️ Microphone Allow చేయండి.');stopMic();return;}setV('','⚠️ '+e.error);};
+    rec.onerror=function(e){if(e.error==='no-speech'||e.error==='aborted')return;if(e.error==='not-allowed'){setV('','Mic అనుమతి');stopMic();return;}setV('','⚠️ '+e.error);};
     rec.onend=function(){if(listening)setTimeout(function(){if(listening)try{rec.start();}catch(e){}},500);};
     try{rec.start();}catch(e){setV('','⚠️ '+e.message);}
   }
@@ -381,8 +746,8 @@
     listening=false;
     if(rec){try{rec.abort();}catch(e){}rec=null;}
     document.getElementById('micBtn').classList.remove('on');
-    document.getElementById('micTxt').textContent='మైక్ ప్రారంభించు';
-    setV('','మైక్రోఫోన్ ఆపబడింది.');
+    document.getElementById('micTxt').textContent='మైక్';
+    setV('','మైక్ ఆపబడింది');
   }
   function setV(c,m){var el=document.getElementById('vstatus');el.className='vstatus'+(c?' '+c:'');el.textContent=m;}
   function matchR(t){var p=['రామ','రాం','राम','ram','rama','shriram','sriram','శ్రీరామ'];for(var i=0;i<p.length;i++)if(t.indexOf(p[i].toLowerCase())!==-1)return true;return false;}
@@ -390,13 +755,15 @@
   // ── Reset ──
   window.resetToday=function(){
     if(!todayN) return;
-    if(!confirm('ఈ రోజు '+todayN+' నామాలు రీసెట్ చేయాలా?\n(చరిత్ర భద్రంగా ఉంటుంది)')) return;
+    if(!confirm('రీసెట్ చేయాలా? చరిత్ర భద్రంగా ఉంటుంది')) return;
     todayN=0; stopMic();
     for(var i=0;i<T;i++){cells[i].className='cell';cells[i].innerHTML='<span style="opacity:.12;font-size:60%">రా</span>';}
     save(); updateUI(); renderHist();
-    setV('','మైక్రోఫోన్ ప్రారంభించి "శ్రీరామ" అని పలకండి');
+    setV('','రీసెట్ కంపლీట్');
   };
 
+  loadTheme();
+  document.getElementById('cat-general').classList.add('active');
   load();
 })();
 </script>
