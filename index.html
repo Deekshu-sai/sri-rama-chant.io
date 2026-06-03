@@ -1,588 +1,404 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="te">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sri Rama Chanting Counter</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Telugu:wght@400;700&family=Noto+Serif+Hindi:wght@400;700&family=Noto+Serif+Kannada:wght@400;700&family=Poppins:wght@600&display=swap');
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>శ్రీరామ నామ పుస్తకం</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Telugu:wght@400;700&display=swap');
+  :root { --saffron:#FF6B00; --deep:#E85500; --gold:#FFD700; --cream:#FFF8F0; --dark:#3D1A00; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Noto Serif Telugu',serif;background:radial-gradient(ellipse at top,#4a1000,#1a0500 60%,#0d0200);min-height:100vh;overflow-x:hidden;}
+  .topbar{height:7px;background:linear-gradient(90deg,var(--deep),var(--gold),var(--saffron),var(--gold),var(--deep));box-shadow:0 0 18px var(--gold);}
+  header{text-align:center;padding:14px 10px 6px;}
+  .om{font-size:2.6rem;color:var(--gold);display:block;animation:glow 2s ease-in-out infinite alternate;}
+  @keyframes glow{from{text-shadow:0 0 20px var(--gold)}to{text-shadow:0 0 50px var(--gold),0 0 80px rgba(255,215,0,.6)}}
+  h1{font-size:clamp(1.3rem,5vw,2.3rem);color:var(--gold);text-shadow:2px 2px 8px #000;letter-spacing:2px;margin:4px 0 2px;}
+  h2{font-size:clamp(.65rem,2vw,.9rem);color:#FFD98A;font-weight:400;}
 
-        :root {
-            --saffron: #FF6B00;
-            --deep: #E85500;
-            --gold: #FFD700;
-            --cream: #FFF8F0;
-            --dark: #3D1A00;
-        }
+  /* save status */
+  .save-status{text-align:center;font-size:.65rem;padding:3px 10px;min-height:18px;}
+  .save-ok{color:#4CAF50;} .save-warn{color:#FF6B6B;} .save-info{color:rgba(255,215,0,.5);}
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+  /* today stats */
+  .stats{display:flex;justify-content:center;gap:12px;padding:8px 12px;flex-wrap:wrap;background:rgba(255,255,255,.05);border-top:1px solid rgba(255,215,0,.2);border-bottom:1px solid rgba(255,215,0,.2);}
+  .sbox{text-align:center;min-width:60px;}
+  .snum{font-size:clamp(1.2rem,4vw,1.8rem);font-weight:700;color:var(--gold);text-shadow:0 0 12px rgba(255,215,0,.5);display:block;line-height:1;}
+  .slbl{font-size:.58rem;color:#FFD98A;opacity:.85;margin-top:2px;}
 
-        body {
-            font-family: 'Poppins', serif;
-            background: radial-gradient(ellipse at top, #4a1000, #1a0500 60%, #0d0200);
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
+  /* lifetime */
+  .lifetime{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;padding:7px 12px;background:rgba(255,215,0,.06);border-bottom:1px solid rgba(255,215,0,.12);}
+  .lnum{font-size:clamp(1rem,3.5vw,1.5rem);font-weight:700;color:#FFB347;text-shadow:0 0 10px rgba(255,180,70,.4);display:block;line-height:1;}
+  .llbl{font-size:.56rem;color:#FFD98A;opacity:.8;margin-top:2px;text-align:center;}
+  .ldiv{color:rgba(255,215,0,.25);font-size:1.3rem;align-self:center;}
 
-        .topbar {
-            height: 7px;
-            background: linear-gradient(90deg, var(--deep), var(--gold), var(--saffron), var(--gold), var(--deep));
-            box-shadow: 0 0 18px var(--gold);
-        }
+  .datebar{text-align:center;font-size:.68rem;color:rgba(255,215,0,.5);padding:3px 0;}
 
-        /* Language selector */
-        .lang-selector {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            z-index: 100;
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-            justify-content: flex-end;
-            padding: 8px;
-        }
+  /* progress */
+  .progwrap{padding:7px 14px 3px;}
+  .progbg{height:9px;background:rgba(255,255,255,.1);border-radius:5px;overflow:hidden;border:1px solid rgba(255,215,0,.25);}
+  .progfill{height:100%;width:0%;background:linear-gradient(90deg,var(--deep),var(--gold));border-radius:5px;transition:width .4s;box-shadow:0 0 7px var(--saffron);}
+  .progtxt{font-size:.67rem;color:#FFD98A;text-align:center;margin-top:3px;}
 
-        .lang-btn {
-            background: rgba(255, 215, 0, 0.15);
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            color: var(--gold);
-            padding: 6px 12px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.7rem;
-            font-weight: 600;
-            transition: all 0.2s;
-        }
+  /* controls */
+  .controls{display:flex;justify-content:center;gap:10px;padding:9px 14px 5px;flex-wrap:wrap;}
+  .btn{padding:9px 18px;border:none;border-radius:50px;font-family:'Noto Serif Telugu',serif;cursor:pointer;transition:all .2s;font-weight:600;}
+  .btnmic{background:linear-gradient(135deg,var(--saffron),var(--deep));color:#fff;box-shadow:0 4px 16px rgba(255,107,0,.45);display:flex;align-items:center;gap:7px;font-size:.87rem;}
+  .btnmic:hover{transform:translateY(-2px);}
+  .btnmic.on{background:linear-gradient(135deg,#C0392B,#922B21);animation:pbtn 1s ease-in-out infinite;}
+  @keyframes pbtn{0%,100%{box-shadow:0 4px 18px rgba(192,57,43,.5)}50%{box-shadow:0 4px 36px rgba(192,57,43,.9)}}
+  .btnrama{background:linear-gradient(135deg,#FF6B00,#E85500);color:#fff;box-shadow:0 4px 16px rgba(255,107,0,.45);font-size:1rem;padding:11px 26px;letter-spacing:1px;}
+  .btnrama:hover{transform:translateY(-2px);} .btnrama:active{transform:scale(.95);}
+  .btnreset{background:rgba(255,255,255,.08);color:#FFD98A;border:1px solid rgba(255,215,0,.22);font-size:.8rem;}
+  .btnreset:hover{background:rgba(255,255,255,.14);}
 
-        .lang-btn:hover {
-            background: rgba(255, 215, 0, 0.25);
-        }
+  .vstatus{text-align:center;font-size:.7rem;color:#FFD98A;min-height:20px;padding:2px 14px;}
+  .vstatus.act{color:#FF6B6B;} .vstatus.ok{color:#4CAF50;font-weight:700;}
 
-        .lang-btn.active {
-            background: var(--gold);
-            color: #000;
-        }
+  /* manual save row */
+  .saverow{display:flex;justify-content:center;align-items:center;gap:8px;padding:4px 14px 6px;flex-wrap:wrap;}
+  .btnsave{background:rgba(255,215,0,.12);color:var(--gold);border:1px solid rgba(255,215,0,.3);font-size:.72rem;padding:5px 14px;border-radius:20px;font-family:'Noto Serif Telugu',serif;cursor:pointer;}
+  .btnsave:hover{background:rgba(255,215,0,.2);}
+  .savecode{font-size:.6rem;color:rgba(255,215,0,.45);word-break:break-all;max-width:300px;text-align:center;}
 
-        header {
-            text-align: center;
-            padding: 14px 10px 6px;
-        }
+  /* history */
+  .histsec{max-width:700px;margin:0 auto 5px;padding:0 12px;}
+  .histbtn{width:100%;background:rgba(255,215,0,.06);border:1px solid rgba(255,215,0,.18);color:#FFD98A;font-family:'Noto Serif Telugu',serif;font-size:.72rem;padding:6px;border-radius:7px;cursor:pointer;text-align:center;}
+  .histbtn:hover{background:rgba(255,215,0,.12);}
+  .histwrap{display:none;overflow:auto;background:rgba(0,0,0,.3);border:1px solid rgba(255,215,0,.13);border-top:none;border-radius:0 0 7px 7px;max-height:190px;}
+  .histwrap.open{display:block;}
+  table{width:100%;border-collapse:collapse;font-size:.68rem;}
+  th{background:rgba(255,215,0,.09);color:var(--gold);padding:5px 7px;text-align:center;position:sticky;top:0;}
+  td{color:#FFD98A;padding:4px 7px;text-align:center;border-bottom:1px solid rgba(255,215,0,.07);}
+  tr:last-child td{border-bottom:none;}
+  .done{color:#4CAF50;font-weight:700;}
 
-        .om {
-            font-size: 2.6rem;
-            color: var(--gold);
-            display: block;
-            animation: glow 2s ease-in-out infinite alternate;
-        }
+  /* grid */
+  .bookcont{padding:5px 12px 16px;max-width:700px;margin:0 auto;}
+  .booktitle{text-align:center;font-size:clamp(.72rem,2vw,.98rem);color:var(--gold);padding:6px;border:1px solid rgba(255,215,0,.28);border-bottom:none;background:rgba(255,215,0,.04);border-radius:7px 7px 0 0;}
+  .gridwrap{background:var(--cream);border:2px solid var(--saffron);border-radius:0 0 7px 7px;padding:5px;box-shadow:0 0 25px rgba(255,107,0,.28);}
+  .grid{display:grid;grid-template-columns:repeat(25,1fr);gap:2px;}
+  @media(max-width:500px){.grid{grid-template-columns:repeat(20,1fr);gap:1.5px;}}
+  @media(max-width:380px){.grid{grid-template-columns:repeat(10,1fr);}}
+  .cell{aspect-ratio:1;border:1px solid #DEB887;border-radius:2px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:clamp(3px,1.2vw,7px);font-family:'Noto Serif Telugu',serif;color:var(--dark);position:relative;overflow:hidden;line-height:1;}
+  .cell.f{background:linear-gradient(135deg,#FFF3CC,#FFE082);border-color:var(--saffron);color:var(--deep);font-weight:700;font-size:clamp(3px,1vw,6px);}
+  .cell.f::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.7),transparent 60%);pointer-events:none;}
+  .cell.pop{animation:pop .5s cubic-bezier(.175,.885,.32,1.275);background:linear-gradient(135deg,#FFD700,#FFA500)!important;border-color:var(--deep)!important;}
+  @keyframes pop{0%{transform:scale(.5);opacity:.3}60%{transform:scale(1.3)}100%{transform:scale(1);opacity:1}}
 
-        @keyframes glow {
-            from { text-shadow: 0 0 20px var(--gold); }
-            to { text-shadow: 0 0 50px var(--gold), 0 0 80px rgba(255, 215, 0, 0.6); }
-        }
+  /* completion */
+  .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:1000;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:20px;}
+  .overlay.show{display:flex;}
+  .compbox{background:linear-gradient(135deg,#3D1A00,#1a0500);border:3px solid var(--gold);border-radius:18px;padding:26px 30px;box-shadow:0 0 70px rgba(255,215,0,.45);max-width:360px;width:100%;animation:zin .5s cubic-bezier(.175,.885,.32,1.275);}
+  @keyframes zin{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
+  .compom{font-size:3.2rem;color:var(--gold);animation:glow 1.5s ease-in-out infinite alternate;display:block;}
+  .jayatxt{font-size:clamp(1.1rem,5vw,1.55rem);color:var(--gold);margin:7px 0 5px;line-height:1.4;}
+  .comptotal{color:#FFD700;font-size:.92rem;font-weight:700;margin-bottom:5px;}
+  .compp{color:#FFD98A;margin-bottom:16px;font-size:.85rem;line-height:1.5;}
+  .fw{font-size:1.7rem;display:block;animation:sp .8s ease-in-out infinite alternate;letter-spacing:5px;}
+  @keyframes sp{from{transform:scale(.95)}to{transform:scale(1.05)}}
+  .btnnew{background:linear-gradient(135deg,var(--saffron),var(--deep));color:#fff;padding:10px 26px;font-size:.92rem;}
 
-        h1 {
-            font-size: clamp(1.3rem, 5vw, 2.3rem);
-            color: var(--gold);
-            text-shadow: 2px 2px 8px #000;
-            letter-spacing: 1px;
-            margin: 4px 0 2px;
-        }
-
-        h2 {
-            font-size: clamp(0.65rem, 2vw, 0.9rem);
-            color: #FFD98A;
-            font-weight: 400;
-        }
-
-        .save-status {
-            text-align: center;
-            font-size: 0.65rem;
-            padding: 3px 10px;
-            min-height: 18px;
-        }
-
-        .save-ok { color: #4CAF50; }
-        .save-warn { color: #FF6B6B; }
-        .save-info { color: rgba(255, 215, 0, 0.5); }
-
-        .stats {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            padding: 8px 12px;
-            flex-wrap: wrap;
-            background: rgba(255, 255, 255, 0.05);
-            border-top: 1px solid rgba(255, 215, 0, 0.2);
-            border-bottom: 1px solid rgba(255, 215, 0, 0.15);
-        }
-
-        .sbox {
-            text-align: center;
-            min-width: 60px;
-        }
-
-        .snum {
-            font-size: clamp(1.2rem, 4vw, 1.8rem);
-            font-weight: 700;
-            color: var(--gold);
-            text-shadow: 0 0 12px rgba(255, 215, 0, 0.5);
-            display: block;
-            line-height: 1;
-        }
-
-        .slbl {
-            font-size: 0.58rem;
-            color: #FFD98A;
-            opacity: 0.85;
-            margin-top: 2px;
-        }
-
-        .lifetime {
-            display: flex;
-            justify-content: center;
-            gap: 16px;
-            flex-wrap: wrap;
-            padding: 7px 12px;
-            background: rgba(255, 215, 0, 0.06);
-            border-bottom: 1px solid rgba(255, 215, 0, 0.12);
-        }
-
-        .lnum {
-            font-size: clamp(1rem, 3.5vw, 1.5rem);
-            font-weight: 700;
-            color: #FFB347;
-            text-shadow: 0 0 10px rgba(255, 180, 70, 0.4);
-            display: block;
-            line-height: 1;
-        }
-
-        .llbl {
-            font-size: 0.56rem;
-            color: #FFD98A;
-            opacity: 0.8;
-            margin-top: 2px;
-            text-align: center;
-        }
-
-        .ldiv {
-            color: rgba(255, 215, 0, 0.25);
-            font-size: 1.3rem;
-            align-self: center;
-        }
-
-        .datebar {
-            text-align: center;
-            font-size: 0.68rem;
-            color: rgba(255, 215, 0, 0.5);
-            padding: 3px 0;
-        }
-
-        .progwrap {
-            padding: 7px 14px 3px;
-        }
-
-        .progbg {
-            height: 9px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 5px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 215, 0, 0.25);
-        }
-
-        .progfill {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, var(--deep), var(--gold));
-            border-radius: 5px;
-            transition: width 0.4s;
-            box-shadow: 0 0 7px var(--saffron);
-        }
-
-        .progtxt {
-            font-size: 0.67rem;
-            color: #FFD98A;
-            text-align: center;
-            margin-top: 3px;
-        }
-
-        .controls {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            padding: 9px 14px 5px;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 9px 18px;
-            border: none;
-            border-radius: 50px;
-            font-family: 'Poppins', sans-serif;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-weight: 600;
-        }
-
-        .btnmic {
-            background: linear-gradient(135deg, var(--saffron), var(--deep));
-            color: #fff;
-            box-shadow: 0 4px 16px rgba(255, 107, 0, 0.45);
-            display: flex;
-            align-items: center;
-            gap: 7px;
-            font-size: 0.87rem;
-        }
-
-        .btnmic:hover {
-            transform: translateY(-2px);
-        }
-
-        .btnmic.on {
-            background: linear-gradient(135deg, #C0392B, #922B21);
-            animation: pbtn 1s ease-in-out infinite;
-        }
-
-        @keyframes pbtn {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        .btnman {
-            background: linear-gradient(135deg, var(--gold), #FFB347);
-            color: #000;
-            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.35);
-            font-size: 1.1rem;
-            font-weight: 700;
-            min-width: 80px;
-        }
-
-        .btnman:hover {
-            transform: translateY(-2px);
-        }
-
-        .btnman:active {
-            transform: scale(0.98);
-        }
-
-        .vstatus {
-            text-align: center;
-            font-size: 0.75rem;
-            color: rgba(255, 215, 0, 0.6);
-            height: 20px;
-            overflow: hidden;
-            transition: all 0.3s;
-        }
-
-        .vstatus.on {
-            color: #4CAF50;
-        }
-
-        .vstatus.err {
-            color: #FF6B6B;
-        }
-
-        .container {
-            max-width: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 0;
-            padding: 0;
-        }
-
-        .section {
-            background: rgba(0, 0, 0, 0.3);
-            border-bottom: 1px solid rgba(255, 215, 0, 0.1);
-        }
-
-        footer {
-            text-align: center;
-            padding: 10px;
-            font-size: 0.75rem;
-            color: rgba(255, 215, 0, 0.5);
-            background: rgba(0, 0, 0, 0.6);
-        }
-
-        footer p {
-            margin: 2px 0;
-        }
-
-        @media (max-width: 600px) {
-            h1 { font-size: 1.5rem; }
-            .controls { gap: 8px; }
-            .btn { padding: 8px 14px; font-size: 0.85rem; }
-        }
-    </style>
+  .particles{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0;}
+  .pt{position:absolute;color:rgba(255,215,0,.14);animation:fl linear infinite;pointer-events:none;font-family:'Noto Serif Telugu',serif;}
+  @keyframes fl{0%{transform:translateY(100vh) rotate(0);opacity:0}10%{opacity:1}90%{opacity:.8}100%{transform:translateY(-100px) rotate(360deg);opacity:0}}
+</style>
 </head>
 <body>
-    <div class="topbar"></div>
-    
-    <div class="lang-selector" id="langSelector">
-        <button class="lang-btn active" data-lang="en">🇬🇧 EN</button>
-        <button class="lang-btn" data-lang="te">🇮🇳 TE</button>
-        <button class="lang-btn" data-lang="hi">🇮🇳 HI</button>
-        <button class="lang-btn" data-lang="ka">🇮🇳 KN</button>
-    </div>
+<div class="particles" id="ptc"></div>
+<div class="topbar"></div>
+<header>
+  <span class="om">ॐ</span>
+  <h1>🪷 శ్రీరామ నామ పుస్తకం 🪷</h1>
+  <h2>వెయ్యి నామాల జప పుస్తకం</h2>
+</header>
 
-    <div class="container">
-        <div class="section">
-            <header>
-                <span class="om">🕉️</span>
-                <h1 id="title">Sri Rama Chanting</h1>
-                <h2 id="subtitle">Om Sri Ramaya Namaha</h2>
-                <div class="save-status" id="saveStatus"></div>
-            </header>
+<div class="save-status save-info" id="saveStatus">⏳ లోడ్ అవుతున్నది...</div>
 
-            <div class="stats">
-                <div class="sbox">
-                    <span class="snum" id="countDisplay">0</span>
-                    <span class="slbl" id="todayLabel">Today's Count</span>
-                </div>
-                <div class="sbox">
-                    <span class="snum" id="streakNum">0</span>
-                    <span class="slbl" id="streakLabel">🔥 Streak</span>
-                </div>
-                <div class="sbox">
-                    <span class="snum" id="sessionNum">0</span>
-                    <span class="slbl" id="sessionLabel">Sessions</span>
-                </div>
-            </div>
+<div class="stats">
+  <div class="sbox"><span class="snum" id="todayCount">0</span><div class="slbl">ఈ రోజు పూర్తయినవి</div></div>
+  <div class="sbox"><span class="snum" id="todayRemain">1000</span><div class="slbl">ఈ రోజు మిగిలినవి</div></div>
+  <div class="sbox"><span class="snum" id="todayPct">0%</span><div class="slbl">నేటి శాతం</div></div>
+</div>
 
-            <div class="lifetime">
-                <div class="sbox">
-                    <span class="lnum" id="totalChants">0</span>
-                    <span class="llbl" id="allTimeLabel">All-Time Chants</span>
-                </div>
-            </div>
+<div class="lifetime">
+  <div class="sbox"><span class="lnum" id="ltTotal">0</span><div class="llbl">మొత్తం నామాలు</div></div>
+  <div class="ldiv">|</div>
+  <div class="sbox"><span class="lnum" id="ltDays">0</span><div class="llbl">పూర్తి రోజులు</div></div>
+  <div class="ldiv">|</div>
+  <div class="sbox"><span class="lnum" id="ltStreak">0</span><div class="llbl">వరుస రోజులు 🔥</div></div>
+</div>
 
-            <div class="datebar" id="dateDisplay"></div>
+<div class="datebar" id="datebar"></div>
+<div class="progwrap">
+  <div class="progbg"><div class="progfill" id="progfill"></div></div>
+  <div class="progtxt" id="progtxt">0 / 1000</div>
+</div>
 
-            <div class="progwrap">
-                <div class="progbg"><div class="progfill" id="progfill"></div></div>
-                <div class="progtxt" id="progtext">0 / 108</div>
-            </div>
+<div class="controls">
+  <button class="btn btnmic" id="micBtn" onclick="toggleMic()">🎤 <span id="micTxt">మైక్ ప్రారంభించు</span></button>
+  <button class="btn btnrama" onclick="addOne()">శ్రీరామ</button>
+  <button class="btn btnreset" onclick="resetToday()">🔄 రోజు రీసెట్</button>
+</div>
+<div class="vstatus" id="vstatus">మైక్రోఫోన్ ప్రారంభించి "శ్రీరామ" అని పలకండి</div>
 
-            <div class="controls">
-                <button class="btnmic" id="micBtn">🎤 <span id="micLabel">Listen</span></button>
-                <button class="btnman" id="manualBtn">+</button>
-            </div>
+<div class="saverow">
+  <button class="btnsave" onclick="manualSave()">💾 ఇప్పుడు సేవ్ చేయి</button>
+  <button class="btnsave" onclick="showRestore()">📥 Count పునరుద్ధరించు</button>
+</div>
+<div class="savecode" id="savecode"></div>
 
-            <div class="vstatus" id="vstatus"></div>
-        </div>
+<div class="histsec">
+  <button class="histbtn" onclick="toggleHist()">📅 రోజువారీ చరిత్ర చూడండి ▼</button>
+  <div class="histwrap" id="histwrap">
+    <table><thead><tr><th>తేదీ</th><th>నామాలు</th><th>స్థితి</th></tr></thead>
+    <tbody id="histbody"></tbody></table>
+  </div>
+</div>
 
-        <footer>
-            <p>🙏 Om Sri Ramaya Namaha 🙏</p>
-            <p>May all beings find peace and happiness</p>
-        </footer>
-    </div>
+<div class="bookcont">
+  <div class="booktitle">✦ శ్రీ రామ రామ రామ నమస్తే మారుతే — వెయ్యి నామ జప పుస్తకం ✦</div>
+  <div class="gridwrap"><div class="grid" id="grid"></div></div>
+</div>
 
-    <script>
-        const translations = {
-            en: {
-                title: 'Sri Rama Chanting',
-                subtitle: 'Om Sri Ramaya Namaha',
-                todayLabel: "Today's Count",
-                streakLabel: '🔥 Streak',
-                sessionLabel: 'Sessions',
-                allTimeLabel: 'All-Time Chants',
-                micLabel: 'Listen',
-                listening: '🎤 Listening...',
-                micDisabled: '🎤 Microphone not available',
-                ramHeard: '✓ Ram heard!',
-                working: 'Processing...'
-            },
-            te: {
-                title: 'రామ జపం',
-                subtitle: 'ఓం శ్రీ రామాయ నమః',
-                todayLabel: 'ఈ రోజు',
-                streakLabel: '🔥 స్ట్రీక్',
-                sessionLabel: 'సెషన్‌లు',
-                allTimeLabel: 'సర్వకాల జపం',
-                micLabel: 'వినండి',
-                listening: '🎤 వింటున్నాం...',
-                micDisabled: '🎤 మైక్రోఫోన్ అందుబాటులో లేదు',
-                ramHeard: '✓ రామ విని',
-                working: 'ప్రక్రియ...'
-            },
-            hi: {
-                title: 'राम जाप',
-                subtitle: 'ॐ श्री रामाय नमः',
-                todayLabel: 'आज',
-                streakLabel: '🔥 स्ट्रीक',
-                sessionLabel: 'सत्र',
-                allTimeLabel: 'सर्वकाल जाप',
-                micLabel: 'सुनो',
-                listening: '🎤 सुन रहे हैं...',
-                micDisabled: '🎤 माइक्रोफोन उपलब्ध नहीं',
-                ramHeard: '✓ राम सुना',
-                working: 'प्रक्रिया...'
-            },
-            ka: {
-                title: 'ರಾಮ ಜಾಪ',
-                subtitle: 'ಓಂ ಶ್ರೀ ರಾಮಾಯ ನಮಃ',
-                todayLabel: 'ಇಂದು',
-                streakLabel: '🔥 ಸ್ಟ್ರೀಕ್',
-                sessionLabel: 'ಸೆಷನ್‌ಗಳು',
-                allTimeLabel: 'ಸರ್ವಕಾಲ ಜಾಪ',
-                micLabel: 'ಆಲಿಸು',
-                listening: '🎤 ಆಲಿಸುತ್ತಿದೆ...',
-                micDisabled: '🎤 ಮೈಕ್ರೋಫೋನ್ ಲಭ್ಯವಿಲ್ಲ',
-                ramHeard: '✓ ರಾಮ ಕೇಳಿದೆ',
-                working: 'ಪ್ರಕ್ರಿಯೆ...'
-            }
-        };
+<div class="overlay" id="overlay">
+  <div class="compbox">
+    <span class="compom">ॐ</span>
+    <span class="fw">🪷 🎺 🪷</span>
+    <div class="jayatxt">శ్రీరామ జయరామ<br>జయ జయ రామ!</div>
+    <div class="comptotal" id="comptotal"></div>
+    <p class="compp">ఈ రోజు వెయ్యి నామాలు పూర్తయ్యాయి!<br>శ్రీరాముని కృప మీకు సదా లభించుగాక 🌸</p>
+    <button class="btn btnnew" onclick="document.getElementById('overlay').classList.remove('show')">సరే 🙏</button>
+  </div>
+</div>
 
-        let currentLang = 'en';
-        let count = 0;
-        let listening = false;
-        let mem = {};
-        let rec;
+<script>
+(function(){
+  var T=1000, cells=[], rec=null, listening=false, lastT=0, CD=1000;
+  var todayN=0, hist={}, streak={n:0,last:''};
 
-        const store = (()=>{ try { localStorage.setItem('__t','1'); localStorage.removeItem('__t'); return localStorage; } catch(e) { return { getItem: k=>mem[k]||null, setItem: (k,v)=>mem[k]=v, removeItem: k=>delete mem[k] }; }})();
+  // ── Particles ──
+  var pc=document.getElementById('ptc');
+  var ws=['రామ','శ్రీ','జయ','ॐ','రా','మ'];
+  for(var i=0;i<16;i++){
+    var p=document.createElement('div'); p.className='pt';
+    p.textContent=ws[i%ws.length];
+    p.style.left=Math.random()*100+'%';
+    p.style.animationDuration=(8+Math.random()*14)+'s';
+    p.style.animationDelay=(Math.random()*12)+'s';
+    p.style.fontSize=(0.5+Math.random()*0.9)+'rem';
+    pc.appendChild(p);
+  }
 
-        function t(key) { return translations[currentLang][key] || translations['en'][key] || key; }
+  // ── Grid ──
+  var g=document.getElementById('grid');
+  for(var i=0;i<T;i++){
+    var c=document.createElement('div'); c.className='cell';
+    c.innerHTML='<span style="opacity:.12;font-size:60%">రా</span>';
+    g.appendChild(c); cells.push(c);
+  }
 
-        function saveStatus(msg, cls) {
-            const el = document.getElementById('saveStatus');
-            el.textContent = msg;
-            el.className = 'save-status ' + (cls || '');
-            setTimeout(() => { el.textContent = ''; el.className = 'save-status'; }, 3000);
+  // ── Date helpers ──
+  function today(){
+    var d=new Date();
+    return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+  }
+  function pad(n){return n<10?'0'+n:''+n;}
+  function fmtD(s){var p=s.split('-');return p[2]+'/'+p[1]+'/'+p[0];}
+  function teDate(){
+    var d=new Date();
+    var dy=['ఆది','సోమ','మంగళ','బుధ','గురు','శుక్ర','శని'];
+    var mn=['జనవరి','ఫిబ్రవరి','మార్చి','ఏప్రిల్','మే','జూన్','జులై','ఆగస్టు','సెప్టెంబర్','అక్టోబర్','నవంబర్','డిసెంబర్'];
+    return dy[d.getDay()]+'వారం, '+d.getDate()+' '+mn[d.getMonth()]+' '+d.getFullYear();
+  }
+
+  // ── Storage: try localStorage, fallback sessionStorage, fallback memory ──
+  var store=(function(){
+    function test(s){try{s.setItem('__t','1');s.removeItem('__t');return true;}catch(e){return false;}}
+    if(test(localStorage)) return localStorage;
+    if(test(sessionStorage)) return sessionStorage;
+    var mem={};
+    return {getItem:function(k){return mem[k]||null;},setItem:function(k,v){mem[k]=v;},removeItem:function(k){delete mem[k];}};
+  })();
+
+  function setSaveStatus(cls,msg){
+    var el=document.getElementById('saveStatus');
+    el.className='save-status '+cls; el.textContent=msg;
+  }
+
+  // ── Load ──
+  function load(){
+    var ok=false;
+    try{
+      var raw=store.getItem('SR_today');
+      if(raw){var o=JSON.parse(raw);if(o.date===today()){todayN=o.count||0;}}
+      var hr=store.getItem('SR_hist');
+      if(hr){hist=JSON.parse(hr);}
+      var sr=store.getItem('SR_streak');
+      if(sr){streak=JSON.parse(sr);}
+      ok=true;
+    }catch(e){}
+
+    // restore cells
+    for(var i=0;i<todayN;i++){cells[i].innerHTML='శ్రీరామ';cells[i].className='cell f';}
+
+    document.getElementById('datebar').textContent='📅 '+teDate();
+    updateUI();
+    renderHist();
+
+    if(ok && todayN>0){
+      setSaveStatus('save-ok','✅ సేవ్ అయింది — '+todayN+' నామాలు లోడ్ అయ్యాయి');
+    } else if(ok){
+      setSaveStatus('save-ok','✅ Storage పని చేస్తోంది — నామాలు స్వయంచాలకంగా సేవ్ అవుతాయి');
+    } else {
+      setSaveStatus('save-warn','⚠️ Storage అందుబాటులో లేదు — "💾 ఇప్పుడు సేవ్ చేయి" వాడండి');
+    }
+  }
+
+  function save(){
+    try{
+      store.setItem('SR_today',JSON.stringify({date:today(),count:todayN}));
+      hist[today()]=todayN;
+      store.setItem('SR_hist',JSON.stringify(hist));
+      setSaveStatus('save-ok','✅ సేవ్ అయింది');
+      setTimeout(function(){setSaveStatus('save-info','💾 స్వయంచాలకంగా సేవ్ అవుతుంది');},2000);
+    }catch(e){
+      setSaveStatus('save-warn','⚠️ Auto-save విఫలమైంది — "💾 సేవ్ చేయి" నొక్కండి');
+    }
+  }
+
+  // ── Manual save: show backup code ──
+  window.manualSave=function(){
+    var data=JSON.stringify({d:today(),n:todayN,h:hist,s:streak});
+    var code=btoa(unescape(encodeURIComponent(data)));
+    document.getElementById('savecode').textContent='మీ code: '+code;
+    // also try copy
+    if(navigator.clipboard){navigator.clipboard.writeText(code).then(function(){
+      setSaveStatus('save-ok','✅ Code copied! ఎక్కడైనా paste చేసి పెట్టుకోండి');
+    });}
+    else { setSaveStatus('save-ok','✅ Code కనిపిస్తోంది — copy చేసి safe గా పెట్టుకోండి'); }
+  };
+
+  window.showRestore=function(){
+    var code=window.prompt('మీ save code ఇక్కడ paste చేయండి:');
+    if(!code||!code.trim()) return;
+    try{
+      var data=JSON.parse(decodeURIComponent(escape(atob(code.trim()))));
+      if(data.n!==undefined){todayN=data.n;}
+      if(data.h){hist=data.h;}
+      if(data.s){streak=data.s;}
+      for(var i=0;i<T;i++){cells[i].className='cell';cells[i].innerHTML='<span style="opacity:.12;font-size:60%">రా</span>';}
+      for(var i=0;i<todayN;i++){cells[i].innerHTML='శ్రీరామ';cells[i].className='cell f';}
+      save(); updateUI(); renderHist();
+      setSaveStatus('save-ok','✅ '+todayN+' నామాలు పునరుద్ధరించబడ్డాయి!');
+    }catch(e){
+      setSaveStatus('save-warn','⚠️ Code తప్పుగా ఉంది. మళ్ళీ ప్రయత్నించండి.');
+    }
+  };
+
+  // ── Update UI ──
+  function updateUI(){
+    document.getElementById('todayCount').textContent=todayN;
+    document.getElementById('todayRemain').textContent=T-todayN;
+    var pct=Math.round(todayN/T*100);
+    document.getElementById('todayPct').textContent=pct+'%';
+    document.getElementById('progfill').style.width=pct+'%';
+    document.getElementById('progtxt').textContent=todayN+' / '+T+' నేటి నామాలు';
+
+    var total=0,days=0;
+    var ks=Object.keys(hist);
+    for(var i=0;i<ks.length;i++){var n=hist[ks[i]]||0;total+=n;if(n>=T)days++;}
+    document.getElementById('ltTotal').textContent=total.toLocaleString('en-IN');
+    document.getElementById('ltDays').textContent=days;
+    document.getElementById('ltStreak').textContent=streak.n;
+  }
+
+  // ── Add one ──
+  window.addOne=function(){
+    if(todayN>=T) return;
+    var c=cells[todayN];
+    c.innerHTML='శ్రీరామ'; c.className='cell f pop';
+    setTimeout(function(){c.classList.remove('pop');},600);
+    todayN++; save(); updateUI(); renderHist();
+    if(todayN>=T){
+      // update streak
+      var yest=new Date(); yest.setDate(yest.getDate()-1);
+      var ys=yest.getFullYear()+'-'+pad(yest.getMonth()+1)+'-'+pad(yest.getDate());
+      if(streak.last===ys||streak.last===today()) { if(streak.last!==today()) streak.n++; }
+      else streak.n=1;
+      streak.last=today();
+      try{store.setItem('SR_streak',JSON.stringify(streak));}catch(e){}
+      updateUI();
+      var t=document.getElementById('ltTotal').textContent;
+      document.getElementById('comptotal').textContent='🙏 మొత్తం: '+t+' నామాలు | '+streak.n+' రోజుల వరుస';
+      setTimeout(function(){document.getElementById('overlay').classList.add('show');},700);
+    }
+  };
+
+  // ── History ──
+  function renderHist(){
+    var tb=document.getElementById('histbody');
+    tb.innerHTML='';
+    var ks=Object.keys(hist).sort().reverse();
+    if(!ks.length){tb.innerHTML='<tr><td colspan="3" style="color:rgba(255,215,0,.35);padding:10px">ఇంకా చరిత్ర లేదు</td></tr>';return;}
+    for(var i=0;i<ks.length;i++){
+      var d=ks[i],n=hist[d]||0,done=n>=T;
+      var tr=document.createElement('tr');
+      tr.innerHTML='<td>'+fmtD(d)+'</td><td class="'+(done?'done':'')+'">'+n+'</td><td>'+(done?'✅ పూర్తి':'⏳ '+Math.round(n/T*100)+'%')+'</td>';
+      tb.appendChild(tr);
+    }
+  }
+
+  window.toggleHist=function(){
+    var w=document.getElementById('histwrap'); w.classList.toggle('open');
+    document.querySelector('.histbtn').textContent=w.classList.contains('open')?'📅 చరిత్ర మూయు ▲':'📅 రోజువారీ చరిత్ర చూడండి ▼';
+  };
+
+  // ── Mic ──
+  window.toggleMic=function(){
+    if(!('webkitSpeechRecognition' in window)&&!('SpeechRecognition' in window)){
+      setV('','⚠️ Voice కోసం Chrome వాడండి.');return;
+    }
+    listening?stopMic():startMic();
+  };
+  function startMic(){
+    var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+    rec=new SR(); rec.lang='te-IN'; rec.continuous=true; rec.interimResults=true; rec.maxAlternatives=5;
+    rec.onstart=function(){listening=true;document.getElementById('micBtn').classList.add('on');document.getElementById('micTxt').textContent='వింటున్నాను... (ఆపు)';setV('act','🔴 వింటున్నాను — "శ్రీరామ" అని పలకండి');};
+    rec.onresult=function(e){
+      var now=Date.now(); if(now-lastT<CD) return;
+      for(var i=e.resultIndex;i<e.results.length;i++)
+        for(var j=0;j<e.results[i].length;j++){
+          var t=e.results[i][j].transcript.toLowerCase().trim();
+          if(matchR(t)){lastT=now;addOne();setV('ok','✅ విన్నాను! నామం పడింది 🙏');setTimeout(function(){if(listening)setV('act','🔴 వింటున్నాను — "శ్రీరామ" అని పలకండి');},1500);return;}
         }
+    };
+    rec.onerror=function(e){if(e.error==='no-speech'||e.error==='aborted')return;if(e.error==='not-allowed'){setV('','⚠️ Microphone Allow చేయండి.');stopMic();return;}setV('','⚠️ '+e.error);};
+    rec.onend=function(){if(listening)setTimeout(function(){if(listening)try{rec.start();}catch(e){}},500);};
+    try{rec.start();}catch(e){setV('','⚠️ '+e.message);}
+  }
+  function stopMic(){
+    listening=false;
+    if(rec){try{rec.abort();}catch(e){}rec=null;}
+    document.getElementById('micBtn').classList.remove('on');
+    document.getElementById('micTxt').textContent='మైక్ ప్రారంభించు';
+    setV('','మైక్రోఫోన్ ఆపబడింది.');
+  }
+  function setV(c,m){var el=document.getElementById('vstatus');el.className='vstatus'+(c?' '+c:'');el.textContent=m;}
+  function matchR(t){var p=['రామ','రాం','राम','ram','rama','shriram','sriram','శ్రీరామ'];for(var i=0;i<p.length;i++)if(t.indexOf(p[i].toLowerCase())!==-1)return true;return false;}
 
-        function updateUI() {
-            document.getElementById('countDisplay').textContent = count;
-            const prog = (count / 108) * 100;
-            document.getElementById('progfill').style.width = prog + '%';
-            document.getElementById('progtext').textContent = count + ' / 108';
-            
-            const today = new Date().toLocaleDateString();
-            document.getElementById('dateDisplay').textContent = today;
-            
-            store.setItem('count_' + today, count);
-            saveStatus('✓ Saved', 'save-ok');
-        }
+  // ── Reset ──
+  window.resetToday=function(){
+    if(!todayN) return;
+    if(!confirm('ఈ రోజు '+todayN+' నామాలు రీసెట్ చేయాలా?\n(చరిత్ర భద్రంగా ఉంటుంది)')) return;
+    todayN=0; stopMic();
+    for(var i=0;i<T;i++){cells[i].className='cell';cells[i].innerHTML='<span style="opacity:.12;font-size:60%">రా</span>';}
+    save(); updateUI(); renderHist();
+    setV('','మైక్రోఫోన్ ప్రారంభించి "శ్రీరామ" అని పలకండి');
+  };
 
-        function increment() {
-            count++;
-            updateUI();
-            if (count % 108 === 0) saveStatus('🎉 108 Reached!', 'save-warn');
-        }
-
-        function resetCount() {
-            if (confirm('Reset counter?')) {
-                count = 0;
-                updateUI();
-                saveStatus('Counter reset', 'save-info');
-            }
-        }
-
-        function setStatus(msg, cls) {
-            const el = document.getElementById('vstatus');
-            el.textContent = msg;
-            el.className = 'vstatus' + (cls ? ' ' + cls : '');
-        }
-
-        function initSpeechRec() {
-            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            if (!SpeechRecognition) {
-                setStatus('❌ Speech Recognition not supported', 'err');
-                return;
-            }
-
-            rec = new SpeechRecognition();
-            rec.continuous = true;
-            rec.interimResults = false;
-            rec.lang = currentLang === 'te' ? 'te-IN' : currentLang === 'hi' ? 'hi-IN' : currentLang === 'ka' ? 'kn-IN' : 'en-IN';
-
-            rec.onstart = () => {
-                listening = true;
-                document.getElementById('micBtn').classList.add('on');
-                setStatus(t('listening'), 'on');
-            };
-
-            rec.onresult = (e) => {
-                for (let i = e.resultIndex; i < e.results.length; i++) {
-                    const txt = e.results[i][0].transcript.toLowerCase();
-                    if (txt.includes('ram') || txt.includes('राम') || txt.includes('రామ') || txt.includes('ರಾಮ')) {
-                        increment();
-                        setStatus(t('ramHeard'), 'on');
-                    }
-                }
-            };
-
-            rec.onerror = (e) => {
-                if (e.error !== 'no-speech' && e.error !== 'aborted') {
-                    if (e.error === 'not-allowed') {
-                        setStatus(t('micDisabled'), 'err');
-                        stopMic();
-                    } else {
-                        setStatus('Error: ' + e.error, 'err');
-                    }
-                }
-            };
-
-            rec.onend = () => {
-                if (listening) setTimeout(() => { if (listening) try { rec.start(); } catch(e) {} }, 500);
-            };
-        }
-
-        function toggleMic() {
-            if (!rec) initSpeechRec();
-            if (!rec) return;
-            
-            if (listening) {
-                stopMic();
-            } else {
-                try {
-                    rec.start();
-                } catch(e) {
-                    setStatus('Error starting mic', 'err');
-                }
-            }
-        }
-
-        function stopMic() {
-            if (rec) {
-                listening = false;
-                rec.stop();
-                document.getElementById('micBtn').classList.remove('on');
-                setStatus('', '');
-            }
-        }
-
-        function updateLanguage() {
-            document.getElementById('title').textContent = t('title');
-            document.getElementById('subtitle').textContent = t('subtitle');
-            document.getElementById('todayLabel').textContent = t('todayLabel');
-            document.getElementById('streakLabel').textContent = t('streakLabel');
-            document.getElementById('sessionLabel').textContent = t('sessionLabel');
-            document.getElementById('allTimeLabel').textContent = t('allTimeLabel');
-            document.getElementById('micLabel').textContent = t('micLabel');
-            
-            if (rec) {
-                rec.lang = currentLang === 'te' ? 'te-IN' : currentLang === 'hi' ? 'hi-IN' : currentLang === 'ka' ? 'kn-IN' : 'en-IN';
-            }
-        }
-
-        // Event listeners
-        document.getElementById('micBtn').addEventListener('click', toggleMic);
-        document.getElementById('manualBtn').addEventListener('click', increment);
-
-        document.querySelectorAll('.lang-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                currentLang = btn.dataset.lang;
-                updateLanguage();
-            });
-        });
-
-        // Initialize
-        updateUI();
-        initSpeechRec();
-    </script>
+  load();
+})();
+</script>
 </body>
 </html>
