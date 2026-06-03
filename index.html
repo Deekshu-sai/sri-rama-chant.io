@@ -3,412 +3,997 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#1a0500">
 <title>శ్రీరామ నామ పుస్తకం</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Telugu:wght@400;700&display=swap');
-  :root { 
-    --saffron:#FF6B00; 
-    --deep:#E85500; 
-    --gold:#FFD700; 
-    --cream:#FFF8F0; 
-    --dark:#3D1A00;
-    --bg-primary: #1a0500;
-    --bg-secondary: #2d0d00;
+  
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  :root {
+    --saffron: #FF6B00;
+    --deep: #E85500;
+    --gold: #FFD700;
+    --cream: #FFF8F0;
+    --dark: #3D1A00;
+    --bg-primary: #0d0200;
+    --bg-secondary: #1a0500;
+    --bg-tertiary: #2d0d00;
     --text-primary: #FFD98A;
     --text-secondary: #FFD700;
+    --border-color: rgba(255, 215, 0, 0.2);
+    --accent: #FF6B00;
   }
   
-  *{box-sizing:border-box;margin:0;padding:0;}
-  body{font-family:'Noto Serif Telugu',serif;background:radial-gradient(ellipse at top,#4a1000,#1a0500 60%,#0d0200);min-height:100vh;overflow-x:hidden;transition:background 0.3s;}
+  html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Serif Telugu', serif;
+    background: radial-gradient(ellipse at top, #4a1000, #1a0500 60%, #0d0200);
+    color: var(--text-primary);
+    overflow: hidden;
+  }
+  
+  body {
+    display: flex;
+    flex-direction: column;
+    transition: background 0.3s;
+  }
   
   body.light-theme {
     background: linear-gradient(135deg, #f5f5f5, #e8e8e8);
-    --bg-primary: #ffffff;
-    --bg-secondary: #f9f9f9;
     --text-primary: #333333;
     --text-secondary: #555555;
+    --border-color: rgba(0, 0, 0, 0.15);
   }
-  
-  .topbar{height:7px;background:linear-gradient(90deg,var(--deep),var(--gold),var(--saffron),var(--gold),var(--deep));box-shadow:0 0 18px var(--gold);}
-  
-  .theme-toggle {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    z-index: 500;
-    background: rgba(255,215,0,.15);
-    border: 1px solid rgba(255,215,0,.3);
+
+  /* ═══ HEADER ═══ */
+  .header {
+    background: linear-gradient(180deg, rgba(61, 26, 0, 0.9), rgba(26, 5, 0, 0.8));
+    border-bottom: 2px solid var(--accent);
+    padding: 16px 12px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(255, 107, 0, 0.3);
+    flex-shrink: 0;
+  }
+
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .om-icon {
+    font-size: 2.2rem;
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes glow {
+    from { text-shadow: 0 0 20px var(--gold); }
+    to { text-shadow: 0 0 50px var(--gold), 0 0 80px rgba(255, 215, 0, 0.6); }
+  }
+
+  .header h1 {
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
     color: var(--gold);
-    padding: 8px 12px;
+    text-shadow: 2px 2px 8px #000;
+    letter-spacing: 1px;
+    margin: 5px 0;
+  }
+
+  .header-subtitle {
+    font-size: clamp(0.6rem, 2vw, 0.8rem);
+    color: #FFD98A;
+    opacity: 0.9;
+  }
+
+  .theme-toggle {
+    background: rgba(255, 215, 0, 0.15);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    color: var(--gold);
+    padding: 7px 12px;
     border-radius: 20px;
     cursor: pointer;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     transition: all 0.3s;
+    min-width: 60px;
   }
-  
+
   .theme-toggle:hover {
-    background: rgba(255,215,0,.25);
+    background: rgba(255, 215, 0, 0.25);
     transform: scale(1.05);
   }
-  
-  header{text-align:center;padding:14px 10px 6px;}
-  .om{font-size:2.6rem;color:var(--gold);display:block;animation:glow 2s ease-in-out infinite alternate;}
-  @keyframes glow{from{text-shadow:0 0 20px var(--gold)}to{text-shadow:0 0 50px var(--gold),0 0 80px rgba(255,215,0,.6)}}
-  h1{font-size:clamp(1.3rem,5vw,2.3rem);color:var(--gold);text-shadow:2px 2px 8px #000;letter-spacing:2px;margin:4px 0 2px;}
-  h2{font-size:clamp(.65rem,2vw,.9rem);color:#FFD98A;font-weight:400;}
 
-  /* save status */
-  .save-status{text-align:center;font-size:.65rem;padding:3px 10px;min-height:18px;}
-  .save-ok{color:#4CAF50;} .save-warn{color:#FF6B6B;} .save-info{color:rgba(255,215,0,.5);}
+  /* ═══ MAIN CONTENT ═══ */
+  .container {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px;
+    padding-bottom: 80px;
+    scroll-behavior: smooth;
+  }
 
-  /* motivation quote */
-  .quote-box {
+  .container::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .container::-webkit-scrollbar-track {
+    background: rgba(255, 215, 0, 0.05);
+  }
+
+  .container::-webkit-scrollbar-thumb {
+    background: rgba(255, 215, 0, 0.3);
+    border-radius: 3px;
+  }
+
+  /* ═══ CARD LAYOUT ═══ */
+  .card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 14px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  }
+
+  /* ═══ QUOTE SECTION ═══ */
+  .quote-card {
+    background: linear-gradient(135deg, rgba(255, 107, 0, 0.15), rgba(232, 85, 0, 0.1));
+    border-left: 4px solid var(--saffron);
+    padding: 12px 14px;
     text-align: center;
-    padding: 10px 12px;
-    background: rgba(255,215,0,.06);
-    border-left: 3px solid var(--saffron);
-    font-size: 0.75rem;
-    color: var(--text-primary);
     font-style: italic;
-    margin: 0 12px 8px;
-    border-radius: 4px;
-    min-height: 30px;
+    font-size: 0.85rem;
+    color: var(--text-primary);
+    border-radius: 8px;
+    min-height: 45px;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
-  /* custom goal */
-  .goal-section {
+  /* ═══ PROGRESS RING ═══ */
+  .progress-ring-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    background: linear-gradient(135deg, rgba(61, 26, 0, 0.4), rgba(26, 5, 0, 0.3));
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+  }
+
+  .progress-ring-container {
+    position: relative;
+    width: 180px;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .progress-ring {
+    transform: rotate(-90deg);
+    width: 100%;
+    height: 100%;
+  }
+
+  .progress-ring-circle {
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: stroke-dashoffset 0.5s ease;
+  }
+
+  .progress-ring-bg {
+    stroke: rgba(255, 215, 0, 0.2);
+    stroke-width: 8;
+  }
+
+  .progress-ring-fill {
+    stroke: url(#progressGradient);
+    stroke-width: 8;
+    stroke-dasharray: 565.48;
+    stroke-dashoffset: 565.48;
+  }
+
+  .progress-ring-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     text-align: center;
-    padding: 8px 12px;
-    background: rgba(255,215,0,.04);
-    border-bottom: 1px solid rgba(255,215,0,.12);
+  }
+
+  .progress-count {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--gold);
+    text-shadow: 0 0 12px rgba(255, 215, 0, 0.5);
+    line-height: 1;
+  }
+
+  .progress-label {
     font-size: 0.7rem;
-    color: var(--text-primary);
+    color: #FFD98A;
+    opacity: 0.85;
+  }
+
+  .progress-info {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .progress-stat {
+    text-align: center;
+    flex: 1;
+  }
+
+  .progress-stat-value {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--gold);
+    display: block;
+  }
+
+  .progress-stat-label {
+    font-size: 0.65rem;
+    color: #FFD98A;
+    opacity: 0.8;
+  }
+
+  /* ═══ GOAL & CATEGORY ═══ */
+  .settings-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .goal-card {
+    background: rgba(255, 215, 0, 0.08);
+    border: 1px solid rgba(255, 215, 0, 0.25);
+    padding: 12px;
+    border-radius: 10px;
+    text-align: center;
+  }
+
+  .goal-card label {
+    display: block;
+    font-size: 0.7rem;
+    color: rgba(255, 215, 0, 0.7);
+    margin-bottom: 8px;
+    font-weight: 600;
   }
 
   .goal-input {
-    width: 60px;
-    padding: 4px 6px;
-    background: rgba(255,255,255,.1);
-    border: 1px solid rgba(255,215,0,.3);
+    width: 100%;
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 215, 0, 0.4);
     color: var(--gold);
-    border-radius: 4px;
-    font-family: 'Noto Serif Telugu',serif;
-    margin: 0 5px;
+    border-radius: 6px;
+    font-family: 'Noto Serif Telugu', serif;
+    font-size: 1rem;
+    text-align: center;
+    font-weight: 600;
   }
 
   .goal-input:focus {
     outline: none;
     border-color: var(--gold);
-    background: rgba(255,255,255,.15);
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
   }
 
-  /* today stats */
-  .stats{display:flex;justify-content:center;gap:12px;padding:8px 12px;flex-wrap:wrap;background:rgba(255,255,255,.05);border-top:1px solid rgba(255,215,0,.2);border-bottom:1px solid rgba(255,215,0,.2);}
-  .sbox{text-align:center;min-width:60px;}
-  .snum{font-size:clamp(1.2rem,4vw,1.8rem);font-weight:700;color:var(--gold);text-shadow:0 0 12px rgba(255,215,0,.5);display:block;line-height:1;}
-  .slbl{font-size:.58rem;color:#FFD98A;opacity:.85;margin-top:2px;}
-
-  /* lifetime */
-  .lifetime{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;padding:7px 12px;background:rgba(255,215,0,.06);border-bottom:1px solid rgba(255,215,0,.12);}
-  .lnum{font-size:clamp(1rem,3.5vw,1.5rem);font-weight:700;color:#FFB347;text-shadow:0 0 10px rgba(255,180,70,.4);display:block;line-height:1;}
-  .llbl{font-size:.56rem;color:#FFD98A;opacity:.8;margin-top:2px;text-align:center;}
-  .ldiv{color:rgba(255,215,0,.25);font-size:1.3rem;align-self:center;}
-
-  .datebar{text-align:center;font-size:.68rem;color:rgba(255,215,0,.5);padding:3px 0;}
-
-  /* progress */
-  .progwrap{padding:7px 14px 3px;}
-  .progbg{height:9px;background:rgba(255,255,255,.1);border-radius:5px;overflow:hidden;border:1px solid rgba(255,215,0,.25);}
-  .progfill{height:100%;width:0%;background:linear-gradient(90deg,var(--deep),var(--gold));border-radius:5px;transition:width .4s;box-shadow:0 0 7px var(--saffron);}
-  .progtxt{font-size:.67rem;color:#FFD98A;text-align:center;margin-top:3px;}
-
-  /* controls */
-  .controls{display:flex;justify-content:center;gap:10px;padding:9px 14px 5px;flex-wrap:wrap;}
-  .btn{padding:9px 18px;border:none;border-radius:50px;font-family:'Noto Serif Telugu',serif;cursor:pointer;transition:all .2s;font-weight:600;}
-  .btnmic{background:linear-gradient(135deg,var(--saffron),var(--deep));color:#fff;box-shadow:0 4px 16px rgba(255,107,0,.45);display:flex;align-items:center;gap:7px;font-size:.87rem;}
-  .btnmic:hover{transform:translateY(-2px);}
-  .btnmic.on{background:linear-gradient(135deg,#C0392B,#922B21);animation:pbtn 1s ease-in-out infinite;}
-  @keyframes pbtn{0%,100%{box-shadow:0 4px 18px rgba(192,57,43,.5)}50%{box-shadow:0 4px 36px rgba(192,57,43,.9)}}
-  .btnrama{background:linear-gradient(135deg,#FF6B00,#E85500);color:#fff;box-shadow:0 4px 16px rgba(255,107,0,.45);font-size:1rem;padding:11px 26px;letter-spacing:1px;}
-  .btnrama:hover{transform:translateY(-2px);} .btnrama:active{transform:scale(.95);}
-  .btnreset{background:rgba(255,255,255,.08);color:#FFD98A;border:1px solid rgba(255,215,0,.22);font-size:.8rem;}
-  .btnreset:hover{background:rgba(255,255,255,.14);}
-
-  .vstatus{text-align:center;font-size:.7rem;color:#FFD98A;min-height:20px;padding:2px 14px;}
-  .vstatus.act{color:#FF6B6B;} .vstatus.ok{color:#4CAF50;font-weight:700;}
-
-  /* manual save row */
-  .saverow{display:flex;justify-content:center;align-items:center;gap:8px;padding:4px 14px 6px;flex-wrap:wrap;}
-  .btnsave{background:rgba(255,215,0,.12);color:var(--gold);border:1px solid rgba(255,215,0,.3);font-size:.72rem;padding:5px 14px;border-radius:20px;font-family:'Noto Serif Telugu',serif;cursor:pointer;transition:all .2s;}
-  .btnsave:hover{background:rgba(255,215,0,.2);}
-  .savecode{font-size:.6rem;color:rgba(255,215,0,.45);word-break:break-all;max-width:300px;text-align:center;}
-
-  /* category tags */
-  .category-section {
-    padding: 8px 14px;
-    text-align: center;
-    background: rgba(255,215,0,.04);
-    border-bottom: 1px solid rgba(255,215,0,.12);
+  /* ═══ CATEGORIES ═══ */
+  .category-card {
+    background: rgba(255, 215, 0, 0.08);
+    border: 1px solid rgba(255, 215, 0, 0.25);
+    padding: 12px;
+    border-radius: 10px;
   }
 
-  .cat-label {
-    font-size: 0.65rem;
-    color: rgba(255,215,0,.6);
-    margin-bottom: 5px;
+  .category-label {
+    display: block;
+    font-size: 0.7rem;
+    color: rgba(255, 215, 0, 0.7);
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+
+  .category-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
   }
 
   .cat-btn {
-    display: inline-block;
-    padding: 5px 10px;
-    margin: 3px;
-    background: rgba(255,215,0,.1);
-    border: 1px solid rgba(255,215,0,.3);
+    padding: 8px 6px;
+    background: rgba(255, 215, 0, 0.1);
+    border: 1px solid rgba(255, 215, 0, 0.3);
     color: var(--text-primary);
-    border-radius: 15px;
+    border-radius: 8px;
     font-size: 0.65rem;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.3s;
+    font-weight: 500;
+  }
+
+  .cat-btn:active {
+    transform: scale(0.95);
   }
 
   .cat-btn.active {
     background: var(--saffron);
     color: #fff;
     border-color: var(--saffron);
+    box-shadow: 0 0 12px rgba(255, 107, 0, 0.4);
   }
 
-  /* timer */
-  .timer-section {
-    text-align: center;
-    padding: 8px 14px;
-    background: rgba(255,215,0,.04);
-    border-bottom: 1px solid rgba(255,215,0,.12);
-  }
-
-  .timer-display {
-    font-size: 1.2rem;
-    color: var(--gold);
-    font-weight: 700;
-    margin: 5px 0;
-  }
-
-  /* history */
-  .histsec{max-width:700px;margin:0 auto 5px;padding:0 12px;}
-  .histbtn{width:100%;background:rgba(255,215,0,.06);border:1px solid rgba(255,215,0,.18);color:#FFD98A;font-family:'Noto Serif Telugu',serif;font-size:.72rem;padding:6px;border-radius:7px;cursor:pointer;transition:all .2s;}
-  .histbtn:hover{background:rgba(255,215,0,.12);}
-  .histwrap{display:none;overflow:auto;background:rgba(0,0,0,.3);border:1px solid rgba(255,215,0,.13);border-top:none;border-radius:0 0 7px 7px;max-height:190px;}
-  .histwrap.open{display:block;}
-  table{width:100%;border-collapse:collapse;font-size:.68rem;}
-  th{background:rgba(255,215,0,.09);color:var(--gold);padding:5px 7px;text-align:center;position:sticky;top:0;}
-  td{color:#FFD98A;padding:4px 7px;text-align:center;border-bottom:1px solid rgba(255,215,0,.07);}
-  tr:last-child td{border-bottom:none;}
-  .done{color:#4CAF50;font-weight:700;}
-
-  /* grid */
-  .bookcont{padding:5px 12px 16px;max-width:700px;margin:0 auto;}
-  .booktitle{text-align:center;font-size:clamp(.72rem,2vw,.98rem);color:var(--gold);padding:6px;border:1px solid rgba(255,215,0,.28);border-bottom:none;background:rgba(255,215,0,.04);border-radius:7px 7px 0 0;}
-  .gridwrap{background:var(--cream);border:2px solid var(--saffron);border-radius:0 0 7px 7px;padding:5px;box-shadow:0 0 25px rgba(255,107,0,.28);}
-  .grid{display:grid;grid-template-columns:repeat(25,1fr);gap:2px;}
-  @media(max-width:500px){.grid{grid-template-columns:repeat(20,1fr);gap:1.5px;}}
-  @media(max-width:380px){.grid{grid-template-columns:repeat(10,1fr);}}
-  .cell{aspect-ratio:1;border:1px solid #DEB887;border-radius:2px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:clamp(3px,1.2vw,7px);font-family:'Noto Serif Telugu',serif;position:relative;color:#8B6914;}
-  .cell.f{background:linear-gradient(135deg,#FFF3CC,#FFE082);border-color:var(--saffron);color:var(--deep);font-weight:700;font-size:clamp(3px,1vw,6px);}
-  .cell.f::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.7),transparent 60%);pointer-events:none;}
-  .cell.pop{animation:pop .5s cubic-bezier(.175,.885,.32,1.275);background:linear-gradient(135deg,#FFD700,#FFA500)!important;border-color:var(--deep)!important;}
-  @keyframes pop{0%{transform:scale(.5);opacity:.3}60%{transform:scale(1.3)}100%{transform:scale(1);opacity:1}}
-
-  /* completion */
-  .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:1000;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:20px;}
-  .overlay.show{display:flex;}
-  .compbox{background:linear-gradient(135deg,#3D1A00,#1a0500);border:3px solid var(--gold);border-radius:18px;padding:26px 30px;box-shadow:0 0 70px rgba(255,215,0,.45);max-width:360px;width:100%;animation:zin .5s cubic-bezier(.34,1.56,.64,1);}
-  @keyframes zin{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
-  .compom{font-size:3.2rem;color:var(--gold);animation:glow 1.5s ease-in-out infinite alternate;display:block;}
-  .jayatxt{font-size:clamp(1.1rem,5vw,1.55rem);color:var(--gold);margin:7px 0 5px;line-height:1.4;}
-  .comptotal{color:#FFD700;font-size:.92rem;font-weight:700;margin-bottom:5px;}
-  .compp{color:#FFD98A;margin-bottom:16px;font-size:.85rem;line-height:1.5;}
-  .fw{font-size:1.7rem;display:block;animation:sp .8s ease-in-out infinite alternate;letter-spacing:5px;}
-  @keyframes sp{from{transform:scale(.95)}to{transform:scale(1.05)}}
-  .btnnew{background:linear-gradient(135deg,var(--saffron),var(--deep));color:#fff;padding:10px 26px;font-size:.92rem;}
-
-  .particles{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0;}
-  .pt{position:absolute;color:rgba(255,215,0,.14);animation:fl linear infinite;pointer-events:none;font-family:'Noto Serif Telugu',serif;}
-  @keyframes fl{0%{transform:translateY(100vh) rotate(0);opacity:0}10%{opacity:1}90%{opacity:.8}100%{transform:translateY(-100px) rotate(360deg);opacity:0}}
-
-  /* stats modal */
-  .stats-modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,.88);
-    z-index: 900;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-  }
-
-  .stats-modal.show {
-    display: flex;
-  }
-
-  .stats-content {
-    background: linear-gradient(135deg,#3D1A00,#1a0500);
-    border: 3px solid var(--gold);
-    border-radius: 18px;
-    padding: 26px 30px;
-    max-width: 500px;
-    width: 100%;
-    max-height: 80vh;
-    overflow-y: auto;
-    animation: zin .5s cubic-bezier(.34,1.56,.64,1);
-  }
-
-  .stats-content h3 {
-    color: var(--gold);
-    font-size: 1.3rem;
-    margin-bottom: 15px;
+  /* ═══ TIMER ═══ */
+  .timer-card {
+    background: linear-gradient(135deg, rgba(232, 85, 0, 0.15), rgba(255, 107, 0, 0.1));
+    border: 1px solid rgba(255, 107, 0, 0.3);
+    padding: 14px;
+    border-radius: 10px;
     text-align: center;
   }
 
-  .stat-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 0;
-    border-bottom: 1px solid rgba(255,215,0,.2);
-    color: var(--text-primary);
-    font-size: 0.9rem;
-  }
-
-  .stat-label {
+  .timer-label {
+    font-size: 0.7rem;
+    color: rgba(255, 215, 0, 0.7);
+    margin-bottom: 8px;
+    display: block;
     font-weight: 600;
   }
 
-  .stat-value {
+  .timer-display {
+    font-size: 2rem;
     color: var(--gold);
+    font-weight: 700;
+    margin: 8px 0;
+    font-family: 'Courier New', monospace;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+  }
+
+  .timer-btn {
+    width: 100%;
+    padding: 8px;
+    background: linear-gradient(135deg, var(--saffron), var(--deep));
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 600;
+    transition: all 0.3s;
+  }
+
+  .timer-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 107, 0, 0.4);
+  }
+
+  /* ═══ STATS ═══ */
+  .stats-section {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .stat-box {
+    background: rgba(255, 215, 0, 0.08);
+    border: 1px solid rgba(255, 215, 0, 0.25);
+    padding: 12px 8px;
+    border-radius: 10px;
+    text-align: center;
+  }
+
+  .stat-number {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--gold);
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .stat-label {
+    font-size: 0.65rem;
+    color: #FFD98A;
+    opacity: 0.8;
+    line-height: 1.2;
+  }
+
+  /* ═══ BUTTONS ═══ */
+  .button-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .btn {
+    padding: 12px 16px;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Noto Serif Telugu', serif;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 600;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--saffron), var(--deep));
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(255, 107, 0, 0.35);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(255, 107, 0, 0.45);
+  }
+
+  .btn-primary:active {
+    transform: scale(0.95);
+  }
+
+  .btn-secondary {
+    background: rgba(255, 215, 0, 0.12);
+    color: var(--gold);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+  }
+
+  .btn-secondary:hover {
+    background: rgba(255, 215, 0, 0.2);
+    transform: translateY(-1px);
+  }
+
+  .btn-mic {
+    grid-column: 1 / -1;
+    background: linear-gradient(135deg, #C0392B, #922B21);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(192, 57, 43, 0.4);
+  }
+
+  .btn-mic.off {
+    background: linear-gradient(135deg, var(--saffron), var(--deep));
+    box-shadow: 0 4px 12px rgba(255, 107, 0, 0.35);
+  }
+
+  .btn-mic:hover {
+    transform: translateY(-2px);
+  }
+
+  .btn-mic.on {
+    animation: pulse 1s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 4px 12px rgba(192, 57, 43, 0.4); }
+    50% { box-shadow: 0 4px 20px rgba(192, 57, 43, 0.7); }
+  }
+
+  /* ═══ STATUS & HISTORY ═══ */
+  .status-bar {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    text-align: center;
+    color: #FFD98A;
+    min-height: 18px;
+  }
+
+  .status-ok { color: #4CAF50; }
+  .status-warn { color: #FF6B6B; }
+  .status-info { color: rgba(255, 215, 0, 0.7); }
+
+  .history-btn {
+    width: 100%;
+    background: rgba(255, 215, 0, 0.06);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    color: #FFD98A;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: all 0.3s;
+    font-weight: 600;
+  }
+
+  .history-btn:hover {
+    background: rgba(255, 215, 0, 0.12);
+  }
+
+  .history-content {
+    display: none;
+    max-height: 250px;
+    overflow-y: auto;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 215, 0, 0.15);
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+  }
+
+  .history-content.open {
+    display: block;
+  }
+
+  .history-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.75rem;
+  }
+
+  .history-table th {
+    background: rgba(255, 215, 0, 0.1);
+    color: var(--gold);
+    padding: 8px 6px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    font-weight: 600;
+  }
+
+  .history-table td {
+    color: #FFD98A;
+    padding: 6px 6px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 215, 0, 0.08);
+  }
+
+  .history-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .history-done {
+    color: #4CAF50;
     font-weight: 700;
   }
 
-  .close-btn {
-    margin-top: 20px;
-    padding: 10px 20px;
+  /* ═══ GRID VISUALIZATION ═══ */
+  .grid-section {
+    margin-top: 5px;
+  }
+
+  .grid-title {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--gold);
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+
+  .grid-container {
+    background: var(--cream);
+    border: 2px solid var(--saffron);
+    border-radius: 10px;
+    padding: 6px;
+    box-shadow: 0 0 25px rgba(255, 107, 0, 0.25);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(20, 1fr);
+    gap: 2px;
+  }
+
+  @media (max-width: 500px) {
+    .grid { grid-template-columns: repeat(15, 1fr); gap: 1.5px; }
+  }
+
+  @media (max-width: 380px) {
+    .grid { grid-template-columns: repeat(10, 1fr); gap: 1.5px; }
+  }
+
+  .cell {
+    aspect-ratio: 1;
+    border: 1px solid #DEB887;
+    border-radius: 3px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(2px, 1vw, 6px);
+    font-family: 'Noto Serif Telugu', serif;
+    position: relative;
+    color: #8B6914;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .cell:hover {
+    transform: scale(1.05);
+  }
+
+  .cell.f {
+    background: linear-gradient(135deg, #FFF3CC, #FFE082);
+    border-color: var(--saffron);
+    color: var(--deep);
+    font-weight: 700;
+  }
+
+  .cell.f::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.7), transparent 60%);
+    pointer-events: none;
+    border-radius: 3px;
+  }
+
+  .cell.pop {
+    animation: pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    background: linear-gradient(135deg, #FFD700, #FFA500) !important;
+    border-color: var(--deep) !important;
+  }
+
+  @keyframes pop {
+    0% { transform: scale(0.5); opacity: 0.3; }
+    60% { transform: scale(1.3); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  /* ═══ COMPLETION MODAL ═══ */
+  .modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    animation: fadeIn 0.3s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .modal.show {
+    display: flex;
+  }
+
+  .modal-box {
+    background: linear-gradient(135deg, #3D1A00, #1a0500);
+    border: 3px solid var(--gold);
+    border-radius: 20px;
+    padding: 28px;
+    box-shadow: 0 0 70px rgba(255, 215, 0, 0.45);
+    max-width: 380px;
+    width: 100%;
+    text-align: center;
+    animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  @keyframes slideUp {
+    from {
+      transform: translateY(100px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .modal-icon {
+    font-size: 3.5rem;
+    margin-bottom: 12px;
+    animation: glow 1.5s ease-in-out infinite alternate;
+  }
+
+  .modal-title {
+    font-size: clamp(1rem, 5vw, 1.6rem);
+    color: var(--gold);
+    margin: 8px 0 12px;
+    line-height: 1.4;
+  }
+
+  .modal-text {
+    color: #FFD98A;
+    margin-bottom: 12px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .modal-btn {
+    background: linear-gradient(135deg, var(--saffron), var(--deep));
+    color: #fff;
+    padding: 12px 28px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s;
+  }
+
+  .modal-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 107, 0, 0.4);
+  }
+
+  /* ═══ PARTICLES ═══ */
+  .particles {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: -1;
+  }
+
+  .particle {
+    position: absolute;
+    color: rgba(255, 215, 0, 0.1);
+    animation: float linear infinite;
+    pointer-events: none;
+    font-family: 'Noto Serif Telugu', serif;
+  }
+
+  @keyframes float {
+    0% { transform: translateY(100vh) rotate(0); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 0.8; }
+    100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+  }
+
+  /* ═══ RESPONSIVE ═══ */
+  @media (max-width: 600px) {
+    .header h1 { font-size: 1.3rem; }
+    .progress-ring-container { width: 140px; height: 140px; }
+    .progress-count { font-size: 1.8rem; }
+    .settings-grid { grid-template-columns: 1fr; }
+    .stats-section { grid-template-columns: repeat(2, 1fr); }
+    .button-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ═══ BOTTOM NAVIGATION ═══ */
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(180deg, rgba(61, 26, 0, 0.95), rgba(26, 5, 0, 0.98));
+    border-top: 2px solid var(--accent);
+    padding: 8px 12px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.4);
+    z-index: 100;
+  }
+
+  .nav-btn {
+    background: rgba(255, 215, 0, 0.1);
+    border: 1px solid rgba(255, 215, 0, 0.25);
+    color: var(--text-primary);
+    border-radius: 8px;
+    padding: 8px 6px;
+    cursor: pointer;
+    font-size: 0.7rem;
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .nav-btn-icon {
+    font-size: 1.2rem;
+  }
+
+  .nav-btn:hover {
+    background: rgba(255, 215, 0, 0.15);
+  }
+
+  .nav-btn.active {
     background: var(--saffron);
     color: #fff;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    width: 100%;
+    box-shadow: 0 0 10px rgba(255, 107, 0, 0.4);
+  }
+
+  .save-code {
+    font-size: 0.65rem;
+    color: rgba(255, 215, 0, 0.5);
+    word-break: break-all;
+    text-align: center;
+    margin: 8px 0;
   }
 </style>
 </head>
 <body>
 <div class="particles" id="ptc"></div>
-<div class="topbar"></div>
 
-<button class="theme-toggle" onclick="toggleTheme()" title="Toggle Theme">🌙 Theme</button>
-
-<header>
-  <span class="om">ॐ</span>
-  <h1>🪷 శ్రీరామ నామ పుస్తకం 🪷</h1>
-  <h2>వెయ్యి నామాల జప పుస్తకం</h2>
-</header>
-
-<div class="save-status save-info" id="saveStatus">⏳ లోడ్ అవుతున్నది...</div>
-
-<div class="quote-box" id="quoteBox">🙏 ఆశీర్వాదాలు... 🙏</div>
-
-<div class="goal-section">
-  <span>రోజువారీ లక్ష్యం:</span>
-  <input type="number" class="goal-input" id="goalInput" min="1" max="10000" value="1000" onchange="setGoal(this.value)">
+<!-- HEADER -->
+<div class="header">
+  <div class="header-top">
+    <span class="om-icon">ॐ</span>
+    <h1>🪷 శ్రీరామ నామ 🪷</h1>
+    <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+  </div>
+  <div class="header-subtitle">వెయ్యి నామాల జప పుస్తకం</div>
 </div>
 
-<div class="category-section">
-  <div class="cat-label">ఎన్నికించు:</div>
-  <button class="cat-btn" onclick="setCategory('morning')" id="cat-morning">🌅 ఉదయం</button>
-  <button class="cat-btn" onclick="setCategory('evening')" id="cat-evening">🌆 సాయం</button>
-  <button class="cat-btn" onclick="setCategory('meditation')" id="cat-meditation">🧘 ధ్యానం</button>
-  <button class="cat-btn" onclick="setCategory('general')" id="cat-general">✨ సాధారణ</button>
-</div>
+<!-- MAIN CONTENT -->
+<div class="container">
+  <!-- QUOTE -->
+  <div class="quote-card" id="quoteBox">🙏 ఆశీర్వాదాలు... 🙏</div>
 
-<div class="timer-section">
-  <div class="cat-label">సెషన్ టైమర్:</div>
-  <div class="timer-display" id="timerDisplay">00:00</div>
-  <button class="btnsave" onclick="toggleTimer()">⏱️ <span id="timerToggle">ప్రారంభించు</span></button>
-</div>
+  <!-- PROGRESS RING -->
+  <div class="progress-ring-section">
+    <div class="progress-ring-container">
+      <svg class="progress-ring" viewBox="0 0 200 200">
+        <defs>
+          <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color: var(--saffron); stop-opacity: 1" />
+            <stop offset="100%" style="stop-color: var(--gold); stop-opacity: 1" />
+          </linearGradient>
+        </defs>
+        <circle class="progress-ring-circle progress-ring-bg" cx="100" cy="100" r="90"></circle>
+        <circle class="progress-ring-circle progress-ring-fill" cx="100" cy="100" r="90" id="progressRing"></circle>
+      </svg>
+      <div class="progress-ring-text">
+        <span class="progress-count" id="todayCount">0</span>
+        <span class="progress-label" id="goalDisplay">/1000</span>
+      </div>
+    </div>
+    <div class="progress-info">
+      <div class="progress-stat">
+        <span class="progress-stat-value" id="todayRemain">1000</span>
+        <span class="progress-stat-label">మిగిలినవి</span>
+      </div>
+      <div class="progress-stat">
+        <span class="progress-stat-value" id="todayPct">0%</span>
+        <span class="progress-stat-label">శాతం</span>
+      </div>
+    </div>
+  </div>
 
-<div class="stats">
-  <div class="sbox"><span class="snum" id="todayCount">0</span><div class="slbl">ఈ రోజు పూర్తయినవి</div></div>
-  <div class="sbox"><span class="snum" id="todayRemain">1000</span><div class="slbl">ఈ రోజు మిగిలినవి</div></div>
-  <div class="sbox"><span class="snum" id="todayPct">0%</span><div class="slbl">నేటి శాతం</div></div>
-</div>
+  <!-- SETTINGS -->
+  <div class="settings-grid">
+    <div class="goal-card">
+      <label>రోజువారీ లక్ష్యం</label>
+      <input type="number" class="goal-input" id="goalInput" min="1" max="10000" value="1000" onchange="setGoal(this.value)">
+    </div>
+    
+    <div class="category-card">
+      <label class="category-label">సెషన్ రకం</label>
+      <div class="category-buttons">
+        <button class="cat-btn" onclick="setCategory('morning')" id="cat-morning">🌅</button>
+        <button class="cat-btn" onclick="setCategory('evening')" id="cat-evening">🌆</button>
+        <button class="cat-btn" onclick="setCategory('meditation')" id="cat-meditation">🧘</button>
+        <button class="cat-btn active" onclick="setCategory('general')" id="cat-general">✨</button>
+      </div>
+    </div>
+  </div>
 
-<div class="lifetime">
-  <div class="sbox"><span class="lnum" id="ltTotal">0</span><div class="llbl">మొత్తం నామాలు</div></div>
-  <div class="ldiv">|</div>
-  <div class="sbox"><span class="lnum" id="ltDays">0</span><div class="llbl">పూర్తి రోజులు</div></div>
-  <div class="ldiv">|</div>
-  <div class="sbox"><span class="lnum" id="ltStreak">0</span><div class="llbl">వరుస రోజులు 🔥</div></div>
-</div>
+  <!-- TIMER -->
+  <div class="timer-card">
+    <label class="timer-label">సెషన్ టైమర్</label>
+    <div class="timer-display" id="timerDisplay">00:00</div>
+    <button class="timer-btn" onclick="toggleTimer()">⏱️ <span id="timerToggle">ప్రారంభించు</span></button>
+  </div>
 
-<div class="datebar" id="datebar"></div>
-<div class="progwrap">
-  <div class="progbg"><div class="progfill" id="progfill"></div></div>
-  <div class="progtxt" id="progtxt">0 / 1000</div>
-</div>
+  <!-- STATS -->
+  <div class="stats-section">
+    <div class="stat-box">
+      <span class="stat-number" id="ltTotal">0</span>
+      <span class="stat-label">మొత్తం</span>
+    </div>
+    <div class="stat-box">
+      <span class="stat-number" id="ltDays">0</span>
+      <span class="stat-label">పూర్తి రోజులు</span>
+    </div>
+    <div class="stat-box">
+      <span class="stat-number" id="ltStreak">0</span>
+      <span class="stat-label">వరుస 🔥</span>
+    </div>
+  </div>
 
-<div class="controls">
-  <button class="btn btnmic" id="micBtn" onclick="toggleMic()">🎤 <span id="micTxt">మైక్ ప్రారంభించు</span></button>
-  <button class="btn btnrama" onclick="addOne()">శ్రీరామ</button>
-  <button class="btn btnreset" onclick="resetToday()">🔄 రీసెట్</button>
-  <button class="btn btnreset" onclick="showStats()">📊 గణాంకాలు</button>
-</div>
-<div class="vstatus" id="vstatus">మైక్రోఫోన్ ప్రారంభించి "శ్రీరామ" అని పలకండి</div>
+  <!-- STATUS -->
+  <div class="status-bar status-info" id="saveStatus">⏳ లోడ్ అవుతున్నది...</div>
 
-<div class="saverow">
-  <button class="btnsave" onclick="manualSave()">💾 సేవ్</button>
-  <button class="btnsave" onclick="showRestore()">📥 పునరుద్ధరించు</button>
-  <button class="btnsave" onclick="exportData()">📤 Export</button>
-</div>
-<div class="savecode" id="savecode"></div>
+  <!-- BUTTONS -->
+  <div class="button-grid">
+    <button class="btn btn-mic off" id="micBtn" onclick="toggleMic()">🎤 మైక్</button>
+    <button class="btn btn-secondary" onclick="showStats()">📊 గణాంకాలు</button>
+    <button class="btn btn-secondary" onclick="resetToday()">🔄 రీసెట్</button>
+    <button class="btn btn-secondary" onclick="manualSave()">💾 సేవ్</button>
+  </div>
 
-<div class="histsec">
-  <button class="histbtn" onclick="toggleHist()">📅 చరిత్ర ▼</button>
-  <div class="histwrap" id="histwrap">
-    <table><thead><tr><th>తేదీ</th><th>నామాలు</th><th>స్థితి</th></tr></thead>
-    <tbody id="histbody"></tbody></table>
+  <div class="save-code" id="savecode"></div>
+
+  <!-- HISTORY -->
+  <div style="margin-bottom: 10px;">
+    <button class="history-btn" onclick="toggleHist()">📅 చరిత్ర ▼</button>
+    <div class="history-content" id="histwrap">
+      <table class="history-table">
+        <thead>
+          <tr><th>తేదీ</th><th>నామాలు</th><th>స్థితి</th></tr>
+        </thead>
+        <tbody id="histbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- GRID -->
+  <div class="grid-section">
+    <div class="grid-title">✦ శ్రీరామ నామ జప వీక్ష్యం ✦</div>
+    <div class="grid-container">
+      <div class="grid" id="grid"></div>
+    </div>
   </div>
 </div>
 
-<div class="bookcont">
-  <div class="booktitle">✦ శ్రీ రామ రామ రామ నమస్తే మారుతే ✦</div>
-  <div class="gridwrap"><div class="grid" id="grid"></div></div>
+<!-- BOTTOM NAVIGATION -->
+<div class="bottom-nav">
+  <button class="nav-btn active" onclick="scrollToTop()">
+    <span class="nav-btn-icon">🏠</span>
+    <span>హోమ్</span>
+  </button>
+  <button class="nav-btn" onclick="addOne()">
+    <span class="nav-btn-icon">🪷</span>
+    <span>గణన</span>
+  </button>
+  <button class="nav-btn" onclick="showStats()">
+    <span class="nav-btn-icon">📊</span>
+    <span>స్టాట్‌లు</span>
+  </button>
+  <button class="nav-btn" onclick="showMoreMenu()">
+    <span class="nav-btn-icon">⋯</span>
+    <span>మరిన్ని</span>
+  </button>
 </div>
 
-<div class="overlay" id="overlay">
-  <div class="compbox">
-    <span class="compom">ॐ</span>
-    <span class="fw">🪷 🎺 🪷</span>
-    <div class="jayatxt">శ్రీరామ జయరామ<br>జయ జయ రామ!</div>
-    <div class="comptotal" id="comptotal"></div>
-    <p class="compp">ఈ రోజు లక్ష్యం పూర్తయ్యాయి!<br>శ్రీరాముని కృప మీకు సదా లభించుటకు!</p>
-    <button class="btn btnnew" onclick="document.getElementById('overlay').classList.remove('show')">సరే 🙏</button>
+<!-- COMPLETION MODAL -->
+<div class="modal" id="overlay">
+  <div class="modal-box">
+    <div class="modal-icon">ॐ</div>
+    <div class="modal-title">శ్రీరామ జయరామ<br>జయ జయ రామ!</div>
+    <div id="comptotal" style="color: var(--gold); font-weight: 700; margin: 10px 0;"></div>
+    <p class="modal-text">ఈ రోజు లక్ష్యం పూర్తయ్యాయి!<br>శ్రీరాముని కృప మీకు సదా లభించుటకు!</p>
+    <button class="modal-btn" onclick="document.getElementById('overlay').classList.remove('show')">సరే 🙏</button>
   </div>
 </div>
 
-<div class="stats-modal" id="statsModal">
-  <div class="stats-content">
-    <h3>📊 మీ గణాంకాలు</h3>
-    <div id="statsBody"></div>
-    <button class="close-btn" onclick="closeStats()">✕ మూసివేయు</button>
+<!-- STATS MODAL -->
+<div class="modal" id="statsModal">
+  <div class="modal-box">
+    <div class="modal-icon">📊</div>
+    <div class="modal-title">మీ గణాంకాలు</div>
+    <div id="statsBody" style="text-align: left; color: var(--text-primary); font-size: 0.9rem; margin: 15px 0;"></div>
+    <button class="modal-btn" onclick="closeStats()">✕ మూసివేయు</button>
   </div>
 </div>
 
 <script>
 (function(){
-  var T=1000, cells=[], rec=null, listening=false, lastT=0, CD=1000;
-  var todayN=0, hist={}, streak={n:0,last:''}, currentGoal=1000;
-  var currentCategory='general', timerRunning=false, timerSeconds=0, timerInterval;
-  var quotes=[
+  var T = 1000, cells = [], rec = null, listening = false, lastT = 0, CD = 1000;
+  var todayN = 0, hist = {}, streak = {n: 0, last: ''}, currentGoal = 1000;
+  var currentCategory = 'general', timerRunning = false, timerSeconds = 0, timerInterval;
+  
+  var quotes = [
     '🙏 రోజూ ఆచరణ చేసిన సాధకుడు చివరకు నిశ్చయమైన ఫలాన్ని పొందుతాడు',
     '✨ ప్రతిదిన ఒక చిన్న ప్రయత్నం గతి చేస్తుంది',
     '🌟 వినీతసేవ ఏవిధం చేసిన జనుల్ని దేవుడు భాగ్యవంతులుచేస్తాడు',
@@ -418,348 +1003,374 @@
     '✋ మీ ఆత్మను నేమ్ ద్వారా పవిత్రపరుచుకోండి'
   ];
 
-  // ── Theme Toggle ──
-  window.toggleTheme=function(){
+  // Particles
+  var pc = document.getElementById('ptc');
+  var ws = ['రామ', 'శ్రీ', 'జయ', 'ॐ', 'రా', 'మ'];
+  for(var i = 0; i < 12; i++){
+    var p = document.createElement('div');
+    p.className = 'particle';
+    p.textContent = ws[i % ws.length];
+    p.style.left = Math.random() * 100 + '%';
+    p.style.animationDuration = (8 + Math.random() * 14) + 's';
+    p.style.animationDelay = (Math.random() * 12) + 's';
+    p.style.fontSize = (0.5 + Math.random() * 0.9) + 'rem';
+    pc.appendChild(p);
+  }
+
+  // Grid
+  var g = document.getElementById('grid');
+  for(var i = 0; i < T; i++){
+    var c = document.createElement('div');
+    c.className = 'cell';
+    c.innerHTML = '<span style="opacity:.12;font-size:60%">రా</span>';
+    g.appendChild(c);
+    cells.push(c);
+  }
+
+  // Theme
+  window.toggleTheme = function(){
     document.body.classList.toggle('light-theme');
     localStorage.setItem('theme', document.body.classList.contains('light-theme') ? 'light' : 'dark');
   };
 
-  // ── Load Theme ──
   function loadTheme(){
-    if(localStorage.getItem('theme')==='light'){
+    if(localStorage.getItem('theme') === 'light'){
       document.body.classList.add('light-theme');
     }
   }
 
-  // ── Particles ──
-  var pc=document.getElementById('ptc');
-  var ws=['రామ','శ్రీ','జయ','ॐ','రా','మ'];
-  for(var i=0;i<16;i++){
-    var p=document.createElement('div'); p.className='pt';
-    p.textContent=ws[i%ws.length];
-    p.style.left=Math.random()*100+'%';
-    p.style.animationDuration=(8+Math.random()*14)+'s';
-    p.style.animationDelay=(Math.random()*12)+'s';
-    p.style.fontSize=(0.5+Math.random()*0.9)+'rem';
-    pc.appendChild(p);
-  }
-
-  // ── Grid ──
-  var g=document.getElementById('grid');
-  for(var i=0;i<T;i++){
-    var c=document.createElement('div'); c.className='cell';
-    c.innerHTML='<span style="opacity:.12;font-size:60%">రా</span>';
-    g.appendChild(c); cells.push(c);
-  }
-
-  // ── Quote System ──
+  // Quote
   function updateQuote(){
-    var q=quotes[Math.floor(Math.random()*quotes.length)];
-    document.getElementById('quoteBox').textContent=q;
+    var q = quotes[Math.floor(Math.random() * quotes.length)];
+    document.getElementById('quoteBox').textContent = q;
   }
 
-  // ── Goal System ──
-  window.setGoal=function(val){
-    currentGoal=Math.max(1,Math.min(10000,parseInt(val)||1000));
-    document.getElementById('goalInput').value=currentGoal;
+  // Goal
+  window.setGoal = function(val){
+    currentGoal = Math.max(1, Math.min(10000, parseInt(val) || 1000));
+    document.getElementById('goalInput').value = currentGoal;
     localStorage.setItem('goal', currentGoal);
-    var newCells=currentGoal-T;
-    if(newCells>0){
-      for(var i=0;i<newCells;i++){
-        var c=document.createElement('div'); c.className='cell';
-        c.innerHTML='<span style="opacity:.12;font-size:60%">రా</span>';
-        g.appendChild(c); cells.push(c);
+    var newCells = currentGoal - T;
+    if(newCells > 0){
+      for(var i = 0; i < newCells; i++){
+        var c = document.createElement('div');
+        c.className = 'cell';
+        c.innerHTML = '<span style="opacity:.12;font-size:60%">రా</span>';
+        g.appendChild(c);
+        cells.push(c);
       }
     }
-    T=currentGoal;
+    T = currentGoal;
     updateUI();
   };
 
-  // ── Category System ──
-  window.setCategory=function(cat){
-    currentCategory=cat;
-    document.querySelectorAll('.cat-btn').forEach(function(b){b.classList.remove('active');});
-    document.getElementById('cat-'+cat).classList.add('active');
+  // Category
+  window.setCategory = function(cat){
+    currentCategory = cat;
+    document.querySelectorAll('.cat-btn').forEach(function(b){ b.classList.remove('active'); });
+    document.getElementById('cat-' + cat).classList.add('active');
   };
 
-  // ── Timer System ──
-  window.toggleTimer=function(){
-    timerRunning=!timerRunning;
-    document.getElementById('timerToggle').textContent=timerRunning?'ఆపు':'ప్రారంభించు';
+  // Timer
+  window.toggleTimer = function(){
+    timerRunning = !timerRunning;
+    document.getElementById('timerToggle').textContent = timerRunning ? 'ఆపు' : 'ప్రారంభించు';
     if(timerRunning){
-      timerInterval=setInterval(function(){
-        if(!timerRunning){clearInterval(timerInterval);return;}
+      timerInterval = setInterval(function(){
+        if(!timerRunning){ clearInterval(timerInterval); return; }
         timerSeconds++;
-        var m=Math.floor(timerSeconds/60);
-        var s=timerSeconds%60;
-        document.getElementById('timerDisplay').textContent=pad(m)+':'+pad(s);
-      },1000);
-    }else{
+        var m = Math.floor(timerSeconds / 60);
+        var s = timerSeconds % 60;
+        document.getElementById('timerDisplay').textContent = pad(m) + ':' + pad(s);
+      }, 1000);
+    } else {
       clearInterval(timerInterval);
     }
   };
 
-  // ── Date helpers ──
-  function today(){
-    var d=new Date();
-    return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
-  }
-  function pad(n){return n<10?'0'+n:''+n;}
-  function fmtD(s){var p=s.split('-');return p[2]+'/'+p[1]+'/'+p[0];}
-  function teDate(){
-    var d=new Date();
-    var dy=['ఆది','సోమ','మంగళ','బుధ','గురు','శుక్ర','శని'];
-    var mn=['జనవరి','ఫిబ్రవరి','మార్చి','ఏప్రిల్','మే','జూన్','జులై','ఆగస్టు','సెప్టెంబర్','అక్టోబర్','నవంబర్','డిసెంబర్'];
-    return dy[d.getDay()]+'వారం, '+d.getDate()+' '+mn[d.getMonth()]+' '+d.getFullYear();
-  }
-
-  // ── Storage ──
-  var store=(function(){
-    function test(s){try{s.setItem('__t','1');s.removeItem('__t');return true;}catch(e){return false;}}
+  // Storage
+  var store = (function(){
+    function test(s){ try{ s.setItem('__t','1'); s.removeItem('__t'); return true; } catch(e){ return false; } }
     if(test(localStorage)) return localStorage;
     if(test(sessionStorage)) return sessionStorage;
-    var mem={};
-    return {getItem:function(k){return mem[k]||null;},setItem:function(k,v){mem[k]=v;},removeItem:function(k){delete mem[k];}};
+    var mem = {};
+    return { getItem: function(k){ return mem[k] || null; }, setItem: function(k,v){ mem[k] = v; }, removeItem: function(k){ delete mem[k]; } };
   })();
 
-  function setSaveStatus(cls,msg){
-    var el=document.getElementById('saveStatus');
-    el.className='save-status '+cls; el.textContent=msg;
+  function today(){
+    var d = new Date();
+    return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
   }
 
-  // ── Load ──
+  function pad(n){ return n < 10 ? '0' + n : '' + n; }
+
+  function fmtD(s){ var p = s.split('-'); return p[2] + '/' + p[1] + '/' + p[0]; }
+
+  function setSaveStatus(cls, msg){
+    var el = document.getElementById('saveStatus');
+    el.className = 'status-bar status-' + cls;
+    el.textContent = msg;
+  }
+
   function load(){
-    var ok=false;
+    var ok = false;
     try{
-      var raw=store.getItem('SR_today');
-      if(raw){var o=JSON.parse(raw);if(o.date===today()){todayN=o.count||0;}}
-      var hr=store.getItem('SR_hist');
-      if(hr){hist=JSON.parse(hr);}
-      var sr=store.getItem('SR_streak');
-      if(sr){streak=JSON.parse(sr);}
-      var g=store.getItem('goal');
-      if(g){currentGoal=parseInt(g);T=currentGoal;}
-      ok=true;
-    }catch(e){}
+      var raw = store.getItem('SR_today');
+      if(raw){ var o = JSON.parse(raw); if(o.date === today()){ todayN = o.count || 0; } }
+      var hr = store.getItem('SR_hist');
+      if(hr){ hist = JSON.parse(hr); }
+      var sr = store.getItem('SR_streak');
+      if(sr){ streak = JSON.parse(sr); }
+      var g = store.getItem('goal');
+      if(g){ currentGoal = parseInt(g); T = currentGoal; }
+      ok = true;
+    } catch(e){}
 
-    document.getElementById('goalInput').value=currentGoal;
+    document.getElementById('goalInput').value = currentGoal;
     setGoal(currentGoal);
-    for(var i=0;i<todayN;i++){cells[i].innerHTML='శ్రీరామ';cells[i].className='cell f';}
+    for(var i = 0; i < todayN; i++){ cells[i].innerHTML = 'శ్రీరామ'; cells[i].className = 'cell f'; }
 
-    document.getElementById('datebar').textContent='📅 '+teDate();
     updateQuote();
     updateUI();
     renderHist();
 
-    if(ok && todayN>0){
-      setSaveStatus('save-ok','✅ లోడ్: '+todayN+' నామాలు');
+    if(ok && todayN > 0){
+      setSaveStatus('ok','✅ లోడ్: ' + todayN + ' నామాలు');
     } else if(ok){
-      setSaveStatus('save-ok','✅ సిద్ధంగా ఉన్నది');
+      setSaveStatus('ok','✅ సిద్ధంగా ఉన్నది');
     } else {
-      setSaveStatus('save-warn','⚠️ నోట్‌కు storage అందుబాటులో లేదు');
+      setSaveStatus('warn','⚠️ నోట్‌కు storage లేదు');
     }
   }
 
   function save(){
     try{
-      store.setItem('SR_today',JSON.stringify({date:today(),count:todayN}));
-      hist[today()]=todayN;
-      store.setItem('SR_hist',JSON.stringify(hist));
-      setSaveStatus('save-ok','✅ సేవ్');
-      setTimeout(function(){setSaveStatus('save-info','💾 స్వయం సేవ్');},2000);
-    }catch(e){
-      setSaveStatus('save-warn','⚠️ సేవ్ విఫలమైంది');
+      store.setItem('SR_today', JSON.stringify({date: today(), count: todayN}));
+      hist[today()] = todayN;
+      store.setItem('SR_hist', JSON.stringify(hist));
+      setSaveStatus('ok','✅ సేవ్');
+      setTimeout(function(){ setSaveStatus('info','💾 స్వయం సేవ్'); }, 2000);
+    } catch(e){
+      setSaveStatus('warn','⚠️ సేవ్ విఫలమైంది');
     }
   }
 
-  // ── Manual save ──
-  window.manualSave=function(){
-    var data=JSON.stringify({d:today(),n:todayN,h:hist,s:streak,g:currentGoal});
-    var code=btoa(unescape(encodeURIComponent(data)));
-    document.getElementById('savecode').textContent='Code: '+code;
+  window.manualSave = function(){
+    var data = JSON.stringify({d: today(), n: todayN, h: hist, s: streak, g: currentGoal});
+    var code = btoa(unescape(encodeURIComponent(data)));
+    document.getElementById('savecode').textContent = 'Code: ' + code;
     if(navigator.clipboard){
       navigator.clipboard.writeText(code).then(function(){
-        setSaveStatus('save-ok','✅ కాపీ చేసారు!');
+        setSaveStatus('ok','✅ కాపీ!');
       });
-    }else{
-      setSaveStatus('save-ok','✅ కాపీ చేసి సేవ్ చేయండి');
     }
   };
 
-  window.showRestore=function(){
-    var code=window.prompt('కోడ్ paste చేయండి:');
-    if(!code||!code.trim()) return;
+  window.showRestore = function(){
+    var code = window.prompt('కోడ్ paste చేయండి:');
+    if(!code || !code.trim()) return;
     try{
-      var data=JSON.parse(decodeURIComponent(escape(atob(code.trim()))));
-      if(data.n!==undefined){todayN=data.n;}
-      if(data.h){hist=data.h;}
-      if(data.s){streak=data.s;}
-      if(data.g){currentGoal=data.g;T=currentGoal;}
-      for(var i=0;i<cells.length;i++){cells[i].className='cell';cells[i].innerHTML='<span style="opacity:.12;font-size:60%">రా</span>';}
-      for(var i=0;i<todayN;i++){cells[i].innerHTML='శ్రీరామ';cells[i].className='cell f';}
+      var data = JSON.parse(decodeURIComponent(escape(atob(code.trim()))));
+      if(data.n !== undefined){ todayN = data.n; }
+      if(data.h){ hist = data.h; }
+      if(data.s){ streak = data.s; }
+      if(data.g){ currentGoal = data.g; T = currentGoal; }
+      for(var i = 0; i < cells.length; i++){ cells[i].className = 'cell'; cells[i].innerHTML = '<span style="opacity:.12;font-size:60%">రా</span>'; }
+      for(var i = 0; i < todayN; i++){ cells[i].innerHTML = 'శ్రీరామ'; cells[i].className = 'cell f'; }
       save(); updateUI(); renderHist();
-      setSaveStatus('save-ok','✅ '+todayN+' నామాలు పునరు!');
-    }catch(e){
-      setSaveStatus('save-warn','⚠️ కోడ్ తప్పు!');
+      setSaveStatus('ok','✅ ' + todayN + ' పునరు!');
+    } catch(e){
+      setSaveStatus('warn','⚠️ తప్పు!');
     }
   };
 
-  // ── Export Data ──
-  window.exportData=function(){
-    var data={
-      date:today(),
-      count:todayN,
-      history:hist,
-      streak:streak,
-      goal:currentGoal,
-      timestamp:new Date().toISOString()
-    };
-    var json=JSON.stringify(data,null,2);
-    var blob=new Blob([json],{type:'application/json'});
-    var url=URL.createObjectURL(blob);
-    var a=document.createElement('a');
-    a.href=url;
-    a.download='rama-chant-'+today()+'.json';
+  window.exportData = function(){
+    var data = { date: today(), count: todayN, history: hist, streak: streak, goal: currentGoal, timestamp: new Date().toISOString() };
+    var json = JSON.stringify(data, null, 2);
+    var blob = new Blob([json], {type: 'application/json'});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'rama-chant-' + today() + '.json';
     a.click();
     URL.revokeObjectURL(url);
-    setSaveStatus('save-ok','✅ Export!');
+    setSaveStatus('ok','✅ Export!');
   };
 
-  // ── Update UI ──
   function updateUI(){
-    document.getElementById('todayCount').textContent=todayN;
-    document.getElementById('todayRemain').textContent=T-todayN;
-    var pct=Math.round(todayN/T*100);
-    document.getElementById('todayPct').textContent=pct+'%';
-    document.getElementById('progfill').style.width=pct+'%';
-    document.getElementById('progtxt').textContent=todayN+' / '+T;
+    document.getElementById('todayCount').textContent = todayN;
+    document.getElementById('goalDisplay').textContent = '/' + T;
+    document.getElementById('todayRemain').textContent = T - todayN;
+    var pct = Math.round(todayN / T * 100);
+    document.getElementById('todayPct').textContent = pct + '%';
+    
+    var circumference = 2 * Math.PI * 90;
+    var offset = circumference - (pct / 100) * circumference;
+    document.getElementById('progressRing').style.strokeDashoffset = offset;
 
-    var total=0,days=0;
-    var ks=Object.keys(hist);
-    for(var i=0;i<ks.length;i++){var n=hist[ks[i]]||0;total+=n;if(n>=1000)days++;}
-    document.getElementById('ltTotal').textContent=total.toLocaleString('en-IN');
-    document.getElementById('ltDays').textContent=days;
-    document.getElementById('ltStreak').textContent=streak.n;
+    var total = 0, days = 0;
+    var ks = Object.keys(hist);
+    for(var i = 0; i < ks.length; i++){ var n = hist[ks[i]] || 0; total += n; if(n >= 1000) days++; }
+    document.getElementById('ltTotal').textContent = total.toLocaleString('en-IN');
+    document.getElementById('ltDays').textContent = days;
+    document.getElementById('ltStreak').textContent = streak.n;
   }
 
-  // ── Add one ──
-  window.addOne=function(){
-    if(todayN>=T) return;
-    var c=cells[todayN];
-    c.innerHTML='శ్రీరామ'; c.className='cell f pop';
+  window.addOne = function(){
+    if(todayN >= T) return;
+    var c = cells[todayN];
+    c.innerHTML = 'శ్రీరామ';
+    c.className = 'cell f pop';
     playSound();
-    setTimeout(function(){c.classList.remove('pop');},600);
-    todayN++; save(); updateUI(); renderHist();
-    if(todayN>=T){
-      var yest=new Date(); yest.setDate(yest.getDate()-1);
-      var ys=yest.getFullYear()+'-'+pad(yest.getMonth()+1)+'-'+pad(yest.getDate());
-      if(streak.last===ys||streak.last===today()) { if(streak.last!==today()) streak.n++; }
-      else streak.n=1;
-      streak.last=today();
-      try{store.setItem('SR_streak',JSON.stringify(streak));}catch(e){}
+    setTimeout(function(){ c.classList.remove('pop'); }, 600);
+    todayN++;
+    save();
+    updateUI();
+    renderHist();
+    if(todayN >= T){
+      var yest = new Date();
+      yest.setDate(yest.getDate() - 1);
+      var ys = yest.getFullYear() + '-' + pad(yest.getMonth() + 1) + '-' + pad(yest.getDate());
+      if(streak.last === ys || streak.last === today()){ if(streak.last !== today()) streak.n++; }
+      else streak.n = 1;
+      streak.last = today();
+      try{ store.setItem('SR_streak', JSON.stringify(streak)); } catch(e){}
       updateUI();
-      var t=document.getElementById('ltTotal').textContent;
-      document.getElementById('comptotal').textContent='🙏 మొత్తం: '+t+' | '+streak.n+' 🔥';
-      setTimeout(function(){document.getElementById('overlay').classList.add('show');},700);
+      var t = document.getElementById('ltTotal').textContent;
+      document.getElementById('comptotal').textContent = '🙏 మొత్తం: ' + t + ' | ' + streak.n + ' 🔥';
+      setTimeout(function(){ document.getElementById('overlay').classList.add('show'); }, 700);
     }
   };
 
-  // ── Sound ──
   function playSound(){
     try{
-      var ctx=new (window.AudioContext||window.webkitAudioContext)();
-      var osc=ctx.createOscillator();
-      var gain=ctx.createGain();
+      var ctx = new (window.AudioContext || window.webkitAudioContext)();
+      var osc = ctx.createOscillator();
+      var gain = ctx.createGain();
       osc.connect(gain);
       gain.connect(ctx.destination);
-      osc.frequency.value=800;
-      gain.gain.setValueAtTime(0.1,ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.01,ctx.currentTime+0.1);
+      osc.frequency.value = 800;
+      gain.gain.setValueAtTime(0.1, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.1);
       osc.start(ctx.currentTime);
-      osc.stop(ctx.currentTime+0.1);
-    }catch(e){}
+      osc.stop(ctx.currentTime + 0.1);
+    } catch(e){}
   }
 
-  // ── History ──
   function renderHist(){
-    var tb=document.getElementById('histbody');
-    tb.innerHTML='';
-    var ks=Object.keys(hist).sort().reverse();
-    if(!ks.length){tb.innerHTML='<tr><td colspan="3">ఇంకా చరిత్ర లేదు</td></tr>';return;}
-    for(var i=0;i<ks.length;i++){
-      var d=ks[i],n=hist[d]||0,done=n>=1000;
-      var tr=document.createElement('tr');
-      tr.innerHTML='<td>'+fmtD(d)+'</td><td class="'+(done?'done':'')+'">'+n+'</td><td>'+(done?'✅':'⏳ '+Math.round(n/1000*100)+'%')+'</td>';
+    var tb = document.getElementById('histbody');
+    tb.innerHTML = '';
+    var ks = Object.keys(hist).sort().reverse();
+    if(!ks.length){ tb.innerHTML = '<tr><td colspan="3" style="opacity:0.5;">చరిత్ర లేదు</td></tr>'; return; }
+    for(var i = 0; i < ks.length; i++){
+      var d = ks[i], n = hist[d] || 0, done = n >= 1000;
+      var tr = document.createElement('tr');
+      tr.innerHTML = '<td>' + fmtD(d) + '</td><td class="' + (done ? 'history-done' : '') + '">' + n + '</td><td>' + (done ? '✅' : '⏳ ' + Math.round(n / 1000 * 100) + '%') + '</td>';
       tb.appendChild(tr);
     }
   }
 
-  window.toggleHist=function(){
-    var w=document.getElementById('histwrap'); w.classList.toggle('open');
-    document.querySelector('.histbtn').textContent=w.classList.contains('open')?'📅 చరిత్ర ▲':'📅 చరిత్ర ▼';
+  window.toggleHist = function(){
+    var w = document.getElementById('histwrap');
+    w.classList.toggle('open');
+    document.querySelector('.history-btn').textContent = w.classList.contains('open') ? '📅 చరిత్ర ▲' : '📅 చరిత్ర ▼';
   };
 
-  // ── Stats Modal ──
-  window.showStats=function(){
-    var total=0,days=0,avg=0;
-    var ks=Object.keys(hist);
-    for(var i=0;i<ks.length;i++){var n=hist[ks[i]]||0;total+=n;if(n>=1000)days++;}
-    avg=ks.length>0?Math.round(total/ks.length):0;
-    var html='<div class="stat-row"><span class="stat-label">మొత్తం:</span><span class="stat-value">'+total.toLocaleString('en-IN')+'</span></div>';
-    html+='<div class="stat-row"><span class="stat-label">పూర్తి రోజులు:</span><span class="stat-value">'+days+'</span></div>';
-    html+='<div class="stat-row"><span class="stat-label">రోజుల సంఖ్య:</span><span class="stat-value">'+ks.length+'</span></div>';
-    html+='<div class="stat-row"><span class="stat-label">సగటు:</span><span class="stat-value">'+avg+'</span></div>';
-    html+='<div class="stat-row"><span class="stat-label">ఈ రోజు:</span><span class="stat-value">'+todayN+' / '+T+'</span></div>';
-    html+='<div class="stat-row"><span class="stat-label">వరుస 🔥:</span><span class="stat-value">'+streak.n+'</span></div>';
-    document.getElementById('statsBody').innerHTML=html;
+  window.showStats = function(){
+    var total = 0, days = 0, avg = 0;
+    var ks = Object.keys(hist);
+    for(var i = 0; i < ks.length; i++){ var n = hist[ks[i]] || 0; total += n; if(n >= 1000) days++; }
+    avg = ks.length > 0 ? Math.round(total / ks.length) : 0;
+    var html = '<div style="display:grid;gap:8px;">';
+    html += '<div style="display:flex;justify-content:space-between;"><span>మొత్తం:</span><span style="color:var(--gold);font-weight:700;">' + total.toLocaleString('en-IN') + '</span></div>';
+    html += '<div style="display:flex;justify-content:space-between;"><span>పూర్తి రోజులు:</span><span style="color:var(--gold);font-weight:700;">' + days + '</span></div>';
+    html += '<div style="display:flex;justify-content:space-between;"><span>రోజుల సంఖ్య:</span><span style="color:var(--gold);font-weight:700;">' + ks.length + '</span></div>';
+    html += '<div style="display:flex;justify-content:space-between;"><span>సగటు:</span><span style="color:var(--gold);font-weight:700;">' + avg + '</span></div>';
+    html += '<div style="display:flex;justify-content:space-between;"><span>ఈ రోజు:</span><span style="color:var(--gold);font-weight:700;">' + todayN + ' / ' + T + '</span></div>';
+    html += '<div style="display:flex;justify-content:space-between;"><span>వరుస 🔥:</span><span style="color:var(--gold);font-weight:700;">' + streak.n + '</span></div>';
+    html += '</div>';
+    document.getElementById('statsBody').innerHTML = html;
     document.getElementById('statsModal').classList.add('show');
   };
 
-  window.closeStats=function(){
+  window.closeStats = function(){
     document.getElementById('statsModal').classList.remove('show');
   };
 
-  // ── Mic ──
-  window.toggleMic=function(){
-    if(!('webkitSpeechRecognition' in window)&&!('SpeechRecognition' in window)){
-      setV('','Chrome కోసం వాడండి');return;
-    }
-    listening?stopMic():startMic();
+  window.showMoreMenu = function(){
+    var choice = window.prompt('ఎంచుకోండి:\n1. Export\n2. Restore\n3. More Info', '1');
+    if(choice === '1') exportData();
+    else if(choice === '2') showRestore();
   };
+
+  window.scrollToTop = function(){
+    document.querySelector('.container').scrollTo({top: 0, behavior: 'smooth'});
+  };
+
+  window.toggleMic = function(){
+    if(!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)){
+      setSaveStatus('warn', 'Chrome కోసం వాడండి');
+      return;
+    }
+    listening ? stopMic() : startMic();
+  };
+
   function startMic(){
-    var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-    rec=new SR(); rec.lang='te-IN'; rec.continuous=true; rec.interimResults=true; rec.maxAlternatives=5;
-    rec.onstart=function(){listening=true;document.getElementById('micBtn').classList.add('on');document.getElementById('micTxt').textContent='వింటున్నాను...';setV('','🔴 వింటున్నాను...');};
-    rec.onresult=function(e){
-      var now=Date.now(); if(now-lastT<CD) return;
-      for(var i=e.resultIndex;i<e.results.length;i++)
-        for(var j=0;j<e.results[i].length;j++){
-          var t=e.results[i][j].transcript.toLowerCase().trim();
-          if(matchR(t)){lastT=now;addOne();setV('ok','✅ విన్నాను! 🙏');setTimeout(function(){if(listening)setV('act','🔴 వింటున్నాను...');},1500);}
+    var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    rec = new SR();
+    rec.lang = 'te-IN';
+    rec.continuous = true;
+    rec.interimResults = true;
+    rec.maxAlternatives = 5;
+    rec.onstart = function(){
+      listening = true;
+      document.getElementById('micBtn').classList.remove('off');
+      document.getElementById('micBtn').classList.add('on');
+      setSaveStatus('info', '🔴 వింటున్నాను...');
+    };
+    rec.onresult = function(e){
+      var now = Date.now();
+      if(now - lastT < CD) return;
+      for(var i = e.resultIndex; i < e.results.length; i++)
+        for(var j = 0; j < e.results[i].length; j++){
+          var t = e.results[i][j].transcript.toLowerCase().trim();
+          if(matchR(t)){ lastT = now; addOne(); setSaveStatus('ok', '✅ విన్నాను! 🙏'); }
         }
     };
-    rec.onerror=function(e){if(e.error==='no-speech'||e.error==='aborted')return;if(e.error==='not-allowed'){setV('','Mic అనుమతి');stopMic();return;}setV('','⚠️ '+e.error);};
-    rec.onend=function(){if(listening)setTimeout(function(){if(listening)try{rec.start();}catch(e){}},500);};
-    try{rec.start();}catch(e){setV('','⚠️ '+e.message);}
+    rec.onerror = function(e){
+      if(e.error === 'no-speech' || e.error === 'aborted') return;
+      if(e.error === 'not-allowed'){ setSaveStatus('warn', 'Mic అనుమతి'); stopMic(); return; }
+      setSaveStatus('warn', '⚠️ ' + e.error);
+    };
+    rec.onend = function(){ if(listening) setTimeout(function(){ if(listening) try{ rec.start(); } catch(e){} }, 500); };
+    try{ rec.start(); } catch(e){ setSaveStatus('warn', '⚠️ ' + e.message); }
   }
-  function stopMic(){
-    listening=false;
-    if(rec){try{rec.abort();}catch(e){}rec=null;}
-    document.getElementById('micBtn').classList.remove('on');
-    document.getElementById('micTxt').textContent='మైక్';
-    setV('','మైక్ ఆపబడింది');
-  }
-  function setV(c,m){var el=document.getElementById('vstatus');el.className='vstatus'+(c?' '+c:'');el.textContent=m;}
-  function matchR(t){var p=['రామ','రాం','राम','ram','rama','shriram','sriram','శ్రీరామ'];for(var i=0;i<p.length;i++)if(t.indexOf(p[i].toLowerCase())!==-1)return true;return false;}
 
-  // ── Reset ──
-  window.resetToday=function(){
+  function stopMic(){
+    listening = false;
+    if(rec){ try{ rec.abort(); } catch(e){} rec = null; }
+    document.getElementById('micBtn').classList.remove('on');
+    document.getElementById('micBtn').classList.add('off');
+    setSaveStatus('info', '✅ మైక్ ఆపబడింది');
+  }
+
+  function matchR(t){
+    var p = ['రామ', 'రాం', 'राम', 'ram', 'rama', 'shriram', 'sriram', 'శ్రీరామ'];
+    for(var i = 0; i < p.length; i++)
+      if(t.indexOf(p[i].toLowerCase()) !== -1) return true;
+    return false;
+  }
+
+  window.resetToday = function(){
     if(!todayN) return;
     if(!confirm('రీసెట్ చేయాలా? చరిత్ర భద్రంగా ఉంటుంది')) return;
-    todayN=0; stopMic();
-    for(var i=0;i<T;i++){cells[i].className='cell';cells[i].innerHTML='<span style="opacity:.12;font-size:60%">రా</span>';}
-    save(); updateUI(); renderHist();
-    setV('','రీసెట్ కంపლీట్');
+    todayN = 0;
+    stopMic();
+    for(var i = 0; i < T; i++){ cells[i].className = 'cell'; cells[i].innerHTML = '<span style="opacity:.12;font-size:60%">రా</span>'; }
+    save();
+    updateUI();
+    renderHist();
+    setSaveStatus('ok', '✅ రీసెట్ కంపలీట్');
   };
 
   loadTheme();
