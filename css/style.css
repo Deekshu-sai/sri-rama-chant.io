@@ -245,6 +245,16 @@ footer p {
     margin-top: 8px;
 }
 
+/* Custom Global Sheet Backups */
+:root {
+    --primary-color: #d4af37;
+    --secondary-color: #8b4513;
+    --bg-color: #1a1a2e;
+    --text-color: #eaeaea;
+    --card-bg: #16213e;
+    --accent-color: #e94560;
+}
+
 @media (max-width: 500px) {
     .container {
         padding: 25px;
