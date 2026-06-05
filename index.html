@@ -8,331 +8,7 @@
 <title>శ్రీరామ నామ పుస్తకం</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Telugu:wght@400;700&display=swap');
-  
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  
-  :root {
-    --saffron: #FF6B00;
-    --deep: #E85500;
-    --gold: #FFD700;
-    --cream: #FFF8F0;
-    --dark: #3D1A00;
-    --bg-primary: #0d0200;
-    --bg-secondary: #1a0500;
-    --bg-tertiary: #2d0d00;
-    --text-primary: #FFD98A;
-    --text-secondary: #FFD700;
-    --border-color: rgba(255, 215, 0, 0.25);
-    --accent: #FF6B00;
-  }
-  
-  html, body {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    font-family: 'Noto Serif Telugu', serif;
-    background: linear-gradient(135deg, #2d0d00 0%, #1a0500 50%, #0d0200 100%);
-    color: var(--text-primary);
-    overflow: hidden;
-    transition: background 0.4s, color 0.4s;
-  }
-  
-  body {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  body.light-theme {
-    background: linear-gradient(135deg, #fff5e6 0%, #ffe6cc 50%, #ffd9b3 100%);
-    --text-primary: #5D4037;
-    --text-secondary: #8D6E63;
-    --border-color: rgba(255, 107, 0, 0.35);
-    --bg-primary: #FFFFFF;
-    --bg-secondary: #FFF5F0;
-    --bg-tertiary: #FFE5D9;
-  }
-
-  /* ═══ HEADER ═══ */
-  .header {
-    background: linear-gradient(180deg, rgba(61, 26, 0, 0.95), rgba(26, 5, 0, 0.9));
-    border-bottom: 3px solid var(--saffron);
-    padding: 12px 14px;
-    text-align: center;
-    box-shadow: 0 6px 20px rgba(255, 107, 0, 0.4);
-    flex-shrink: 0;
-    position: relative;
-    z-index: 50;
-  }
-
-  body.light-theme .header {
-    background: linear-gradient(180deg, rgba(255, 235, 205, 0.98), rgba(255, 225, 180, 0.95));
-    box-shadow: 0 4px 15px rgba(255, 107, 0, 0.25);
-  }
-
-  .header-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .om-icon {
-    font-size: 1.8rem;
-    animation: glow 2.5s ease-in-out infinite alternate;
-  }
-
-  @keyframes glow {
-    from { text-shadow: 0 0 20px var(--gold), 0 0 40px rgba(255, 215, 0, 0.5); }
-    to { text-shadow: 0 0 50px var(--gold), 0 0 80px rgba(255, 215, 0, 0.7); }
-  }
-
-  .header h1 {
-    font-size: clamp(1rem, 3vw, 1.5rem);
-    color: var(--gold);
-    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
-    letter-spacing: 1px;
-    margin: 3px 0;
-  }
-
-  body.light-theme .header h1 {
-    color: var(--saffron);
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-  }
-
-  .header-subtitle {
-    font-size: clamp(0.55rem, 1.5vw, 0.75rem);
-    color: #FFD98A;
-    opacity: 0.85;
-  }
-
-  body.light-theme .header-subtitle {
-    color: var(--saffron);
-    opacity: 0.8;
-  }
-
-  .header-controls {
-    display: flex;
-    gap: 8px;
-  }
-
-  .header-btn {
-    background: rgba(255, 215, 0, 0.15);
-    border: 1.5px solid rgba(255, 215, 0, 0.35);
-    color: var(--gold);
-    padding: 6px 12px;
-    border-radius: 18px;
-    cursor: pointer;
-    font-size: 0.8rem;
-    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-    min-width: auto;
-    font-weight: 600;
-  }
-
-  .header-btn:hover {
-    background: rgba(255, 215, 0, 0.25);
-    transform: scale(1.08);
-    box-shadow: 0 0 12px rgba(255, 215, 0, 0.3);
-  }
-
-  body.light-theme .header-btn {
-    background: rgba(255, 107, 0, 0.1);
-    border-color: rgba(255, 107, 0, 0.4);
-    color: var(--saffron);
-  }
-
-  /* ═══ CLOUD SIGN-IN TOP BAR ═══ */
-  .cloud-bar {
-    background: rgba(45, 13, 0, 0.6);
-    border-bottom: 1px solid var(--border-color);
-    padding: 6px 14px;
-    font-size: 0.8rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 40;
-  }
-  .cloud-btn {
-    background: var(--saffron);
-    border: none;
-    color: white;
-    padding: 3px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.75rem;
-    font-weight: bold;
-  }
-  .hidden { display: none !important; }
-
-  /* ═══ SETTINGS PANEL ═══ */
-  .settings-panel {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.92);
-    z-index: 999;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    animation: fadeIn 0.3s;
-  }
-
-  .settings-panel.show { display: flex; }
-
-  .settings-box {
-    background: linear-gradient(135deg, #3D1A00, #1a0500);
-    border: 3px solid var(--gold);
-    border-radius: 20px;
-    padding: 24px;
-    max-width: 480px;
-    width: 100%;
-    max-height: 85vh;
-    overflow-y: auto;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
-  }
-
-  body.light-theme .settings-box {
-    background: linear-gradient(135deg, #FFF5E6, #FFE5CC);
-    border-color: var(--saffron);
-  }
-
-  .settings-box h2 { color: var(--gold); font-size: 1.3rem; margin-bottom: 18px; text-align: center; }
-  body.light-theme .settings-box h2 { color: var(--saffron); }
-
-  .settings-group { margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid rgba(255, 215, 0, 0.15); }
-  .settings-group:last-child { border-bottom: none; }
-  .settings-label { display: block; font-size: 0.9rem; color: var(--text-primary); font-weight: 700; margin-bottom: 10px; }
-
-  .settings-select, .settings-input {
-    width: 100%; padding: 12px; background: rgba(255, 255, 255, 0.08); border: 1.5px solid var(--border-color);
-    color: var(--gold); border-radius: 10px; font-family: inherit; font-size: 0.9rem;
-  }
-
-  body.light-theme .settings-select, body.light-theme .settings-input { background: rgba(255, 107, 0, 0.08); color: var(--saffron); }
-  .settings-select option { background: #1a0500; color: var(--gold); }
-  body.light-theme .settings-select option { background: #FFF5E6; color: var(--saffron); }
-
-  .reminder-options, .duration-options { display: flex; flex-direction: column; gap: 10px; }
-
-  .reminder-item, .duration-item {
-    display: flex; align-items: center; gap: 12px; padding: 12px; background: rgba(255, 215, 0, 0.08);
-    border: 1.5px solid var(--border-color); border-radius: 10px; cursor: pointer;
-  }
-
-  body.light-theme .reminder-item, body.light-theme .duration-item { background: rgba(255, 107, 0, 0.08); }
-  .reminder-item input, .duration-item input { cursor: pointer; width: 20px; height: 20px; accent-color: var(--saffron); }
-  .reminder-time, .duration-time { display: flex; gap: 10px; margin-top: 12px; }
-
-  .reminder-time input, .duration-time input {
-    flex: 1; padding: 10px; background: rgba(255, 255, 255, 0.08); border: 1.5px solid var(--border-color); color: var(--gold); border-radius: 8px;
-  }
-
-  .close-settings {
-    width: 100%; margin-top: 20px; padding: 14px; background: linear-gradient(135deg, var(--saffron), var(--deep));
-    color: #fff; border: none; border-radius: 12px; cursor: pointer; font-weight: 700; font-size: 0.95rem;
-  }
-
-  /* ═══ MAIN CONTENT ═══ */
-  .container { flex: 1; overflow-y: auto; overflow-x: hidden; display: flex; flex-direction: column; gap: 12px; padding: 12px; padding-bottom: 80px; scroll-behavior: smooth; }
-  .container::-webkit-scrollbar { width: 6px; }
-  .container::-webkit-scrollbar-track { background: rgba(255, 215, 0, 0.05); }
-  .container::-webkit-scrollbar-thumb { background: rgba(255, 215, 0, 0.3); border-radius: 3px; }
-
-  /* ═══ CARD LAYOUT ═══ */
-  .card { background: rgba(255, 255, 255, 0.05); border: 1.5px solid var(--border-color); border-radius: 14px; padding: 14px; backdrop-filter: blur(12px); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3); transition: all 0.3s; }
-  body.light-theme .card { background: rgba(255, 107, 0, 0.04); border-color: rgba(255, 107, 0, 0.2); }
-
-  /* ═══ QUOTE SECTION ═══ */
-  .quote-card { background: linear-gradient(135deg, rgba(255, 107, 0, 0.15), rgba(232, 85, 0, 0.1)); border-left: 4px solid var(--saffron); padding: 12px 14px; text-align: center; font-style: italic; font-size: 0.85rem; color: var(--text-primary); border-radius: 10px; min-height: 45px; display: flex; align-items: center; justify-content: center; }
-
-  /* ═══ PROGRESS RING ═══ */
-  .progress-ring-section { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 16px; background: linear-gradient(135deg, rgba(61, 26, 0, 0.5), rgba(26, 5, 0, 0.35)); border-radius: 14px; border: 1.5px solid var(--border-color); }
-  .progress-ring-container { position: relative; width: 160px; height: 160px; display: flex; align-items: center; justify-content: center; }
-  .progress-ring { transform: rotate(-90deg); width: 100%; height: 100%; }
-  .progress-ring-circle { fill: none; stroke-linecap: round; stroke-linejoin: round; transition: stroke-dashoffset 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); }
-  .progress-ring-bg { stroke: rgba(255, 215, 0, 0.2); stroke-width: 8; }
-  .progress-ring-fill { stroke: url(#progressGradient); stroke-width: 8; stroke-dasharray: 565.48; stroke-dashoffset: 565.48; }
-  .progress-ring-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; }
-  .progress-count { font-size: 2rem; font-weight: 700; color: var(--gold); text-shadow: 0 0 15px rgba(255, 215, 0, 0.5); line-height: 1; }
-  .progress-label { font-size: 0.7rem; color: #FFD98A; opacity: 0.85; }
-  .progress-info { display: flex; justify-content: space-around; width: 100%; gap: 10px; }
-  .progress-stat { text-align: center; flex: 1; }
-  .progress-stat-value { font-size: 1.3rem; font-weight: 700; color: var(--gold); display: block; }
-  .progress-stat-label { font-size: 0.65rem; color: #FFD98A; opacity: 0.8; }
-
-  /* ═══ GOAL & CATEGORY ═══ */
-  .settings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .goal-card, .category-card, .duration-card { background: rgba(255, 215, 0, 0.08); border: 1.5px solid var(--border-color); padding: 12px; border-radius: 12px; text-align: center; }
-  .goal-card label, .category-label, .duration-label { display: block; font-size: 0.72rem; color: rgba(255, 215, 0, 0.75); margin-bottom: 8px; font-weight: 700; text-transform: uppercase; }
-  .goal-input { width: 100%; padding: 10px; background: rgba(255, 255, 255, 0.1); border: 1.5px solid rgba(255, 215, 0, 0.35); color: var(--gold); border-radius: 8px; text-align: center; font-weight: 700; }
-  .category-buttons, .duration-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-  .cat-btn, .dur-btn { padding: 8px 6px; background: rgba(255, 215, 0, 0.1); border: 1.5px solid rgba(255, 215, 0, 0.3); color: var(--text-primary); border-radius: 8px; font-size: 0.7rem; cursor: pointer; font-weight: 600; }
-  .cat-btn.active, .dur-btn.active { background: var(--saffron); color: #fff; border-color: var(--saffron); box-shadow: 0 0 15px rgba(255, 107, 0, 0.4); }
-
-  /* ═══ TIMER ═══ */
-  .timer-card { background: linear-gradient(135deg, rgba(232, 85, 0, 0.18), rgba(255, 107, 0, 0.12)); border: 1.5px solid rgba(255, 107, 0, 0.35); padding: 14px; border-radius: 12px; text-align: center; }
-  .timer-label { font-size: 0.75rem; color: rgba(255, 215, 0, 0.8); margin-bottom: 8px; display: block; font-weight: 700; text-transform: uppercase; }
-  .timer-display { font-size: 2rem; color: var(--gold); font-weight: 800; margin: 8px 0; font-family: 'Courier New', monospace; }
-  .timer-btn { width: 100%; padding: 10px; background: linear-gradient(135deg, var(--saffron), var(--deep)); color: #fff; border: none; border-radius: 8px; cursor: pointer; font-weight: 700; }
-
-  /* ═══ STATS ═══ */
-  .stats-section { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-  .stat-box { background: rgba(255, 215, 0, 0.08); border: 1.5px solid var(--border-color); padding: 12px 8px; border-radius: 12px; text-align: center; }
-  .stat-number { font-size: 1.3rem; font-weight: 800; color: var(--gold); display: block; margin-bottom: 4px; }
-  .stat-label { font-size: 0.65rem; color: #FFD98A; opacity: 0.8; text-transform: uppercase; }
-
-  /* ═══ BUTTONS ═══ */
-  .button-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .btn { padding: 12px 14px; border: none; border-radius: 10px; font-family: inherit; cursor: pointer; font-weight: 700; font-size: 0.85rem; display: flex; align-items: center; justify-content: center; gap: 6px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); }
-  .btn-primary { background: linear-gradient(135deg, var(--saffron), var(--deep)); color: #fff; grid-column: 1 / -1; font-size: 0.95rem; }
-  .btn-secondary { background: rgba(255, 215, 0, 0.12); color: var(--gold); border: 1.5px solid rgba(255, 215, 0, 0.3); }
-
-  /* ═══ STATUS ═══ */
-  .status-bar { background: rgba(255, 255, 255, 0.05); border: 1.5px solid var(--border-color); padding: 10px; border-radius: 10px; font-size: 0.8rem; text-align: center; color: #FFD98A; min-height: 20px; font-weight: 600; }
-  .status-ok { color: #4CAF50; }
-  .status-warn { color: #FF6B6B; }
-  .status-info { color: rgba(255, 215, 0, 0.8); }
-
-  /* ═══ GRID VISUALIZATION ═══ */
-  .grid-section { margin-top: 8px; }
-  .grid-title { text-align: center; font-size: 0.8rem; color: var(--gold); margin-bottom: 10px; font-weight: 700; text-transform: uppercase; }
-  .grid-container { background: var(--cream); border: 2px solid var(--saffron); border-radius: 10px; padding: 6px; box-shadow: 0 0 25px rgba(255, 107, 0, 0.25); }
-  body.light-theme .grid-container { background: #FFFAF0; }
-  .grid { display: grid; grid-template-columns: repeat(18, 1fr); gap: 1.5px; }
-
-  @media (max-width: 500px) { .grid { grid-template-columns: repeat(12, 1fr); } }
-  @media (max-width: 380px) { .grid { grid-template-columns: repeat(8, 1fr); } }
-
-  .cell { aspect-ratio: 1; border: 1px solid #D4A574; border-radius: 3px; background: #fff; display: flex; align-items: center; justify-content: center; font-size: 0.5rem; position: relative; color: #8B6914; cursor: pointer; }
-  .cell.f { background: linear-gradient(135deg, #FFF3CC, #FFE082); border-color: var(--saffron); color: var(--deep); font-weight: 700; }
-  .cell.pop { animation: pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-  @keyframes pop { 0% { transform: scale(0.5); opacity: 0.3; } 60% { transform: scale(1.3); } 100% { transform: scale(1); opacity: 1; } }
-
-  /* ═══ HISTORY ═══ */
-  .history-btn { width: 100%; background: rgba(255, 215, 0, 0.08); border: 1.5px solid var(--border-color); color: #FFD98A; padding: 10px; border-radius: 10px; cursor: pointer; font-size: 0.8rem; font-weight: 700; }
-  .history-content { display: none; max-height: 200px; overflow-y: auto; margin-top: 8px; }
-  .history-content.open { display: block; }
-  .history-table { width: 100%; border-collapse: collapse; font-size: 0.75rem; }
-  .history-table th { background: rgba(255, 215, 0, 0.12); color: var(--gold); padding: 8px 6px; text-align: center; font-weight: 700; }
-  .history-table td { color: #FFD98A; padding: 6px 4px; text-align: center; border-bottom: 1px solid rgba(255, 215, 0, 0.08); }
-
-  /* ═══ MODAL ═══ */
-  .modal { display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.93); z-index: 998; align-items: center; justify-content: center; padding: 20px; }
-  .modal.show { display: flex; }
-  .modal-box { background: linear-gradient(135deg, #3D1A00, #1a0500); border: 3px solid var(--gold); border-radius: 18px; padding: 24px; max-width: 340px; width: 100%; text-align: center; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8); }
-  .modal-icon { font-size: 3rem; margin-bottom: 12px; animation: glow 1.5s ease-in-out infinite alternate; }
-  .modal-title { font-size: 1.3rem; color: var(--gold); margin: 8px 0 12px; font-weight: 800; line-height: 1.3; }
-  .modal-text { color: #FFD98A; margin-bottom: 14px; font-size: 0.9rem; }
-  .modal-btn { background: linear-gradient(135deg, var(--saffron), var(--deep)); color: #fff; padding: 12px 24px; border: none; border-radius: 20px; cursor: pointer; font-weight: 700; box-shadow: 0 4px 12px rgba(255, 107, 0, 0.3); }
-
-  /* ═══ BOTTOM NAVIGATION ═══ */
-  .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: linear-gradient(180deg, rgba(61, 26, 0, 0.98), rgba(26, 5, 0, 0.99)); border-top: 3px solid var(--saffron); padding: 8px 10px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5); z-index: 100; }
-  .nav-btn { background: rgba(255, 215, 0, 0.1); border: 1.5px solid rgba(255, 215, 0, 0.25); color: var(--text-primary); border-radius: 10px; padding: 8px 6px; cursor: pointer; font-size: 0.68rem; display: flex; flex-direction: column; align-items: center; gap: 3px; position: relative; font-weight: 700; }
-  .nav-btn-icon { font-size: 1.1rem; }
-  .nav-btn.active { background: var(--saffron); color: #fff; box-shadow: 0 0 15px rgba(255, 107, 0, 0.4); border-color: var(--saffron); }
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div id="ptc"></div>
@@ -352,19 +28,19 @@
   </div>
 </div>
 
-<!-- TOP CLOUD SYNC BAR CONTAINER -->
+<!-- CLOUD BACKUP BANNER -->
 <div class="cloud-bar">
   <div id="sync-logged-out">
-    <span style="opacity:0.8;">☁️ క్లౌడ్ బ్యాకప్:</span>
+    <span id="backupLabel" style="opacity:0.8;">☁️ క్లౌడ్ బ్యాకప్:</span>
     <button class="cloud-btn" id="fb-signin-btn">గూగుల్ లాగిన్ 🔗</button>
   </div>
   <div id="sync-logged-in" class="hidden">
-    <span>🔒 క్లౌడ్ కనెక్ట్ అయింది: <strong id="fb-user-display" style="color:var(--gold);">భక్తుడు</strong></span>
+    <span id="connectedLabel">🔒 క్లౌడ్ కనెక్ట్ అయింది: <strong id="fb-user-display" style="color:var(--gold);">భక్తుడు</strong></span>
     <button class="cloud-btn" style="background:#f44336;" id="fb-signout-btn">సైన్ అవుట్</button>
   </div>
 </div>
 
-<!-- MAIN CONTENT -->
+<!-- MAIN CONTAINER -->
 <div class="container">
   <div class="quote-card" id="quoteBox">🙏 ఆశీర్వాదాలు... 🙏</div>
 
@@ -421,8 +97,8 @@
     <label class="category-label" id="categoryLabel">సెషన్ రకం</label>
     <div class="category-buttons" style="grid-template-columns: repeat(4, 1fr); gap: 8px;">
       <button class="cat-btn" onclick="window.setCategory('morning')" id="cat-morning">🌅</button>
-      <button class="cat-btn" onclick="setCategory('evening')" id="cat-evening">🌆</button>
-      <button class="cat-btn" onclick="setCategory('meditation')" id="cat-meditation">🧘</button>
+      <button class="cat-btn" onclick="window.setCategory('evening')" id="cat-evening">🌆</button>
+      <button class="cat-btn" onclick="window.setCategory('meditation')" id="cat-meditation">🧘</button>
       <button class="cat-btn active" onclick="window.setCategory('general')" id="cat-general">✨</button>
     </div>
   </div>
@@ -520,18 +196,17 @@
     <div class="modal-icon">📊</div>
     <div class="modal-title" id="statsTitle">మీ గణాంకాలు</div>
     <div id="statsBody" style="text-align: left; color: var(--text-primary); font-size: 0.9rem; margin: 14px 0; line-height: 1.8;"></div>
-    <button class="modal-btn" onclick="window.closeStats()">✕ మూసివేయు</button>
+    <button class="modal-btn" onclick="window.closeStats()">✕ మూసిвеయు</button>
   </div>
 </div>
 
-<!-- SETTINGS PANEL -->
+<!-- SETTINGS PANEL DIALOGUE -->
 <div class="settings-panel" id="settingsPanel">
   <div class="settings-box">
-    <h2>⚙️ సెట్టింగ్‌లు</h2>
+    <h2 id="settingsBoxTitle">⚙️ సెట్టింగ్‌లు</h2>
     
     <div class="settings-group">
       <label class="settings-label">🌍 భాష / Language</label>
-      <!-- Fixed: Added language selector hook inside the module engine scope -->
       <select class="settings-select" id="languageSelect">
         <option value="te">🇮🇳 తెలుగు (Telugu)</option>
         <option value="en">🇬🇧 English</option>
@@ -541,7 +216,7 @@
     </div>
 
     <div class="settings-group">
-      <label class="settings-label">✨ థీమ్ / Theme</label>
+      <label class="settings-label" id="themeGroupLabel">✨ థీమ్ / Theme</label>
       <select class="settings-select" id="themeSelect">
         <option value="dark">🌙 Dark Mode</option>
         <option value="light">☀️ Light Mode</option>
@@ -549,372 +224,21 @@
     </div>
 
     <div class="settings-group">
-      <label class="settings-label">⏰ జపం సమయం నిర్ణయించండి</label>
+      <label class="settings-label" id="durationGroupLabel">⏰ జపం సమయం నిర్ణయించండి</label>
       <div class="duration-options">
-        <label class="duration-item"><input type="radio" name="duration" value="5" onchange="window.setDuration(5)"> 5 నిమిషాలు</label>
-        <label class="duration-item"><input type="radio" name="duration" value="10" onchange="window.setDuration(10)" checked> 10 నిమిషాలు</label>
-        <label class="duration-item"><input type="radio" name="duration" value="15" onchange="window.setDuration(15)"> 15 నిమిషాలు</label>
-        <label class="duration-item"><input type="radio" name="duration" value="20" onchange="window.setDuration(20)"> 20 నిమిషాలు</label>
-        <label class="duration-item"><input type="radio" name="duration" value="30" onchange="window.setDuration(30)"> 30 నిమిషాలు</label>
+        <label class="duration-item"><input type="radio" name="duration" value="5" onchange="window.setDuration(5)"> <span id="dur5Label">5 నిమిషాలు</span></label>
+        <label class="duration-item"><input type="radio" name="duration" value="10" onchange="window.setDuration(10)" checked> <span id="dur10Label">10 నిమిషాలు</span></label>
+        <label class="duration-item"><input type="radio" name="duration" value="15" onchange="window.setDuration(15)"> <span id="dur15Label">15 నిమిషాలు</span></label>
+        <label class="duration-item"><input type="radio" name="duration" value="20" onchange="window.setDuration(20)"> <span id="dur20Label">20 నిమిషాలు</span></label>
+        <label class="duration-item"><input type="radio" name="duration" value="30" onchange="window.setDuration(30)"> <span id="dur30Label">30 నిమిషాలు</span></label>
       </div>
     </div>
 
-    <div class="settings-group">
-      <label class="settings-label">🔔 రిమైండర్ నోటిఫికేషన్</label>
-      <div class="reminder-options">
-        <label class="reminder-item">
-          <input type="checkbox" id="reminderEnabled" onchange="updateReminder()">
-          <span>దీనికి రిమైండర్ ఎనేబల్ చేయండి</span>
-        </label>
-      </div>
-      <div class="reminder-time">
-        <input type="time" id="reminderTime" value="09:00" onchange="updateReminder()">
-        <select class="settings-select" id="reminderFreq" style="flex:1;" onchange="updateReminder()">
-          <option value="daily">రోజూ</option>
-          <option value="weekdays">సోమ-శుక్ర</option>
-        </select>
-      </div>
-    </div>
-
-    <button class="close-settings" onclick="window.toggleSettings()">✕ మూసివేయు</button>
+    <button class="close-settings" id="closeSettingsBtn" onclick="window.toggleSettings()">✕ మూసివేయు</button>
   </div>
 </div>
 
-<!-- MAIN SYSTEM SCRIPT (INTEGRATING CORE ENGINE AND FIREBASE RUNTIMES SAFELY) -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-  import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-  import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyAek46jg7U8LDcWAmZ5djZMDOeDPu-YvWU",
-    authDomain: "sri-rama-chanting.firebaseapp.com",
-    projectId: "sri-rama-chanting",
-    storageBucket: "sri-rama-chanting.firebasestorage.app",
-    messagingSenderId: "4251303862",
-    appId: "1:4251303862:web:1da8dea845e368efd64b17",
-    measurementId: "G-CV5QM9TFDZ"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
-  const provider = new GoogleAuthProvider();
-
-  // APP STATES
-  var T = 1000, cells = [], rec = null, listening = false, lastT = 0, CD = 1000;
-  var todayN = 0, hist = {}, streak = {n: 0, last: ''}, currentGoal = 1000;
-  var currentCategory = 'general';
-  var firebaseUser = null;
-  var currentLang = 'te';
-  var sessionTimerRunning = false;
-  var sessionTimerInterval = null;
-  var sessionDuration = 10 * 60;
-  var sessionTimeLeft = sessionDuration;
-
-  var quotes = {
-    te: ['🙏 రోజూ ఆచరణ చేసిన సాధకుడు చివరకు నిశ్చయమైన ఫలాన్ని పొందుతాడు', '✨ ప్రతిదిన ఒక చిన్న ప్రయత్నం గతి చేస్తుంది', '🌟 వినీతసేవ ఏవిధం చేసిన జనుల్ని దేవుడు భాగ్యవంతులుచేస్తాడు'],
-    en: ['🙏 Daily practice leads to certain results', '✨ Small efforts daily lead to success', '🌟 God blesses those who serve with humility'],
-    hi: ['🙏 रोज़ का अभ्यास निश्चित परिणाम देता है', '✨ प्रतिदिन छोटे प्रयास सफलता की ओर ले जाते हैं', '🌟 भगवान विनम्रता से सेवा करने वालों को आशीर्वाद देते हैं'],
-    ta: ['🙏 தினசரி பயிற்சி உறுதியான फलம் தரும்', '✨ தினந்தோறும் சிறிய முயற்சிகள் வெற்றிக்கு வழிவகுக்கும்', '🌟 கடவுள் பணிவுடன் சேவை செய்பவர்களை ஆசீர்வதிக்கிறார்']
-  };
-
-  // Particles decoration animation
-  var pc = document.getElementById('ptc');
-  for(var i = 0; i < 8; i++){
-    var p = document.createElement('div');
-    p.style.position = 'fixed'; p.style.color = 'rgba(255,215,0,0.08)';
-    p.style.fontSize = (0.6 + Math.random() * 1.2) + 'rem';
-    p.style.left = Math.random() * 100 + '%'; p.style.top = Math.random() * 50 + '%';
-    p.style.animation = 'float linear infinite'; p.style.animationDuration = (10 + Math.random() * 20) + 's';
-    p.style.animationDelay = (Math.random() * 15) + 's';
-    p.textContent = ['రామ', 'శ్రీ', 'జయ', 'ॐ'][i % 4];
-    pc.appendChild(p);
-  }
-  var fstyle = document.createElement('style');
-  fstyle.textContent = '@keyframes float { from { transform: translateY(100vh) rotate(0deg) scale(1); opacity: 0; } 10% { opacity: 0.3; } 90% { opacity: 0.3; } to { transform: translateY(-100vh) rotate(360deg) scale(0); opacity: 0; } }';
-  document.head.appendChild(fstyle);
-
-  // Dynamic Graphic Grid Provisioner
-  var g = document.getElementById('grid');
-  function buildGrid(){
-    g.innerHTML = ''; cells = [];
-    for(var i = 0; i < T; i++){
-      var c = document.createElement('div');
-      c.className = 'cell'; c.innerHTML = '<span style="opacity:.15">రా</span>';
-      g.appendChild(c); cells.push(c);
-    }
-  }
-
-  function today(){ var d = new Date(); return d.getFullYear() + '-' + (d.getMonth()+1<10?'0':'')+(d.getMonth()+1) + '-' + (d.getDate()<10?'0':'')+d.getDate(); }
-
-  function updateUI(){
-    document.getElementById('todayCount').textContent = todayN;
-    document.getElementById('goalDisplay').textContent = '/' + T;
-    document.getElementById('todayRemain').textContent = Math.max(0, T - todayN);
-    var pct = Math.round(todayN / T * 100) || 0;
-    document.getElementById('todayPct').textContent = pct + '%';
-    document.getElementById('progressRing').style.strokeDashoffset = 565.48 - (pct / 100) * 565.48;
-
-    var total = 0, days = 0;
-    var ks = Object.keys(hist);
-    for(var i = 0; i < ks.length; i++){ var n = hist[ks[i]] || 0; total += n; if(n >= T) days++; }
-    document.getElementById('ltTotal').textContent = total.toLocaleString('en-IN');
-    document.getElementById('ltDays').textContent = days;
-    document.getElementById('ltStreak').textContent = streak.n;
-  }
-
-  function refreshCellsUI(){
-    for(var i = 0; i < todayN; i++){ if(cells[i]) { cells[i].innerHTML = 'శ్రీరామ'; cells[i].className = 'cell f'; } }
-  }
-
-  function renderHist(){
-    var tb = document.getElementById('histbody'); tb.innerHTML = '';
-    var ks = Object.keys(hist).sort().reverse();
-    for(var i = 0; i < Math.min(ks.length, 15); i++){
-      var d = ks[i], n = hist[d] || 0;
-      var tr = document.createElement('tr');
-      tr.innerHTML = '<td>' + d + '</td><td>' + n + '</td><td>' + (n >= T ? '✅' : '⏳') + '</td>';
-      tb.appendChild(tr);
-    }
-  }
-
-  function setSaveStatus(cls, msg){
-    var el = document.getElementById('saveStatus'); el.className = `status-bar status-${cls}`; el.textContent = msg;
-  }
-
-  // ═══ SYNC ALIGNMENT FIX FOR AM/PM MULTIPLE SESSIONS ═══
-  async function cloudSave() {
-    if (!firebaseUser) return;
-    try {
-      setSaveStatus('info', '⏳ క్లౌడ్ సేవ్ అవుతోంది...');
-      await setDoc(doc(db, "users", firebaseUser.uid), {
-        todayCount: todayN,
-        history: hist,
-        streak: streak,
-        currentGoal: T,
-        lastSynced: new Date()
-      }, { merge: true });
-      setSaveStatus('ok', '✅ క్లౌడ్ సేవ్ అయింది');
-    } catch(e) { setSaveStatus('warn', '⚠️ క్లౌడ్ సేవ్ విఫలమైంది'); }
-  }
-
-  window.addOne = function(){
-    if(todayN >= T) return;
-    var c = cells[todayN];
-    if(c) {
-      c.innerHTML = 'శ్రీరామ'; c.className = 'cell f pop';
-      try {
-        var ctx = new (window.AudioContext || window.webkitAudioContext)();
-        var osc = ctx.createOscillator(); var gain = ctx.createGain();
-        osc.connect(gain); gain.connect(ctx.destination); osc.frequency.value = 900;
-        gain.gain.setValueAtTime(0.12, ctx.currentTime);
-        osc.start(ctx.currentTime); osc.stop(ctx.currentTime + 0.12);
-      } catch(e){}
-    }
-    todayN++; hist[today()] = todayN;
-    
-    try {
-      localStorage.setItem('SR_today', JSON.stringify({date: today(), count: todayN}));
-      localStorage.setItem('SR_hist', JSON.stringify(hist));
-    } catch(e){}
-
-    updateUI(); renderHist(); cloudSave();
-
-    if(todayN >= T){
-      streak.n++; streak.last = today();
-      try{ localStorage.setItem('SR_streak', JSON.stringify(streak)); }catch(e){}
-      updateUI();
-      document.getElementById('comptotal').textContent = '🙏 ' + document.getElementById('ltTotal').textContent + ' | ' + streak.n + ' 🔥';
-      document.getElementById('overlay').classList.add('show');
-    }
-  };
-
-  window.setGoal = function(val){
-    T = Math.max(1, Math.min(10000, parseInt(val) || 1000));
-    document.getElementById('goalInput').value = T;
-    localStorage.setItem('goal', T);
-    buildGrid(); updateUI(); refreshCellsUI(); cloudSave();
-  };
-
-  window.resetToday = function(){
-    if(!confirm('రీసెట్ చేయాలా?')) return;
-    todayN = 0; hist[today()] = 0; buildGrid();
-    try {
-      localStorage.setItem('SR_today', JSON.stringify({date: today(), count: 0}));
-      localStorage.setItem('SR_hist', JSON.stringify(hist));
-    } catch(e){}
-    updateUI(); renderHist(); cloudSave();
-  };
-
-  // INTERACTION BINDINGS INTERNALLY ROUTED
-  window.toggleTheme = function(){
-    document.body.classList.toggle('light-theme');
-    localStorage.setItem('theme', document.body.classList.contains('light-theme') ? 'light' : 'dark');
-  };
-
-  window.changeLanguage = function(lang){ 
-    currentLang = lang; 
-    localStorage.setItem('lang', lang); 
-    updateLanguage(); 
-    var q = quotes[currentLang] || quotes.te;
-    document.getElementById('quoteBox').textContent = q[Math.floor(Math.random() * q.length)];
-  };
-
-  window.toggleSettings = function(){ document.getElementById('settingsPanel').classList.toggle('show'); document.getElementById('languageSelect').value = currentLang; };
-  window.setDuration = function(mins){ sessionDuration = mins * 60; sessionTimeLeft = sessionDuration; updateTimerDisplay(); };
-  window.setCategory = function(cat){ currentCategory = cat; };
-  window.toggleHist = function(){ document.getElementById('histwrap').classList.toggle('open'); };
-  window.scrollToTop = function(){ document.querySelector('.container').scrollTo({top: 0, behavior: 'smooth'}); };
-  
-  window.showStats = function(){
-    var total = 0, days = 0, ks = Object.keys(hist);
-    for(var i = 0; i < ks.length; i++){ var n = hist[ks[i]] || 0; total += n; if(n >= T) days++; }
-    var avg = ks.length > 0 ? Math.round(total / ks.length) : 0;
-    document.getElementById('statsBody').innerHTML = '<div style="display:grid;gap:12px;"><div>📊 మొత్తం జపం: <b>' + total + '</b></div><div>📅 రోజులు: <b>' + days + '</b></div><div>📈 సరాసరి: <b>' + avg + '</b></div></div>';
-    document.getElementById('statsModal').classList.add('show');
-  };
-  window.closeStats = function(){ document.getElementById('statsModal').classList.remove('show'); };
-
-  window.toggleSessionTimer = function(){
-    sessionTimerRunning = !sessionTimerRunning;
-    var s = strings[currentLang] || strings.te;
-    document.getElementById('sessionToggle').textContent = sessionTimerRunning ? s.sessionStop : s.sessionStart;
-    if(sessionTimerRunning){
-      sessionTimerInterval = setInterval(function(){
-        sessionTimeLeft--; updateTimerDisplay();
-        if(sessionTimeLeft <= 0){
-          clearInterval(sessionTimerInterval); sessionTimerRunning = false;
-          document.getElementById('sessionToggle').textContent = s.sessionStart;
-          sessionTimeLeft = sessionDuration; updateTimerDisplay();
-        }
-      }, 1000);
-    } else { clearInterval(sessionTimerInterval); }
-  };
-
-  function updateTimerDisplay(){
-    var m = Math.floor(sessionTimeLeft / 60), s = sessionTimeLeft % 60;
-    document.getElementById('timerDisplay').textContent = (m < 10 ? '0' + m : m) + ':' + (s < 10 ? '0' + s : s);
-  }
-
-  window.toggleMic = function(){
-    if(!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)){ alert('Speech not supported'); return; }
-    listening ? stopMic() : startMic();
-  };
-
-  function startMic(){
-    var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-    rec = new SR(); rec.lang = 'te-IN'; rec.continuous = true;
-    rec.onresult = function(e){
-      var now = Date.now(); if(now - lastT < CD) return;
-      for(var i = e.resultIndex; i < e.results.length; i++){
-        var t = e.results[i][0].transcript.toLowerCase();
-        if(t.indexOf('రామ') !== -1 || t.indexOf('ram') !== -1){ lastT = now; window.addOne(); }
-      }
-    };
-    rec.start(); listening = true; setSaveStatus('info', '🔴 మైక్ ఆన్ లో ఉంది...');
-  }
-  function stopMic(){ listening = false; if(rec){ rec.abort(); } setSaveStatus('ok', '💾 సిద్ధం'); }
-
-  function updateLanguage(){
-    var s = strings[currentLang] || strings.te;
-    document.getElementById('headerTitle').textContent = s.headerTitle;
-    document.getElementById('headerSubtitle').textContent = s.subtitle;
-    document.getElementById('goalLabel').textContent = s.goalLabel;
-    document.getElementById('categoryLabel').textContent = s.categoryLabel;
-    document.getElementById('durationLabel').textContent = s.durationLabel;
-    document.getElementById('timerLabel').textContent = s.timerLabel;
-    document.getElementById('remainLabel').textContent = s.remainLabel;
-    document.getElementById('percentLabel').textContent = s.percentLabel;
-    document.getElementById('totalLabel').textContent = s.totalLabel;
-    document.getElementById('completeLabel').textContent = s.completeLabel;
-    document.getElementById('streakLabel').textContent = s.streakLabel;
-    document.getElementById('addLabel').textContent = s.addLabel;
-    document.getElementById('micLabel').textContent = s.micLabel;
-    document.getElementById('statsLabel').textContent = s.statsLabel;
-    document.getElementById('resetLabel').textContent = s.resetLabel;
-    document.getElementById('homeLabel').textContent = s.homeLabel;
-    document.getElementById('countLabel').textContent = s.countLabel;
-    document.getElementById('statsNavLabel').textContent = s.statsNavLabel;
-    document.getElementById('settingsLabel').textContent = s.settingsLabel;
-    document.getElementById('gridTitle').textContent = s.gridTitle;
-    document.getElementById('dateHeader').textContent = s.dateHeader;
-    document.getElementById('countHeader').textContent = s.countHeader;
-    document.getElementById('statusHeader').textContent = s.statusHeader;
-    document.getElementById('sessionToggle').textContent = sessionTimerRunning ? s.sessionStop : s.sessionStart;
-  }
-
-  // ═══ FIRESTORE RECOVERY LOGIC FOR MORNING/EVENING SESSIONS ═══
-  onAuthStateChanged(auth, async (user) => {
-    if (user) {
-      firebaseUser = user;
-      document.getElementById('fb-user-display').textContent = user.displayName || "Devotee";
-      document.getElementById('sync-logged-out').classList.add('hidden');
-      document.getElementById('sync-logged-in').classList.remove('hidden');
-      
-      try {
-        const docSnap = await getDoc(doc(db, "users", user.uid));
-        if (docSnap.exists()) {
-          const cloudData = docSnap.data();
-          
-          // Merge historical days safely
-          hist = Object.assign({}, cloudData.history, hist);
-          if (cloudData.streak && cloudData.streak.n > streak.n) streak = cloudData.streak;
-          if (cloudData.currentGoal) T = cloudData.currentGoal;
-          
-          // CRITICAL: Look up today's record in the database. 
-          // If your morning cloud count is higher than your empty evening screen, pull it instantly!
-          let cloudTodayCount = cloudData.todayCount || 0;
-          todayN = Math.max(todayN, cloudTodayCount);
-          hist[today()] = todayN;
-        }
-      } catch(e) { console.error("Cloud pull sync breakdown: ", e); }
-    } else {
-      firebaseUser = null;
-      document.getElementById('sync-logged-out').classList.remove('hidden');
-      document.getElementById('sync-logged-in').classList.add('hidden');
-    }
-    
-    // Refresh graphics layout smoothly
-    document.getElementById('goalInput').value = T;
-    buildGrid(); updateUI(); refreshCellsUI(); renderHist();
-  });
-
-  document.getElementById('fb-signin-btn').addEventListener('click', () => { signInWithPopup(auth, provider); });
-  document.getElementById('fb-signout-btn').addEventListener('click', () => { signOut(auth).then(() => window.location.reload()); });
-
-  // ROUTE LANGUAGE SELECTOR DIRECTLY WITHIN ES MODULE TARGETING SCOPE
-  document.getElementById('languageSelect').addEventListener('change', (e) => {
-    window.changeLanguage(e.target.value);
-  });
-
-  // BOOT LOCAL STORAGE RECOVERY
-  try {
-    var raw = localStorage.getItem('SR_today');
-    if(raw){ var o = JSON.parse(raw); if(o.date === today()){ todayN = o.count || 0; } }
-    var hr = localStorage.getItem('SR_hist'); if(hr){ hist = JSON.parse(hr); }
-    var sr = localStorage.getItem('SR_streak'); if(sr){ streak = JSON.parse(sr); }
-    var gCount = localStorage.getItem('goal'); if(gCount){ T = parseInt(gCount) || 1000; }
-  } catch(e){}
-
-  if(localStorage.getItem('theme') === 'light') document.body.classList.add('light-theme');
-  document.getElementById('themeSelect').value = localStorage.getItem('theme') || 'dark';
-  document.getElementById('themeSelect').onchange = function(){
-    if(this.value === 'light') document.body.classList.add('light-theme');
-    else document.body.classList.remove('light-theme');
-    localStorage.setItem('theme', this.value);
-  };
-
-  document.getElementById('goalInput').value = T;
-  currentLang = localStorage.getItem('lang') || 'te';
-  document.getElementById('languageSelect').value = currentLang;
-  
-  buildGrid();
-  updateLanguage();
-  window.changeLanguage(currentLang);
-  updateUI();
-  refreshCellsUI();
-  renderHist();
-</script>
+<!-- CONNECT EXTERNAL SCRIPTS VIA MODERN MODULES -->
+<script type="module" src="script.js"></script>
 </body>
 </html>
