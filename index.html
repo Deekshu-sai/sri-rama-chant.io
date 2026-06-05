@@ -337,6 +337,7 @@
 <body>
 <div id="ptc"></div>
 
+<!-- HEADER -->
 <div class="header">
   <div class="header-top">
     <span class="om-icon">ॐ</span>
@@ -345,12 +346,13 @@
       <div class="header-subtitle" id="headerSubtitle">వెయ్యి నామాల జప పుస్తకం</div>
     </div>
     <div class="header-controls">
-      <button class="header-btn" onclick="toggleSettings()" title="Settings">⚙️</button>
-      <button class="header-btn" onclick="toggleTheme()" title="Theme">🌙</button>
+      <button class="header-btn" onclick="window.toggleSettings()" title="Settings">⚙️</button>
+      <button class="header-btn" onclick="window.toggleTheme()" title="Theme">🌙</button>
     </div>
   </div>
 </div>
 
+<!-- TOP CLOUD SYNC BAR CONTAINER -->
 <div class="cloud-bar">
   <div id="sync-logged-out">
     <span style="opacity:0.8;">☁️ క్లౌడ్ బ్యాకప్:</span>
@@ -362,9 +364,11 @@
   </div>
 </div>
 
+<!-- MAIN CONTENT -->
 <div class="container">
   <div class="quote-card" id="quoteBox">🙏 ఆశీర్వాదాలు... 🙏</div>
 
+  <!-- PROGRESS RING -->
   <div class="progress-ring-section card">
     <div class="progress-ring-container">
       <svg class="progress-ring" viewBox="0 0 200 200">
@@ -394,39 +398,43 @@
     </div>
   </div>
 
+  <!-- SETTINGS GRID -->
   <div class="settings-grid">
     <div class="goal-card">
       <label id="goalLabel">రోజువారీ లక్ష్యం</label>
-      <input type="number" class="goal-input" id="goalInput" min="1" max="10000" value="1000" onchange="setGoal(this.value)">
+      <input type="number" class="goal-input" id="goalInput" min="1" max="10000" value="1000" onchange="window.setGoal(this.value)">
     </div>
     
     <div class="duration-card">
       <label class="duration-label" id="durationLabel">జపం సమయం</label>
       <div class="duration-buttons">
-        <button class="dur-btn active" onclick="setDuration(10)">10m</button>
-        <button class="dur-btn" onclick="setDuration(15)">15m</button>
-        <button class="dur-btn" onclick="setDuration(20)">20m</button>
-        <button class="dur-btn" onclick="setDuration(30)">30m</button>
+        <button class="dur-btn active" onclick="window.setDuration(10)">10m</button>
+        <button class="dur-btn" onclick="window.setDuration(15)">15m</button>
+        <button class="dur-btn" onclick="window.setDuration(20)">20m</button>
+        <button class="dur-btn" onclick="window.setDuration(30)">30m</button>
       </div>
     </div>
   </div>
 
+  <!-- CATEGORY -->
   <div class="category-card">
     <label class="category-label" id="categoryLabel">సెషన్ రకం</label>
     <div class="category-buttons" style="grid-template-columns: repeat(4, 1fr); gap: 8px;">
-      <button class="cat-btn" onclick="setCategory('morning')" id="cat-morning">🌅</button>
+      <button class="cat-btn" onclick="window.setCategory('morning')" id="cat-morning">🌅</button>
       <button class="cat-btn" onclick="setCategory('evening')" id="cat-evening">🌆</button>
       <button class="cat-btn" onclick="setCategory('meditation')" id="cat-meditation">🧘</button>
-      <button class="cat-btn active" onclick="setCategory('general')" id="cat-general">✨</button>
+      <button class="cat-btn active" onclick="window.setCategory('general')" id="cat-general">✨</button>
     </div>
   </div>
 
+  <!-- TIMER -->
   <div class="timer-card card">
     <label class="timer-label" id="timerLabel">సెషన్ టైమర్</label>
     <div class="timer-display" id="timerDisplay">10:00</div>
-    <button class="timer-btn" onclick="toggleSessionTimer()">▶️ <span id="sessionToggle">ప్రారంభించు</span></button>
+    <button class="timer-btn" onclick="window.toggleSessionTimer()">▶️ <span id="sessionToggle">ప్రారంభించు</span></button>
   </div>
 
+  <!-- STATS -->
   <div class="stats-section">
     <div class="stat-box">
       <span class="stat-number" id="ltTotal">0</span>
@@ -442,17 +450,20 @@
     </div>
   </div>
 
+  <!-- STATUS -->
   <div class="status-bar status-info" id="saveStatus">💾 సిద్ధం</div>
 
+  <!-- BUTTONS -->
   <div class="button-grid">
-    <button class="btn btn-primary" onclick="addOne()">🪷 <span id="addLabel">గణన</span></button>
-    <button class="btn btn-secondary" onclick="toggleMic()">🎤 <span id="micLabel">మైక్</span></button>
-    <button class="btn btn-secondary" onclick="showStats()">📊 <span id="statsLabel">గణాంకాలు</span></button>
-    <button class="btn btn-secondary" onclick="resetToday()">🔄 <span id="resetLabel">రీసెట్</span></button>
+    <button class="btn btn-primary" onclick="window.addOne()">🪷 <span id="addLabel">గణన</span></button>
+    <button class="btn btn-secondary" onclick="window.toggleMic()">🎤 <span id="micLabel">మైక్</span></button>
+    <button class="btn btn-secondary" onclick="window.showStats()">📊 <span id="statsLabel">గణాంకాలు</span></button>
+    <button class="btn btn-secondary" onclick="window.resetToday()">🔄 <span id="resetLabel">రీసెట్</span></button>
   </div>
 
+  <!-- HISTORY -->
   <div>
-    <button class="history-btn" onclick="toggleHist()" id="historyBtn">📅 చరిత్ర ▼</button>
+    <button class="history-btn" onclick="window.toggleHist()" id="historyBtn">📅 చరిత్ర ▼</button>
     <div class="history-content" id="histwrap">
       <table class="history-table">
         <thead>
@@ -463,6 +474,7 @@
     </div>
   </div>
 
+  <!-- GRID -->
   <div class="grid-section">
     <div class="grid-title" id="gridTitle">✦ శ్రీరామ నామ జప వీక్ష్యం ✦</div>
     <div class="grid-container">
@@ -471,25 +483,27 @@
   </div>
 </div>
 
+<!-- BOTTOM NAVIGATION -->
 <div class="bottom-nav">
-  <button class="nav-btn active" onclick="scrollToTop()">
+  <button class="nav-btn active" onclick="window.scrollToTop()">
     <span class="nav-btn-icon">🏠</span>
     <span id="homeLabel">హోమ్</span>
   </button>
-  <button class="nav-btn" onclick="addOne()">
+  <button class="nav-btn" onclick="window.addOne()">
     <span class="nav-btn-icon">🪷</span>
     <span id="countLabel">గణన</span>
   </button>
-  <button class="nav-btn" onclick="showStats()">
+  <button class="nav-btn" onclick="window.showStats()">
     <span class="nav-btn-icon">📊</span>
     <span id="statsNavLabel">స్టాట్‌లు</span>
   </button>
-  <button class="nav-btn" onclick="toggleSettings()">
+  <button class="nav-btn" onclick="window.toggleSettings()">
     <span class="nav-btn-icon">⚙️</span>
     <span id="settingsLabel">సెట్టింగ్‌లు</span>
   </button>
 </div>
 
+<!-- COMPLETION MODAL -->
 <div class="modal" id="overlay">
   <div class="modal-box">
     <div class="modal-icon">ॐ</div>
@@ -500,22 +514,25 @@
   </div>
 </div>
 
+<!-- STATS MODAL -->
 <div class="modal" id="statsModal">
   <div class="modal-box">
     <div class="modal-icon">📊</div>
     <div class="modal-title" id="statsTitle">మీ గణాంకాలు</div>
     <div id="statsBody" style="text-align: left; color: var(--text-primary); font-size: 0.9rem; margin: 14px 0; line-height: 1.8;"></div>
-    <button class="modal-btn" onclick="closeStats()">✕ మూసివేయు</button>
+    <button class="modal-btn" onclick="window.closeStats()">✕ మూసివేయు</button>
   </div>
 </div>
 
+<!-- SETTINGS PANEL -->
 <div class="settings-panel" id="settingsPanel">
   <div class="settings-box">
     <h2>⚙️ సెట్టింగ్‌లు</h2>
     
     <div class="settings-group">
       <label class="settings-label">🌍 భాష / Language</label>
-      <select class="settings-select" id="languageSelect" onchange="changeLanguage(this.value)">
+      <!-- Fixed: Added language selector hook inside the module engine scope -->
+      <select class="settings-select" id="languageSelect">
         <option value="te">🇮🇳 తెలుగు (Telugu)</option>
         <option value="en">🇬🇧 English</option>
         <option value="hi">🇮🇳 हिंदी (Hindi)</option>
@@ -534,11 +551,11 @@
     <div class="settings-group">
       <label class="settings-label">⏰ జపం సమయం నిర్ణయించండి</label>
       <div class="duration-options">
-        <label class="duration-item"><input type="radio" name="duration" value="5" onchange="setDuration(5)"> 5 నిమిషాలు</label>
-        <label class="duration-item"><input type="radio" name="duration" value="10" onchange="setDuration(10)" checked> 10 నిమిషాలు</label>
-        <label class="duration-item"><input type="radio" name="duration" value="15" onchange="setDuration(15)"> 15 నిమిషాలు</label>
-        <label class="duration-item"><input type="radio" name="duration" value="20" onchange="setDuration(20)"> 20 నిమిషాలు</label>
-        <label class="duration-item"><input type="radio" name="duration" value="30" onchange="setDuration(30)"> 30 నిమిషాలు</label>
+        <label class="duration-item"><input type="radio" name="duration" value="5" onchange="window.setDuration(5)"> 5 నిమిషాలు</label>
+        <label class="duration-item"><input type="radio" name="duration" value="10" onchange="window.setDuration(10)" checked> 10 నిమిషాలు</label>
+        <label class="duration-item"><input type="radio" name="duration" value="15" onchange="window.setDuration(15)"> 15 నిమిషాలు</label>
+        <label class="duration-item"><input type="radio" name="duration" value="20" onchange="window.setDuration(20)"> 20 నిమిషాలు</label>
+        <label class="duration-item"><input type="radio" name="duration" value="30" onchange="window.setDuration(30)"> 30 నిమిషాలు</label>
       </div>
     </div>
 
@@ -559,10 +576,11 @@
       </div>
     </div>
 
-    <button class="close-settings" onclick="toggleSettings()">✕ మూసివేయు</button>
+    <button class="close-settings" onclick="window.toggleSettings()">✕ మూసివేయు</button>
   </div>
 </div>
 
+<!-- MAIN SYSTEM SCRIPT (INTEGRATING CORE ENGINE AND FIREBASE RUNTIMES SAFELY) -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
   import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
@@ -583,18 +601,25 @@
   const db = getFirestore(app);
   const provider = new GoogleAuthProvider();
 
-  // APP INITIAL STATES
+  // APP STATES
   var T = 1000, cells = [], rec = null, listening = false, lastT = 0, CD = 1000;
   var todayN = 0, hist = {}, streak = {n: 0, last: ''}, currentGoal = 1000;
   var currentCategory = 'general';
   var firebaseUser = null;
+  var currentLang = 'te';
+  var sessionTimerRunning = false;
+  var sessionTimerInterval = null;
+  var sessionDuration = 10 * 60;
+  var sessionTimeLeft = sessionDuration;
 
   var quotes = {
     te: ['🙏 రోజూ ఆచరణ చేసిన సాధకుడు చివరకు నిశ్చయమైన ఫలాన్ని పొందుతాడు', '✨ ప్రతిదిన ఒక చిన్న ప్రయత్నం గతి చేస్తుంది', '🌟 వినీతసేవ ఏవిధం చేసిన జనుల్ని దేవుడు భాగ్యవంతులుచేస్తాడు'],
-    en: ['🙏 Daily practice leads to certain results', '✨ Small efforts daily lead to success', '🌟 God blesses those who serve with humility']
+    en: ['🙏 Daily practice leads to certain results', '✨ Small efforts daily lead to success', '🌟 God blesses those who serve with humility'],
+    hi: ['🙏 रोज़ का अभ्यास निश्चित परिणाम देता है', '✨ प्रतिदिन छोटे प्रयास सफलता की ओर ले जाते हैं', '🌟 भगवान विनम्रता से सेवा करने वालों को आशीर्वाद देते हैं'],
+    ta: ['🙏 தினசரி பயிற்சி உறுதியான फलம் தரும்', '✨ தினந்தோறும் சிறிய முயற்சிகள் வெற்றிக்கு வழிவகுக்கும்', '🌟 கடவுள் பணிவுடன் சேவை செய்பவர்களை ஆசீர்வதிக்கிறார்']
   };
 
-  // Particles decoration
+  // Particles decoration animation
   var pc = document.getElementById('ptc');
   for(var i = 0; i < 8; i++){
     var p = document.createElement('div');
@@ -610,7 +635,7 @@
   fstyle.textContent = '@keyframes float { from { transform: translateY(100vh) rotate(0deg) scale(1); opacity: 0; } 10% { opacity: 0.3; } 90% { opacity: 0.3; } to { transform: translateY(-100vh) rotate(360deg) scale(0); opacity: 0; } }';
   document.head.appendChild(fstyle);
 
-  // Dynamic Grid Generator
+  // Dynamic Graphic Grid Provisioner
   var g = document.getElementById('grid');
   function buildGrid(){
     g.innerHTML = ''; cells = [];
@@ -658,6 +683,7 @@
     var el = document.getElementById('saveStatus'); el.className = `status-bar status-${cls}`; el.textContent = msg;
   }
 
+  // ═══ SYNC ALIGNMENT FIX FOR AM/PM MULTIPLE SESSIONS ═══
   async function cloudSave() {
     if (!firebaseUser) return;
     try {
@@ -673,7 +699,6 @@
     } catch(e) { setSaveStatus('warn', '⚠️ క్లౌడ్ సేవ్ విఫలమైంది'); }
   }
 
-  // REGISTER ACTIONS ON THE MAIN ATTACHED WINDOW OBJECT HANDLES
   window.addOne = function(){
     if(todayN >= T) return;
     var c = cells[todayN];
@@ -722,19 +747,20 @@
     updateUI(); renderHist(); cloudSave();
   };
 
-  // EXTENDED WINDOW FUNCTIONS OVERRIDES
+  // INTERACTION BINDINGS INTERNALLY ROUTED
   window.toggleTheme = function(){
     document.body.classList.toggle('light-theme');
     localStorage.setItem('theme', document.body.classList.contains('light-theme') ? 'light' : 'dark');
   };
-  
-  // Bind language selection directly to the window layer
+
   window.changeLanguage = function(lang){ 
     currentLang = lang; 
     localStorage.setItem('lang', lang); 
     updateLanguage(); 
-    updateQuote(); // Dynamically translates your daily blessing quote too!
+    var q = quotes[currentLang] || quotes.te;
+    document.getElementById('quoteBox').textContent = q[Math.floor(Math.random() * q.length)];
   };
+
   window.toggleSettings = function(){ document.getElementById('settingsPanel').classList.toggle('show'); document.getElementById('languageSelect').value = currentLang; };
   window.setDuration = function(mins){ sessionDuration = mins * 60; sessionTimeLeft = sessionDuration; updateTimerDisplay(); };
   window.setCategory = function(cat){ currentCategory = cat; };
@@ -750,7 +776,6 @@
   };
   window.closeStats = function(){ document.getElementById('statsModal').classList.remove('show'); };
 
-  // Timer operational sub-block
   window.toggleSessionTimer = function(){
     sessionTimerRunning = !sessionTimerRunning;
     var s = strings[currentLang] || strings.te;
@@ -760,15 +785,6 @@
         sessionTimeLeft--; updateTimerDisplay();
         if(sessionTimeLeft <= 0){
           clearInterval(sessionTimerInterval); sessionTimerRunning = false;
-          try {
-            var ctx = new (window.AudioContext || window.webkitAudioContext)();
-            for(var i = 0; i < 3; i++){
-              var osc = ctx.createOscillator(); var gain = ctx.createGain();
-              osc.connect(gain); gain.connect(ctx.destination); osc.frequency.value = 800 + (i * 200);
-              gain.gain.setValueAtTime(0.15, ctx.currentTime + i * 0.3);
-              osc.start(ctx.currentTime + i * 0.3); osc.stop(ctx.currentTime + i * 0.3 + 0.2);
-            }
-          } catch(e){}
           document.getElementById('sessionToggle').textContent = s.sessionStart;
           sessionTimeLeft = sessionDuration; updateTimerDisplay();
         }
@@ -781,7 +797,6 @@
     document.getElementById('timerDisplay').textContent = (m < 10 ? '0' + m : m) + ':' + (s < 10 ? '0' + s : s);
   }
 
-  // Mic Speech System Engine
   window.toggleMic = function(){
     if(!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)){ alert('Speech not supported'); return; }
     listening ? stopMic() : startMic();
@@ -829,7 +844,7 @@
     document.getElementById('sessionToggle').textContent = sessionTimerRunning ? s.sessionStop : s.sessionStart;
   }
 
-  // CLOUD BACKUP LIFE CYCLES
+  // ═══ FIRESTORE RECOVERY LOGIC FOR MORNING/EVENING SESSIONS ═══
   onAuthStateChanged(auth, async (user) => {
     if (user) {
       firebaseUser = user;
@@ -841,20 +856,26 @@
         const docSnap = await getDoc(doc(db, "users", user.uid));
         if (docSnap.exists()) {
           const cloudData = docSnap.data();
-          if (cloudData.history) {
-            hist = Object.assign({}, cloudData.history, hist);
-            if (cloudData.streak && cloudData.streak.n > streak.n) streak = cloudData.streak;
-            if (cloudData.currentGoal) T = cloudData.currentGoal;
-          }
+          
+          // Merge historical days safely
+          hist = Object.assign({}, cloudData.history, hist);
+          if (cloudData.streak && cloudData.streak.n > streak.n) streak = cloudData.streak;
+          if (cloudData.currentGoal) T = cloudData.currentGoal;
+          
+          // CRITICAL: Look up today's record in the database. 
+          // If your morning cloud count is higher than your empty evening screen, pull it instantly!
+          let cloudTodayCount = cloudData.todayCount || 0;
+          todayN = Math.max(todayN, cloudTodayCount);
+          hist[today()] = todayN;
         }
-      } catch(e) { console.error(e); }
+      } catch(e) { console.error("Cloud pull sync breakdown: ", e); }
     } else {
       firebaseUser = null;
       document.getElementById('sync-logged-out').classList.remove('hidden');
       document.getElementById('sync-logged-in').classList.add('hidden');
     }
     
-    // Refresh parameters gracefully after checks
+    // Refresh graphics layout smoothly
     document.getElementById('goalInput').value = T;
     buildGrid(); updateUI(); refreshCellsUI(); renderHist();
   });
@@ -862,14 +883,12 @@
   document.getElementById('fb-signin-btn').addEventListener('click', () => { signInWithPopup(auth, provider); });
   document.getElementById('fb-signout-btn').addEventListener('click', () => { signOut(auth).then(() => window.location.reload()); });
 
-  // Run initialization parameters safely
-  loadTheme();
-  
-  // Read saved language from past sessions, or default to Telugu
-  currentLang = localStorage.getItem('lang') || 'te';
-  changeLanguage(currentLang);
+  // ROUTE LANGUAGE SELECTOR DIRECTLY WITHIN ES MODULE TARGETING SCOPE
+  document.getElementById('languageSelect').addEventListener('change', (e) => {
+    window.changeLanguage(e.target.value);
+  });
 
-  // RUN NATIVE RECOVERY STORAGE ON BOOTUP
+  // BOOT LOCAL STORAGE RECOVERY
   try {
     var raw = localStorage.getItem('SR_today');
     if(raw){ var o = JSON.parse(raw); if(o.date === today()){ todayN = o.count || 0; } }
@@ -886,10 +905,13 @@
     localStorage.setItem('theme', this.value);
   };
 
-  document.getElementById('quoteBox').textContent = quotes.te[0];
   document.getElementById('goalInput').value = T;
+  currentLang = localStorage.getItem('lang') || 'te';
+  document.getElementById('languageSelect').value = currentLang;
   
   buildGrid();
+  updateLanguage();
+  window.changeLanguage(currentLang);
   updateUI();
   refreshCellsUI();
   renderHist();
