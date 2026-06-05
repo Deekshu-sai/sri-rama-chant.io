@@ -891,11 +891,25 @@
   // BOOT LOCAL STORAGE RECOVERY
   try {
     var raw = localStorage.getItem('SR_today');
-    if(raw){ var o = JSON.parse(raw); if(o.date === today()){ todayN = o.count || 0; } }
+    if (raw) {
+      var o = JSON.parse(raw);
+      if (o.date === today()) {
+        // It's the same day! Restore our active progress
+        todayN = o.count || 0;
+      } else {
+        // New day detected! Force the active counters to zero cleanly
+        todayN = 0;
+        localStorage.setItem('SR_today', JSON.stringify({date: today(), count: 0}));
+      }
+    } else {
+      // First time loading or no tracking slot, initialize at zero
+      todayN = 0;
+    }
+
     var hr = localStorage.getItem('SR_hist'); if(hr){ hist = JSON.parse(hr); }
     var sr = localStorage.getItem('SR_streak'); if(sr){ streak = JSON.parse(sr); }
     var gCount = localStorage.getItem('goal'); if(gCount){ T = parseInt(gCount) || 1000; }
-  } catch(e){}
+  } catch(e){ console.error("Local bootstrap recovery failed: ", e); }
 
   if(localStorage.getItem('theme') === 'light') document.body.classList.add('light-theme');
   document.getElementById('themeSelect').value = localStorage.getItem('theme') || 'dark';
