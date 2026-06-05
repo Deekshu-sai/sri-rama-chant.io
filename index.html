@@ -8,8 +8,6 @@
 <title>శ్రీరామ నామ పుస్తకం</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#FF6B00">
-<title>శ్రీరామ నామ పుస్తకం</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Telugu:wght@400;700&display=swap');
   
@@ -117,6 +115,7 @@
 
   .header-controls {
     display: flex;
+    align-items: center;
     gap: 8px;
   }
 
@@ -145,10 +144,44 @@
     color: var(--saffron);
   }
 
-  body.light-theme .header-btn:hover {
-    background: rgba(255, 107, 0, 0.2);
-    box-shadow: 0 0 10px rgba(255, 107, 0, 0.3);
+  /* ═══ FIREBASE CLOUD PROFILE BANNER ═══ */
+  .fb-auth-container {
+    background: rgba(26, 5, 0, 0.6);
+    border-bottom: 1px solid var(--border-color);
+    padding: 6px 14px;
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 49;
   }
+  body.light-theme .fb-auth-container {
+    background: rgba(255, 245, 240, 0.9);
+  }
+  .fb-profile-info {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .fb-avatar {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid var(--gold);
+  }
+  .fb-auth-btn {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 3px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.75rem;
+  }
+  .fb-auth-btn:hover {
+    background: rgba(255, 215, 0, 0.1);
+  }
+  .hidden { display: none !important; }
 
   /* ═══ SETTINGS PANEL ═══ */
   .settings-panel {
@@ -195,18 +228,9 @@
     to { transform: translateY(0); opacity: 1; }
   }
 
-  .settings-box::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  .settings-box::-webkit-scrollbar-track {
-    background: rgba(255, 215, 0, 0.1);
-  }
-
-  .settings-box::-webkit-scrollbar-thumb {
-    background: rgba(255, 215, 0, 0.4);
-    border-radius: 3px;
-  }
+  .settings-box::-webkit-scrollbar { width: 6px; }
+  .settings-box::-webkit-scrollbar-track { background: rgba(255, 215, 0, 0.1); }
+  .settings-box::-webkit-scrollbar-thumb { background: rgba(255, 215, 0, 0.4); border-radius: 3px; }
 
   .settings-box h2 {
     color: var(--gold);
@@ -215,9 +239,7 @@
     text-align: center;
   }
 
-  body.light-theme .settings-box h2 {
-    color: var(--saffron);
-  }
+  body.light-theme .settings-box h2 { color: var(--saffron); }
 
   .settings-group {
     margin-bottom: 20px;
@@ -225,9 +247,7 @@
     border-bottom: 1px solid rgba(255, 215, 0, 0.15);
   }
 
-  .settings-group:last-child {
-    border-bottom: none;
-  }
+  .settings-group:last-child { border-bottom: none; }
 
   .settings-label {
     display: block;
@@ -261,27 +281,10 @@
     box-shadow: 0 0 12px rgba(255, 215, 0, 0.2);
   }
 
-  body.light-theme .settings-select:focus, body.light-theme .settings-input:focus {
-    border-color: var(--saffron);
-    background: rgba(255, 107, 0, 0.15);
-    box-shadow: 0 0 10px rgba(255, 107, 0, 0.2);
-  }
+  .settings-select option { background: #1a0500; color: var(--gold); }
+  body.light-theme .settings-select option { background: #FFF5E6; color: var(--saffron); }
 
-  .settings-select option {
-    background: #1a0500;
-    color: var(--gold);
-  }
-
-  body.light-theme .settings-select option {
-    background: #FFF5E6;
-    color: var(--saffron);
-  }
-
-  .reminder-options, .duration-options {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
+  .reminder-options, .duration-options { display: flex; flex-direction: column; gap: 10px; }
 
   .reminder-item, .duration-item {
     display: flex;
@@ -295,27 +298,16 @@
     transition: all 0.3s;
   }
 
-  body.light-theme .reminder-item, body.light-theme .duration-item {
-    background: rgba(255, 107, 0, 0.08);
-  }
+  body.light-theme .reminder-item, body.light-theme .duration-item { background: rgba(255, 107, 0, 0.08); }
 
   .reminder-item:hover, .duration-item:hover {
     background: rgba(255, 215, 0, 0.15);
     transform: translateX(4px);
   }
 
-  .reminder-item input, .duration-item input {
-    cursor: pointer;
-    width: 20px;
-    height: 20px;
-    accent-color: var(--saffron);
-  }
+  .reminder-item input, .duration-item input { cursor: pointer; width: 20px; height: 20px; accent-color: var(--saffron); }
 
-  .reminder-time, .duration-time {
-    display: flex;
-    gap: 10px;
-    margin-top: 12px;
-  }
+  .reminder-time, .duration-time { display: flex; gap: 10px; margin-top: 12px; }
 
   .reminder-time input, .duration-time input {
     flex: 1;
@@ -325,12 +317,6 @@
     color: var(--gold);
     border-radius: 8px;
     font-size: 0.9rem;
-  }
-
-  .reminder-time input:focus, .duration-time input:focus {
-    outline: none;
-    border-color: var(--gold);
-    background: rgba(255, 255, 255, 0.12);
   }
 
   .close-settings {
@@ -366,18 +352,9 @@
     scroll-behavior: smooth;
   }
 
-  .container::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  .container::-webkit-scrollbar-track {
-    background: rgba(255, 215, 0, 0.05);
-  }
-
-  .container::-webkit-scrollbar-thumb {
-    background: rgba(255, 215, 0, 0.3);
-    border-radius: 3px;
-  }
+  .container::-webkit-scrollbar { width: 6px; }
+  .container::-webkit-scrollbar-track { background: rgba(255, 215, 0, 0.05); }
+  .container::-webkit-scrollbar-thumb { background: rgba(255, 215, 0, 0.3); border-radius: 3px; }
 
   /* ═══ CARD LAYOUT ═══ */
   .card {
@@ -390,10 +367,7 @@
     transition: all 0.3s;
   }
 
-  body.light-theme .card {
-    background: rgba(255, 107, 0, 0.04);
-    border-color: rgba(255, 107, 0, 0.2);
-  }
+  body.light-theme .card { background: rgba(255, 107, 0, 0.04); border-color: rgba(255, 107, 0, 0.2); }
 
   .card:hover {
     transform: translateY(-2px);
@@ -417,11 +391,6 @@
     box-shadow: 0 4px 12px rgba(255, 107, 0, 0.15);
   }
 
-  body.light-theme .quote-card {
-    background: linear-gradient(135deg, rgba(255, 107, 0, 0.08), rgba(232, 85, 0, 0.05));
-    border-left-color: var(--deep);
-  }
-
   /* ═══ PROGRESS RING ═══ */
   .progress-ring-section {
     display: flex;
@@ -432,11 +401,6 @@
     background: linear-gradient(135deg, rgba(61, 26, 0, 0.5), rgba(26, 5, 0, 0.35));
     border-radius: 14px;
     border: 1.5px solid var(--border-color);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-  }
-
-  body.light-theme .progress-ring-section {
-    background: linear-gradient(135deg, rgba(255, 107, 0, 0.08), rgba(232, 85, 0, 0.05));
   }
 
   .progress-ring-container {
@@ -448,686 +412,136 @@
     justify-content: center;
   }
 
-  .progress-ring {
-    transform: rotate(-90deg);
-    width: 100%;
-    height: 100%;
-  }
+  .progress-ring { transform: rotate(-90deg); width: 100%; height: 100%; }
 
-  .progress-ring-circle {
-    fill: none;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    transition: stroke-dashoffset 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
+  .progress-ring-circle { fill: none; stroke-linecap: round; stroke-linejoin: round; transition: stroke-dashoffset 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); }
 
-  .progress-ring-bg {
-    stroke: rgba(255, 215, 0, 0.2);
-    stroke-width: 8;
-  }
+  .progress-ring-bg { stroke: rgba(255, 215, 0, 0.2); stroke-width: 8; }
 
-  .progress-ring-fill {
-    stroke: url(#progressGradient);
-    stroke-width: 8;
-    stroke-dasharray: 565.48;
-    stroke-dashoffset: 565.48;
-  }
+  .progress-ring-fill { stroke: url(#progressGradient); stroke-width: 8; stroke-dasharray: 565.48; stroke-dashoffset: 565.48; }
 
-  .progress-ring-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-  }
+  .progress-ring-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; }
 
-  .progress-count {
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--gold);
-    text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
-    line-height: 1;
-  }
+  .progress-count { font-size: 2rem; font-weight: 700; color: var(--gold); text-shadow: 0 0 15px rgba(255, 215, 0, 0.5); line-height: 1; }
 
-  body.light-theme .progress-count {
-    color: var(--saffron);
-    text-shadow: 0 0 8px rgba(255, 107, 0, 0.3);
-  }
+  .progress-label { font-size: 0.7rem; color: #FFD98A; opacity: 0.85; }
 
-  .progress-label {
-    font-size: 0.7rem;
-    color: #FFD98A;
-    opacity: 0.85;
-  }
+  .progress-info { display: flex; justify-content: space-around; width: 100%; gap: 10px; }
 
-  body.light-theme .progress-label {
-    color: var(--saffron);
-    opacity: 0.8;
-  }
+  .progress-stat { text-align: center; flex: 1; }
 
-  .progress-info {
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-    gap: 10px;
-  }
+  .progress-stat-value { font-size: 1.3rem; font-weight: 700; color: var(--gold); display: block; }
 
-  .progress-stat {
-    text-align: center;
-    flex: 1;
-  }
-
-  .progress-stat-value {
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: var(--gold);
-    display: block;
-  }
-
-  .progress-stat-label {
-    font-size: 0.65rem;
-    color: #FFD98A;
-    opacity: 0.8;
-  }
+  .progress-stat-label { font-size: 0.65rem; color: #FFD98A; opacity: 0.8; }
 
   /* ═══ GOAL & CATEGORY ═══ */
-  .settings-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
+  .settings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
-  .goal-card, .category-card, .duration-card {
-    background: rgba(255, 215, 0, 0.08);
-    border: 1.5px solid var(--border-color);
-    padding: 12px;
-    border-radius: 12px;
-    text-align: center;
-  }
+  .goal-card, .category-card, .duration-card { background: rgba(255, 215, 0, 0.08); border: 1.5px solid var(--border-color); padding: 12px; border-radius: 12px; text-align: center; }
 
-  body.light-theme .goal-card, body.light-theme .category-card, body.light-theme .duration-card {
-    background: rgba(255, 107, 0, 0.08);
-    border-color: rgba(255, 107, 0, 0.25);
-  }
+  .goal-card label, .category-label, .duration-label { display: block; font-size: 0.72rem; color: rgba(255, 215, 0, 0.75); margin-bottom: 8px; font-weight: 700; text-transform: uppercase; }
 
-  .goal-card label, .category-label, .duration-label {
-    display: block;
-    font-size: 0.72rem;
-    color: rgba(255, 215, 0, 0.75);
-    margin-bottom: 8px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
+  .goal-input { width: 100%; padding: 10px; background: rgba(255, 255, 255, 0.1); border: 1.5px solid rgba(255, 215, 0, 0.35); color: var(--gold); border-radius: 8px; text-align: center; font-weight: 700; }
 
-  body.light-theme .goal-card label, body.light-theme .category-label, body.light-theme .duration-label {
-    color: var(--saffron);
-  }
+  .category-buttons, .duration-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
 
-  .goal-input {
-    width: 100%;
-    padding: 10px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1.5px solid rgba(255, 215, 0, 0.35);
-    color: var(--gold);
-    border-radius: 8px;
-    font-family: inherit;
-    font-size: 0.95rem;
-    text-align: center;
-    font-weight: 700;
-  }
+  .cat-btn, .dur-btn { padding: 8px 6px; background: rgba(255, 215, 0, 0.1); border: 1.5px solid rgba(255, 215, 0, 0.3); color: var(--text-primary); border-radius: 8px; font-size: 0.7rem; cursor: pointer; font-weight: 600; }
 
-  body.light-theme .goal-input {
-    background: rgba(255, 107, 0, 0.08);
-    border-color: rgba(255, 107, 0, 0.35);
-    color: var(--saffron);
-  }
-
-  .goal-input:focus {
-    outline: none;
-    border-color: var(--gold);
-    background: rgba(255, 255, 255, 0.15);
-    box-shadow: 0 0 12px rgba(255, 215, 0, 0.2);
-  }
-
-  .category-buttons, .duration-buttons {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6px;
-  }
-
-  .cat-btn, .dur-btn {
-    padding: 8px 6px;
-    background: rgba(255, 215, 0, 0.1);
-    border: 1.5px solid rgba(255, 215, 0, 0.3);
-    color: var(--text-primary);
-    border-radius: 8px;
-    font-size: 0.7rem;
-    cursor: pointer;
-    transition: all 0.3s;
-    font-weight: 600;
-  }
-
-  body.light-theme .cat-btn, body.light-theme .dur-btn {
-    background: rgba(255, 107, 0, 0.08);
-    border-color: rgba(255, 107, 0, 0.3);
-    color: var(--saffron);
-  }
-
-  .cat-btn:active, .dur-btn:active {
-    transform: scale(0.95);
-  }
-
-  .cat-btn.active, .dur-btn.active {
-    background: var(--saffron);
-    color: #fff;
-    border-color: var(--saffron);
-    box-shadow: 0 0 15px rgba(255, 107, 0, 0.4);
-    transform: scale(1.05);
-  }
+  .cat-btn.active, .dur-btn.active { background: var(--saffron); color: #fff; border-color: var(--saffron); box-shadow: 0 0 15px rgba(255, 107, 0, 0.4); }
 
   /* ═══ TIMER ═══ */
-  .timer-card {
-    background: linear-gradient(135deg, rgba(232, 85, 0, 0.18), rgba(255, 107, 0, 0.12));
-    border: 1.5px solid rgba(255, 107, 0, 0.35);
-    padding: 14px;
-    border-radius: 12px;
-    text-align: center;
-  }
+  .timer-card { background: linear-gradient(135deg, rgba(232, 85, 0, 0.18), rgba(255, 107, 0, 0.12)); border: 1.5px solid rgba(255, 107, 0, 0.35); padding: 14px; border-radius: 12px; text-align: center; }
 
-  body.light-theme .timer-card {
-    background: linear-gradient(135deg, rgba(255, 107, 0, 0.1), rgba(232, 85, 0, 0.08));
-  }
+  .timer-label { font-size: 0.75rem; color: rgba(255, 215, 0, 0.8); margin-bottom: 8px; display: block; font-weight: 700; text-transform: uppercase; }
 
-  .timer-label {
-    font-size: 0.75rem;
-    color: rgba(255, 215, 0, 0.8);
-    margin-bottom: 8px;
-    display: block;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
+  .timer-display { font-size: 2rem; color: var(--gold); font-weight: 800; margin: 8px 0; font-family: 'Courier New', monospace; }
 
-  body.light-theme .timer-label {
-    color: var(--saffron);
-  }
-
-  .timer-display {
-    font-size: 2rem;
-    color: var(--gold);
-    font-weight: 800;
-    margin: 8px 0;
-    font-family: 'Courier New', monospace;
-    text-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
-    letter-spacing: 2px;
-  }
-
-  body.light-theme .timer-display {
-    color: var(--saffron);
-    text-shadow: 0 0 10px rgba(255, 107, 0, 0.3);
-  }
-
-  .timer-display.danger {
-    animation: pulse 0.5s infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-  }
-
-  .timer-btn {
-    width: 100%;
-    padding: 10px;
-    background: linear-gradient(135deg, var(--saffron), var(--deep));
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 0.85rem;
-    font-weight: 700;
-    transition: all 0.3s;
-    box-shadow: 0 4px 12px rgba(255, 107, 0, 0.3);
-  }
-
-  .timer-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(255, 107, 0, 0.4);
-  }
-
-  .timer-btn:active {
-    transform: translateY(0);
-  }
+  .timer-btn { width: 100%; padding: 10px; background: linear-gradient(135deg, var(--saffron), var(--deep)); color: #fff; border: none; border-radius: 8px; cursor: pointer; font-weight: 700; }
 
   /* ═══ STATS ═══ */
-  .stats-section {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-  }
+  .stats-section { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
 
-  .stat-box {
-    background: rgba(255, 215, 0, 0.08);
-    border: 1.5px solid var(--border-color);
-    padding: 12px 8px;
-    border-radius: 12px;
-    text-align: center;
-    transition: all 0.3s;
-  }
+  .stat-box { background: rgba(255, 215, 0, 0.08); border: 1.5px solid var(--border-color); padding: 12px 8px; border-radius: 12px; text-align: center; }
 
-  body.light-theme .stat-box {
-    background: rgba(255, 107, 0, 0.08);
-  }
+  .stat-number { font-size: 1.3rem; font-weight: 800; color: var(--gold); display: block; margin-bottom: 4px; }
 
-  .stat-box:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(255, 107, 0, 0.15);
-  }
-
-  .stat-number {
-    font-size: 1.3rem;
-    font-weight: 800;
-    color: var(--gold);
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
-    display: block;
-    margin-bottom: 4px;
-  }
-
-  body.light-theme .stat-number {
-    color: var(--saffron);
-    text-shadow: 0 0 8px rgba(255, 107, 0, 0.2);
-  }
-
-  .stat-label {
-    font-size: 0.65rem;
-    color: #FFD98A;
-    opacity: 0.8;
-    line-height: 1.2;
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
-  }
-
-  body.light-theme .stat-label {
-    color: var(--saffron);
-    opacity: 0.75;
-  }
+  .stat-label { font-size: 0.65rem; color: #FFD98A; opacity: 0.8; text-transform: uppercase; }
 
   /* ═══ BUTTONS ═══ */
-  .button-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-  }
+  .button-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
-  .btn {
-    padding: 12px 14px;
-    border: none;
-    border-radius: 10px;
-    font-family: inherit;
-    cursor: pointer;
-    transition: all 0.3s;
-    font-weight: 700;
-    font-size: 0.85rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  }
+  .btn { padding: 12px 14px; border: none; border-radius: 10px; font-family: inherit; cursor: pointer; font-weight: 700; font-size: 0.85rem; display: flex; align-items: center; justify-content: center; gap: 6px; }
 
-  .btn-primary {
-    background: linear-gradient(135deg, var(--saffron), var(--deep));
-    color: #fff;
-    grid-column: 1 / -1;
-    font-size: 0.95rem;
-  }
+  .btn-primary { background: linear-gradient(135deg, var(--saffron), var(--deep)); color: #fff; grid-column: 1 / -1; font-size: 0.95rem; }
 
-  .btn-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 18px rgba(255, 107, 0, 0.4);
-  }
-
-  .btn-secondary {
-    background: rgba(255, 215, 0, 0.12);
-    color: var(--gold);
-    border: 1.5px solid rgba(255, 215, 0, 0.3);
-  }
-
-  body.light-theme .btn-secondary {
-    background: rgba(255, 107, 0, 0.1);
-    color: var(--saffron);
-    border-color: rgba(255, 107, 0, 0.35);
-  }
-
-  .btn-secondary:hover {
-    background: rgba(255, 215, 0, 0.2);
-    transform: translateY(-2px);
-  }
-
-  body.light-theme .btn-secondary:hover {
-    background: rgba(255, 107, 0, 0.15);
-  }
+  .btn-secondary { background: rgba(255, 215, 0, 0.12); color: var(--gold); border: 1.5px solid rgba(255, 215, 0, 0.3); }
 
   /* ═══ STATUS ═══ */
-  .status-bar {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1.5px solid var(--border-color);
-    padding: 10px;
-    border-radius: 10px;
-    font-size: 0.8rem;
-    text-align: center;
-    color: #FFD98A;
-    min-height: 20px;
-    font-weight: 600;
-  }
+  .status-bar { background: rgba(255, 255, 255, 0.05); border: 1.5px solid var(--border-color); padding: 10px; border-radius: 10px; font-size: 0.8rem; text-align: center; color: #FFD98A; min-height: 20px; font-weight: 600; }
 
   .status-ok { color: #4CAF50; }
   .status-warn { color: #FF6B6B; }
   .status-info { color: rgba(255, 215, 0, 0.8); }
 
   /* ═══ GRID VISUALIZATION ═══ */
-  .grid-section {
-    margin-top: 8px;
-  }
+  .grid-title { text-align: center; font-size: 0.8rem; color: var(--gold); margin-bottom: 10px; font-weight: 700; text-transform: uppercase; }
 
-  .grid-title {
-    text-align: center;
-    font-size: 0.8rem;
-    color: var(--gold);
-    margin-bottom: 10px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
+  .grid-container { background: var(--cream); border: 2px solid var(--saffron); border-radius: 10px; padding: 6px; }
 
-  body.light-theme .grid-title {
-    color: var(--saffron);
-  }
+  .grid { display: grid; grid-template-columns: repeat(18, 1fr); gap: 1.5px; }
 
-  .grid-container {
-    background: var(--cream);
-    border: 2px solid var(--saffron);
-    border-radius: 10px;
-    padding: 6px;
-    box-shadow: 0 0 25px rgba(255, 107, 0, 0.25);
-  }
+  @media (max-width: 500px) { .grid { grid-template-columns: repeat(12, 1fr); } }
+  @media (max-width: 380px) { .grid { grid-template-columns: repeat(8, 1fr); } }
 
-  body.light-theme .grid-container {
-    background: #FFFAF0;
-    box-shadow: 0 0 15px rgba(255, 107, 0, 0.15);
-  }
+  .cell { aspect-ratio: 1; border: 1px solid #D4A574; border-radius: 3px; background: #fff; display: flex; align-items: center; justify-content: center; font-size: 0.5rem; color: #8B6914; position: relative; }
 
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(18, 1fr);
-    gap: 1.5px;
-  }
+  .cell.f { background: linear-gradient(135deg, #FFF3CC, #FFE082); border-color: var(--saffron); color: var(--deep); font-weight: 700; }
 
-  @media (max-width: 500px) {
-    .grid { grid-template-columns: repeat(12, 1fr); }
-  }
+  .cell.pop { animation: pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
 
-  @media (max-width: 380px) {
-    .grid { grid-template-columns: repeat(8, 1fr); }
-  }
-
-  .cell {
-    aspect-ratio: 1;
-    border: 1px solid #D4A574;
-    border-radius: 3px;
-    background: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.5rem;
-    position: relative;
-    color: #8B6914;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .cell:hover {
-    border-color: var(--saffron);
-  }
-
-  .cell.f {
-    background: linear-gradient(135deg, #FFF3CC, #FFE082);
-    border-color: var(--saffron);
-    color: var(--deep);
-    font-weight: 700;
-  }
-
-  .cell.pop {
-    animation: pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  }
-
-  @keyframes pop {
-    0% { transform: scale(0.5); opacity: 0.3; }
-    60% { transform: scale(1.3); }
-    100% { transform: scale(1); opacity: 1; }
-  }
+  @keyframes pop { 0% { transform: scale(0.5); opacity: 0.3; } 60% { transform: scale(1.3); } 100% { transform: scale(1); opacity: 1; } }
 
   /* ═══ HISTORY ═══ */
-  .history-btn {
-    width: 100%;
-    background: rgba(255, 215, 0, 0.08);
-    border: 1.5px solid var(--border-color);
-    color: #FFD98A;
-    padding: 10px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 0.8rem;
-    transition: all 0.3s;
-    font-weight: 700;
-  }
+  .history-btn { width: 100%; background: rgba(255, 215, 0, 0.08); border: 1.5px solid var(--border-color); color: #FFD98A; padding: 10px; border-radius: 10px; cursor: pointer; font-weight: 700; }
 
-  body.light-theme .history-btn {
-    background: rgba(255, 107, 0, 0.08);
-    border-color: rgba(255, 107, 0, 0.25);
-    color: var(--saffron);
-  }
+  .history-content { display: none; max-height: 200px; overflow-y: auto; margin-top: 8px; }
 
-  .history-btn:hover {
-    background: rgba(255, 215, 0, 0.15);
-    transform: translateY(-1px);
-  }
+  .history-content.open { display: block; }
 
-  .history-content {
-    display: none;
-    max-height: 200px;
-    overflow-y: auto;
-    margin-top: 8px;
-  }
+  .history-table { width: 100%; border-collapse: collapse; font-size: 0.75rem; }
 
-  .history-content.open {
-    display: block;
-  }
+  .history-table th { background: rgba(255, 215, 0, 0.12); color: var(--gold); padding: 8px 6px; font-weight: 700; }
 
-  .history-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.75rem;
-  }
-
-  .history-table th {
-    background: rgba(255, 215, 0, 0.12);
-    color: var(--gold);
-    padding: 8px 6px;
-    text-align: center;
-    font-weight: 700;
-  }
-
-  body.light-theme .history-table th {
-    background: rgba(255, 107, 0, 0.1);
-    color: var(--saffron);
-  }
-
-  .history-table td {
-    color: #FFD98A;
-    padding: 6px 4px;
-    text-align: center;
-    border-bottom: 1px solid rgba(255, 215, 0, 0.08);
-  }
-
-  body.light-theme .history-table td {
-    color: var(--saffron);
-  }
+  .history-table td { color: #FFD98A; padding: 6px 4px; text-align: center; border-bottom: 1px solid rgba(255, 215, 0, 0.08); }
 
   /* ═══ MODAL ═══ */
-  .modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.93);
-    z-index: 998;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-  }
+  .modal { display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.93); z-index: 998; align-items: center; justify-content: center; padding: 20px; }
 
-  .modal.show {
-    display: flex;
-  }
+  .modal.show { display: flex; }
 
-  .modal-box {
-    background: linear-gradient(135deg, #3D1A00, #1a0500);
-    border: 3px solid var(--gold);
-    border-radius: 18px;
-    padding: 24px;
-    max-width: 340px;
-    width: 100%;
-    text-align: center;
-    animation: bounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
-  }
+  .modal-box { background: linear-gradient(135deg, #3D1A00, #1a0500); border: 3px solid var(--gold); border-radius: 18px; padding: 24px; max-width: 340px; width: 100%; text-align: center; }
 
-  body.light-theme .modal-box {
-    background: linear-gradient(135deg, #FFF5E6, #FFE5CC);
-    border-color: var(--saffron);
-  }
+  .modal-icon { font-size: 3rem; margin-bottom: 12px; animation: glow 1.5s ease-in-out infinite alternate; }
 
-  @keyframes bounce {
-    0% { transform: scale(0.7) translateY(40px); opacity: 0; }
-    60% { transform: scale(1.05); }
-    100% { transform: scale(1) translateY(0); opacity: 1; }
-  }
+  .modal-title { font-size: 1.3rem; color: var(--gold); margin: 8px 0 12px; font-weight: 800; }
 
-  .modal-icon {
-    font-size: 3rem;
-    margin-bottom: 12px;
-    animation: glow 1.5s ease-in-out infinite alternate;
-  }
+  .modal-text { color: #FFD98A; margin-bottom: 14px; font-size: 0.9rem; }
 
-  .modal-title {
-    font-size: 1.3rem;
-    color: var(--gold);
-    margin: 8px 0 12px;
-    font-weight: 800;
-    line-height: 1.3;
-  }
-
-  body.light-theme .modal-title {
-    color: var(--saffron);
-  }
-
-  .modal-text {
-    color: #FFD98A;
-    margin-bottom: 14px;
-    font-size: 0.9rem;
-    line-height: 1.4;
-  }
-
-  body.light-theme .modal-text {
-    color: var(--saffron);
-  }
-
-  .modal-btn {
-    background: linear-gradient(135deg, var(--saffron), var(--deep));
-    color: #fff;
-    padding: 12px 24px;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    font-weight: 700;
-    font-size: 0.95rem;
-    transition: all 0.3s;
-    box-shadow: 0 4px 12px rgba(255, 107, 0, 0.3);
-  }
-
-  .modal-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(255, 107, 0, 0.4);
-  }
+  .modal-btn { background: linear-gradient(135deg, var(--saffron), var(--deep)); color: #fff; padding: 12px 24px; border: none; border-radius: 20px; cursor: pointer; font-weight: 700; }
 
   /* ═══ BOTTOM NAVIGATION ═══ */
-  .bottom-nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(180deg, rgba(61, 26, 0, 0.98), rgba(26, 5, 0, 0.99));
-    border-top: 3px solid var(--saffron);
-    padding: 8px 10px;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
-    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
-    z-index: 100;
-  }
+  .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: linear-gradient(180deg, rgba(61, 26, 0, 0.98), rgba(26, 5, 0, 0.99)); border-top: 3px solid var(--saffron); padding: 8px 10px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; z-index: 100; }
 
-  body.light-theme .bottom-nav {
-    background: linear-gradient(180deg, rgba(255, 225, 180, 0.98), rgba(255, 215, 165, 0.99));
-  }
+  .nav-btn { background: rgba(255, 215, 0, 0.1); border: 1.5px solid rgba(255, 215, 0, 0.25); color: var(--text-primary); border-radius: 10px; padding: 8px 6px; cursor: pointer; font-size: 0.68rem; display: flex; flex-direction: column; align-items: center; gap: 3px; font-weight: 700; }
 
-  .nav-btn {
-    background: rgba(255, 215, 0, 0.1);
-    border: 1.5px solid rgba(255, 215, 0, 0.25);
-    color: var(--text-primary);
-    border-radius: 10px;
-    padding: 8px 6px;
-    cursor: pointer;
-    font-size: 0.68rem;
-    transition: all 0.3s;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 3px;
-    position: relative;
-    font-weight: 700;
-  }
+  .nav-btn-icon { font-size: 1.1rem; }
 
-  body.light-theme .nav-btn {
-    background: rgba(255, 107, 0, 0.08);
-    border-color: rgba(255, 107, 0, 0.25);
-    color: var(--saffron);
-  }
-
-  .nav-btn-icon {
-    font-size: 1.1rem;
-  }
-
-  .nav-btn:hover {
-    background: rgba(255, 215, 0, 0.15);
-    transform: translateY(-2px);
-  }
-
-  body.light-theme .nav-btn:hover {
-    background: rgba(255, 107, 0, 0.15);
-  }
-
-  .nav-btn.active {
-    background: var(--saffron);
-    color: #fff;
-    box-shadow: 0 0 15px rgba(255, 107, 0, 0.4);
-    border-color: var(--saffron);
-  }
+  .nav-btn.active { background: var(--saffron); color: #fff; border-color: var(--saffron); }
 </style>
 </head>
 <body>
 <div id="ptc"></div>
 
-<!-- HEADER -->
 <div class="header">
   <div class="header-top">
     <span class="om-icon">ॐ</span>
@@ -1142,7 +556,21 @@
   </div>
 </div>
 
-<!-- SETTINGS PANEL -->
+<div class="fb-auth-container">
+  <div id="cloud-logged-out">
+    <span style="opacity: 0.8;">☁️ డేటా క్లౌడ్ బ్యాకప్ కోసం:</span>
+    <button class="fb-auth-btn" id="btn-login">Google సింక్ 🔗</button>
+  </div>
+  <div id="cloud-logged-in" class="hidden">
+    <div class="fb-profile-info">
+      <img id="fb-user-avatar" class="fb-avatar" src="" alt="">
+      <span id="fb-user-name" style="color: var(--gold); font-weight:bold;">భక్తుడు</span>
+      <span style="color: #4CAF50;">● క్లౌడ్ కనెక్ట్ అయింది</span>
+    </div>
+    <button class="fb-auth-btn" id="btn-logout">సైన్ అవుట్</button>
+  </div>
+</div>
+
 <div class="settings-panel" id="settingsPanel">
   <div class="settings-box">
     <h2>⚙️ సెట్టింగ్‌లు</h2>
@@ -1168,25 +596,11 @@
     <div class="settings-group">
       <label class="settings-label">⏰ జపం సమయం నిర్ణయించండి</label>
       <div class="duration-options">
-        <label class="duration-item">
-          <input type="radio" name="duration" value="5" onchange="setDuration(5)"> 5 నిమిషాలు
-        </label>
-        <label class="duration-item">
-          <input type="radio" name="duration" value="10" onchange="setDuration(10)" checked> 10 నిమిషాలు
-        </label>
-        <label class="duration-item">
-          <input type="radio" name="duration" value="15" onchange="setDuration(15)"> 15 నిమిషాలు
-        </label>
-        <label class="duration-item">
-          <input type="radio" name="duration" value="20" onchange="setDuration(20)"> 20 నిమిషాలు
-        </label>
-        <label class="duration-item">
-          <input type="radio" name="duration" value="30" onchange="setDuration(30)"> 30 నిమిషాలు
-        </label>
-        <label class="duration-item">
-          <input type="radio" name="duration" value="custom"> కస్టమ్:
-          <input type="number" id="customDuration" min="1" max="120" placeholder="నిమిషాలు" style="width:50px; margin-left:6px;">
-        </label>
+        <label class="duration-item"><input type="radio" name="duration" value="5" onchange="setDuration(5)"> 5 నిమిషాలు</label>
+        <label class="duration-item"><input type="radio" name="duration" value="10" onchange="setDuration(10)" checked> 10 నిమిషాలు</label>
+        <label class="duration-item"><input type="radio" name="duration" value="15" onchange="setDuration(15)"> 15 నిమిషాలు</label>
+        <label class="duration-item"><input type="radio" name="duration" value="20" onchange="setDuration(20)"> 20 నిమిషాలు</label>
+        <label class="duration-item"><input type="radio" name="duration" value="30" onchange="setDuration(30)"> 30 నిమిషాలు</label>
       </div>
     </div>
 
@@ -1195,28 +609,25 @@
       <div class="reminder-options">
         <label class="reminder-item">
           <input type="checkbox" id="reminderEnabled" onchange="updateReminder()">
-          <span>దినిక రిమైండర్ ఎనేబల్ చేయండి</span>
+          <span>దీనికి రిమైండర్ ఎనేబల్ చేయండి</span>
         </label>
       </div>
       <div class="reminder-time">
         <input type="time" id="reminderTime" value="09:00" onchange="updateReminder()">
         <select class="settings-select" id="reminderFreq" style="flex:1;" onchange="updateReminder()">
           <option value="daily">రోజూ</option>
-          <option value="weekdays">సోమ-శుక్ర</option>
+          <option value="weekdays">సోమ-शुక్ర</option>
         </select>
       </div>
     </div>
 
-    <button class="close-settings" onclick="toggleSettings()">✕ మూసివేయు</button>
+    <button class="close-settings" onclick="toggleSettings()">✕ మూసిвеయు</button>
   </div>
 </div>
 
-<!-- MAIN CONTENT -->
 <div class="container">
-  <!-- QUOTE -->
   <div class="quote-card" id="quoteBox">🙏 ఆశీర్వాదాలు... 🙏</div>
 
-  <!-- PROGRESS RING -->
   <div class="progress-ring-section card">
     <div class="progress-ring-container">
       <svg class="progress-ring" viewBox="0 0 200 200">
@@ -1246,13 +657,11 @@
     </div>
   </div>
 
-  <!-- SETTINGS GRID -->
   <div class="settings-grid">
     <div class="goal-card">
       <label id="goalLabel">రోజువారీ లక్ష్యం</label>
       <input type="number" class="goal-input" id="goalInput" min="1" max="10000" value="1000" onchange="setGoal(this.value)">
     </div>
-    
     <div class="duration-card">
       <label class="duration-label" id="durationLabel">జపం సమయం</label>
       <div class="duration-buttons">
@@ -1264,7 +673,6 @@
     </div>
   </div>
 
-  <!-- CATEGORY -->
   <div class="category-card">
     <label class="category-label" id="categoryLabel">సెషన్ రకం</label>
     <div class="category-buttons" style="grid-template-columns: repeat(4, 1fr); gap: 8px;">
@@ -1275,14 +683,12 @@
     </div>
   </div>
 
-  <!-- TIMER -->
   <div class="timer-card card">
     <label class="timer-label" id="timerLabel">సెషన్ టైమర్</label>
     <div class="timer-display" id="timerDisplay">10:00</div>
     <button class="timer-btn" onclick="toggleSessionTimer()">▶️ <span id="sessionToggle">ప్రారంభించు</span></button>
   </div>
 
-  <!-- STATS -->
   <div class="stats-section">
     <div class="stat-box">
       <span class="stat-number" id="ltTotal">0</span>
@@ -1298,10 +704,8 @@
     </div>
   </div>
 
-  <!-- STATUS -->
   <div class="status-bar status-info" id="saveStatus">💾 సిద్ధం</div>
 
-  <!-- BUTTONS -->
   <div class="button-grid">
     <button class="btn btn-primary" onclick="addOne()">🪷 <span id="addLabel">గణన</span></button>
     <button class="btn btn-secondary" onclick="toggleMic()">🎤 <span id="micLabel">మైక్</span></button>
@@ -1309,7 +713,6 @@
     <button class="btn btn-secondary" onclick="resetToday()">🔄 <span id="resetLabel">రీసెట్</span></button>
   </div>
 
-  <!-- HISTORY -->
   <div>
     <button class="history-btn" onclick="toggleHist()" id="historyBtn">📅 చరిత్ర ▼</button>
     <div class="history-content" id="histwrap">
@@ -1322,7 +725,6 @@
     </div>
   </div>
 
-  <!-- GRID -->
   <div class="grid-section">
     <div class="grid-title" id="gridTitle">✦ శ్రీరామ నామ జప వీక్ష్యం ✦</div>
     <div class="grid-container">
@@ -1331,7 +733,6 @@
   </div>
 </div>
 
-<!-- BOTTOM NAVIGATION -->
 <div class="bottom-nav">
   <button class="nav-btn active" onclick="scrollToTop()">
     <span class="nav-btn-icon">🏠</span>
@@ -1351,18 +752,16 @@
   </button>
 </div>
 
-<!-- COMPLETION MODAL -->
 <div class="modal" id="overlay">
   <div class="modal-box">
     <div class="modal-icon">ॐ</div>
     <div class="modal-title" id="modalTitle">శ్రీరామ జయరామ<br>జయ జయ రామ!</div>
     <div id="comptotal" style="color: var(--gold); font-weight: 700; margin: 12px 0;"></div>
-    <p class="modal-text" id="modalText">ఈ రోజు లక్ష్యం పూర్తయ్యాయి!<br>శ్రీరాముని కృప మీకు సదా లభించుటకు!</p>
+    <p class="modal-text" id="modalText">ఈ రోజు लक्ष्यం పూర్తయ్యాయి!<br>శ్రీరాముని కృప మీకు సదా లభించుటకు!</p>
     <button class="modal-btn" onclick="document.getElementById('overlay').classList.remove('show')">సరే 🙏</button>
   </div>
 </div>
 
-<!-- STATS MODAL -->
 <div class="modal" id="statsModal">
   <div class="modal-box">
     <div class="modal-icon">📊</div>
@@ -1372,612 +771,6 @@
   </div>
 </div>
 
-<script>
-// ═══ LANGUAGE STRINGS ═══
-const strings = {
-  te: {
-    headerTitle: '🪷 శ్రీరామ నామ 🪷',
-    subtitle: 'వెయ్యి నామాల జప పుస్తకం',
-    goalLabel: 'రోజువారీ లక్ష్యం',
-    categoryLabel: 'సెషన్ రకం',
-    durationLabel: 'జపం సమయం',
-    timerLabel: 'సెషన్ టైమర్',
-    remainLabel: 'మిగిలినవి',
-    percentLabel: 'శాతం',
-    totalLabel: 'మొత్తం',
-    completeLabel: 'పూర్తి రోజులు',
-    streakLabel: 'వరుస 🔥',
-    addLabel: 'గణన',
-    micLabel: 'మైక్',
-    statsLabel: 'గణాంకాలు',
-    resetLabel: 'రీసెట్',
-    homeLabel: 'హోమ్',
-    countLabel: 'గణన',
-    statsNavLabel: 'స్టాట్‌లు',
-    settingsLabel: 'సెట్టింగ్‌లు',
-    modalTitle: 'శ్రీరామ జయరామ<br>జయ జయ రామ!',
-    modalText: 'ఈ రోజు లక్ష్యం పూర్తయ్యాయి!<br>శ్రీరాముని కృప మీకు సదా లభించుటకు!',
-    statsTitle: 'మీ గణాంకాలు',
-    historyBtn: '📅 చరిత్ర ▼',
-    gridTitle: '✦ శ్రీరామ నామ జప వీక్ష్యం ✦',
-    dateHeader: 'తేదీ',
-    countHeader: 'నామాలు',
-    statusHeader: 'స్థితి',
-    sessionStart: 'ప్రారంభించు',
-    sessionStop: 'ఆపు',
-    timerEnd: 'జపం కంపీట్ - శ్రీరామ జయరామ',
-  },
-  en: {
-    headerTitle: '🪷 Sri Ram Names 🪷',
-    subtitle: 'One Thousand Names Chanting Book',
-    goalLabel: 'Daily Goal',
-    categoryLabel: 'Session Type',
-    durationLabel: 'Duration',
-    timerLabel: 'Session Timer',
-    remainLabel: 'Remaining',
-    percentLabel: 'Percent',
-    totalLabel: 'Total',
-    completeLabel: 'Complete Days',
-    streakLabel: 'Streak 🔥',
-    addLabel: 'Count',
-    micLabel: 'Mic',
-    statsLabel: 'Stats',
-    resetLabel: 'Reset',
-    homeLabel: 'Home',
-    countLabel: 'Count',
-    statsNavLabel: 'Stats',
-    settingsLabel: 'Settings',
-    modalTitle: 'Sri Ram<br>Victory to Ram!',
-    modalText: 'Daily goal completed!<br>Blessings of Lord Ram upon you!',
-    statsTitle: 'Your Statistics',
-    historyBtn: '📅 History ▼',
-    gridTitle: '✦ Sri Ram Names Progress ✦',
-    dateHeader: 'Date',
-    countHeader: 'Names',
-    statusHeader: 'Status',
-    sessionStart: 'Start',
-    sessionStop: 'Stop',
-    timerEnd: 'Chanting Complete - Sri Ram!',
-  },
-  hi: {
-    headerTitle: '🪷 श्री राम नाम 🪷',
-    subtitle: 'हज़ार नामों की पूजा',
-    goalLabel: 'दैनिक लक्ष्य',
-    categoryLabel: 'सत्र प्रकार',
-    durationLabel: 'अवधि',
-    timerLabel: 'सत्र टाइमर',
-    remainLabel: 'बचा हुआ',
-    percentLabel: 'प्रतिशत',
-    totalLabel: 'कुल',
-    completeLabel: 'पूर्ण दिन',
-    streakLabel: 'धारावाहिक 🔥',
-    addLabel: 'गिनती',
-    micLabel: 'माइक',
-    statsLabel: 'आंकड़े',
-    resetLabel: 'रीसेट',
-    homeLabel: 'होम',
-    countLabel: 'गिनती',
-    statsNavLabel: 'आंकड़े',
-    settingsLabel: 'सेटिंग्स',
-    modalTitle: 'श्री राम जय राम<br>जय जय राम!',
-    modalText: 'आज का लक्ष्य पूरा हुआ!<br>भगवान राम का आशीर्वाद आपको सदा मिले!',
-    statsTitle: 'आपकी आंकड़े',
-    historyBtn: '📅 इतिहास ▼',
-    gridTitle: '✦ श्री राम नाम पूजा ✦',
-    dateHeader: 'तारीख',
-    countHeader: 'नाम',
-    statusHeader: 'स्थिति',
-    sessionStart: 'शुरू करें',
-    sessionStop: 'रोकें',
-    timerEnd: 'पूजा पूर्ण - श्री राम!',
-  },
-  ta: {
-    headerTitle: '🪷 இராம் நாம் 🪷',
-    subtitle: 'ஆயிரம் நாமாவலி பூஜை',
-    goalLabel: 'தினசரி இலக்கு',
-    categoryLabel: 'அமர்வு வகை',
-    durationLabel: 'காலம்',
-    timerLabel: 'அமர்வு நேர மணி',
-    remainLabel: 'மீதம்',
-    percentLabel: 'சதவீதம்',
-    totalLabel: 'மொத்தம்',
-    completeLabel: 'முடிந்த நாட்கள்',
-    streakLabel: 'தொடர்ச்சி 🔥',
-    addLabel: 'எண்ணு',
-    micLabel: 'மைக்',
-    statsLabel: 'புள்ளிவிபரங்கள்',
-    resetLabel: 'மீட்டமை',
-    homeLabel: 'முகப்பு',
-    countLabel: 'எண்ணு',
-    statsNavLabel: 'புள்ளிவிபரங்கள்',
-    settingsLabel: 'அமைப்புகள்',
-    modalTitle: 'இராம் ஜய இராம்<br>ஜய ஜய இராம்!',
-    modalText: 'இன்றைய இலக்கு நிறைவேறிவிட்டது!<br>இறைவன் இராமனின் ஆசீர்வாதம் என்றுமே உன்னை அடைய வேண்டும்!',
-    statsTitle: 'உங்கள் புள்ளிவிபரங்கள்',
-    historyBtn: '📅 வரலாறு ▼',
-    gridTitle: '✦ இராம் நாம பூஜை பிரகாரம் ✦',
-    dateHeader: 'தேதி',
-    countHeader: 'நாமாவலி',
-    statusHeader: 'நிலை',
-    sessionStart: 'தொடங்கு',
-    sessionStop: 'நிறுத்து',
-    timerEnd: 'பூஜை முடிந்தது - இராம் ஜய!',
-  }
-};
-
-let currentLang = 'te';
-let sessionTimerRunning = false;
-let sessionTimerInterval = null;
-let sessionDuration = 10 * 60; // 10 minutes in seconds
-let sessionTimeLeft = sessionDuration;
-
-(function(){
-  var T = 1000, cells = [], rec = null, listening = false, lastT = 0, CD = 1000;
-  var todayN = 0, hist = {}, streak = {n: 0, last: ''}, currentGoal = 1000;
-  var currentCategory = 'general';
-  
-  var quotes = {
-    te: ['🙏 రోజూ ఆచరణ చేసిన సాధకుడు చివరకు నిశ్చయమైన ఫలాన్ని పొందుతాడు', '✨ ప్రతిదిన ఒక చిన్న ప్రయత్నం గతి చేస్తుంది', '🌟 వినీతసేవ ఏవిధం చేసిన జనుల్ని దేవుడు భాగ్యవంతులుచేస్తాడు'],
-    en: ['🙏 Daily practice leads to certain results', '✨ Small efforts daily lead to success', '🌟 God blesses those who serve with humility'],
-    hi: ['🙏 रोज़ का अभ्यास निश्चित परिणाम देता है', '✨ प्रतिदिन छोटे प्रयास सफलता की ओर ले जाते हैं', '🌟 भगवान विनम्रता से सेवा करने वालों को आशीर्वाद देते हैं'],
-    ta: ['🙏 தினசரி பயிற்சி உறுதியான ফলம் தரும்', '✨ தினந்தோறும் சிறிய முயற்சிகள் வெற்றிக்கு வழிவகுக்கும்', '🌟 கடவுள் பணிவுடன் சேவை செய்பவர்களை ஆசீர்வதிக்கிறார்']
-  };
-
-  // Particles
-  var pc = document.getElementById('ptc');
-  for(var i = 0; i < 8; i++){
-    var p = document.createElement('div');
-    p.style.position = 'fixed';
-    p.style.color = 'rgba(255,215,0,0.08)';
-    p.style.fontSize = (0.6 + Math.random() * 1.2) + 'rem';
-    p.style.left = Math.random() * 100 + '%';
-    p.style.top = Math.random() * 50 + '%';
-    p.style.animation = 'float linear infinite';
-    p.style.animationDuration = (10 + Math.random() * 20) + 's';
-    p.style.animationDelay = (Math.random() * 15) + 's';
-    p.textContent = ['రామ', 'శ్రీ', 'జయ', 'ॐ'][i % 4];
-    pc.appendChild(p);
-  }
-
-  // Add float animation to style
-  var style = document.createElement('style');
-  style.textContent = '@keyframes float { from { transform: translateY(100vh) rotate(0deg) scale(1); opacity: 0; } 10% { opacity: 0.3; } 90% { opacity: 0.3; } to { transform: translateY(-100vh) rotate(360deg) scale(0); opacity: 0; } }';
-  document.head.appendChild(style);
-
-  // Grid
-  var g = document.getElementById('grid');
-  for(var i = 0; i < T; i++){
-    var c = document.createElement('div');
-    c.className = 'cell';
-    c.innerHTML = '<span style="opacity:.15">రా</span>';
-    g.appendChild(c);
-    cells.push(c);
-  }
-
-  // Theme
-  window.toggleTheme = function(){
-    document.body.classList.toggle('light-theme');
-    localStorage.setItem('theme', document.body.classList.contains('light-theme') ? 'light' : 'dark');
-  };
-
-  function loadTheme(){
-    if(localStorage.getItem('theme') === 'light'){
-      document.body.classList.add('light-theme');
-    }
-    document.getElementById('themeSelect').value = localStorage.getItem('theme') || 'dark';
-    document.getElementById('themeSelect').onchange = function(){
-      if(this.value === 'light') document.body.classList.add('light-theme');
-      else document.body.classList.remove('light-theme');
-      localStorage.setItem('theme', this.value);
-    };
-  }
-
-  // Language
-  window.changeLanguage = function(lang){
-    currentLang = lang;
-    localStorage.setItem('lang', lang);
-    updateLanguage();
-  };
-
-  function updateLanguage(){
-    var s = strings[currentLang];
-    document.getElementById('headerTitle').textContent = s.headerTitle;
-    document.getElementById('headerSubtitle').textContent = s.subtitle;
-    document.getElementById('goalLabel').textContent = s.goalLabel;
-    document.getElementById('categoryLabel').textContent = s.categoryLabel;
-    document.getElementById('durationLabel').textContent = s.durationLabel;
-    document.getElementById('timerLabel').textContent = s.timerLabel;
-    document.getElementById('remainLabel').textContent = s.remainLabel;
-    document.getElementById('percentLabel').textContent = s.percentLabel;
-    document.getElementById('totalLabel').textContent = s.totalLabel;
-    document.getElementById('completeLabel').textContent = s.completeLabel;
-    document.getElementById('streakLabel').textContent = s.streakLabel;
-    document.getElementById('addLabel').textContent = s.addLabel;
-    document.getElementById('micLabel').textContent = s.micLabel;
-    document.getElementById('statsLabel').textContent = s.statsLabel;
-    document.getElementById('resetLabel').textContent = s.resetLabel;
-    document.getElementById('homeLabel').textContent = s.homeLabel;
-    document.getElementById('countLabel').textContent = s.countLabel;
-    document.getElementById('statsNavLabel').textContent = s.statsNavLabel;
-    document.getElementById('settingsLabel').textContent = s.settingsLabel;
-    document.getElementById('gridTitle').textContent = s.gridTitle;
-    document.getElementById('dateHeader').textContent = s.dateHeader;
-    document.getElementById('countHeader').textContent = s.countHeader;
-    document.getElementById('statusHeader').textContent = s.statusHeader;
-    document.getElementById('sessionToggle').textContent = sessionTimerRunning ? s.sessionStop : s.sessionStart;
-  }
-
-  // Settings
-  window.toggleSettings = function(){
-    document.getElementById('settingsPanel').classList.toggle('show');
-    document.getElementById('languageSelect').value = currentLang;
-  };
-
-  // Duration
-  window.setDuration = function(mins){
-    sessionDuration = mins * 60;
-    sessionTimeLeft = sessionDuration;
-    localStorage.setItem('duration', mins);
-    document.querySelectorAll('.dur-btn').forEach(b => b.classList.remove('active'));
-    if(mins === 5) document.querySelectorAll('.dur-btn')[0].classList.add('active');
-    else if(mins === 10) document.querySelectorAll('.dur-btn')[0].classList.add('active');
-    else if(mins === 15) document.querySelectorAll('.dur-btn')[1].classList.add('active');
-    else if(mins === 20) document.querySelectorAll('.dur-btn')[2].classList.add('active');
-    else if(mins === 30) document.querySelectorAll('.dur-btn')[3].classList.add('active');
-    updateTimerDisplay();
-  };
-
-  // Session Timer
-  window.toggleSessionTimer = function(){
-    sessionTimerRunning = !sessionTimerRunning;
-    var s = strings[currentLang];
-    document.getElementById('sessionToggle').textContent = sessionTimerRunning ? s.sessionStop : s.sessionStart;
-    
-    if(sessionTimerRunning){
-      sessionTimerInterval = setInterval(function(){
-        if(!sessionTimerRunning){ clearInterval(sessionTimerInterval); return; }
-        sessionTimeLeft--;
-        updateTimerDisplay();
-        if(sessionTimeLeft <= 0){
-          sessionTimerRunning = false;
-          playAlarmSound();
-          showNotification('🔔 జపం పూర్తయ్యాయి!', s.timerEnd);
-          document.getElementById('timerDisplay').classList.remove('danger');
-          document.getElementById('sessionToggle').textContent = s.sessionStart;
-          sessionTimeLeft = sessionDuration;
-          updateTimerDisplay();
-        }
-      }, 1000);
-    } else {
-      clearInterval(sessionTimerInterval);
-    }
-  };
-
-  function updateTimerDisplay(){
-    var m = Math.floor(sessionTimeLeft / 60);
-    var s = sessionTimeLeft % 60;
-    var displayStr = pad(m) + ':' + pad(s);
-    document.getElementById('timerDisplay').textContent = displayStr;
-    
-    if(sessionTimeLeft <= 10 && sessionTimerRunning){
-      document.getElementById('timerDisplay').classList.add('danger');
-    } else {
-      document.getElementById('timerDisplay').classList.remove('danger');
-    }
-  }
-
-  function pad(n){ return n < 10 ? '0' + n : '' + n; }
-
-  // Alarm Sound
-  function playAlarmSound(){
-    try{
-      var ctx = new (window.AudioContext || window.webkitAudioContext)();
-      var now = ctx.currentTime;
-      for(var i = 0; i < 3; i++){
-        var osc = ctx.createOscillator();
-        var gain = ctx.createGain();
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.frequency.value = 800 + (i * 200);
-        gain.gain.setValueAtTime(0.15, now + i * 0.3);
-        gain.gain.exponentialRampToValueAtTime(0.01, now + i * 0.3 + 0.2);
-        osc.start(now + i * 0.3);
-        osc.stop(now + i * 0.3 + 0.2);
-      }
-    } catch(e){}
-  }
-
-  function showNotification(title, message){
-    if('Notification' in window){
-      if(Notification.permission === 'granted'){
-        new Notification(title, {body: message, icon: '🪷'});
-      } else if(Notification.permission !== 'denied'){
-        Notification.requestPermission().then(function(perm){
-          if(perm === 'granted'){
-            new Notification(title, {body: message, icon: '🪷'});
-          }
-        });
-      }
-    }
-  }
-
-  // Reminder
-  window.updateReminder = function(){
-    var enabled = document.getElementById('reminderEnabled').checked;
-    var time = document.getElementById('reminderTime').value;
-    if(enabled && time){
-      localStorage.setItem('reminderTime', time);
-      setSaveStatus('ok', '✅ రిమైండర్ సెట్: ' + time);
-      scheduleReminder(time);
-    }
-  };
-
-  function scheduleReminder(time){
-    var [h, m] = time.split(':').map(Number);
-    var now = new Date();
-    var reminder = new Date();
-    reminder.setHours(h, m, 0, 0);
-    if(reminder <= now) reminder.setDate(reminder.getDate() + 1);
-    var diff = reminder - now;
-    setTimeout(function(){
-      showNotification('🪷 రిమైండర్', 'శ్రీరామ నామ జపం చేయండి!');
-      scheduleReminder(time);
-    }, diff);
-  }
-
-  // Quote
-  function updateQuote(){
-    var q = quotes[currentLang] || quotes.te;
-    document.getElementById('quoteBox').textContent = q[Math.floor(Math.random() * q.length)];
-  }
-
-  // Goal
-  window.setGoal = function(val){
-    currentGoal = Math.max(1, Math.min(10000, parseInt(val) || 1000));
-    document.getElementById('goalInput').value = currentGoal;
-    localStorage.setItem('goal', currentGoal);
-    var newCells = currentGoal - T;
-    if(newCells > 0){
-      for(var i = 0; i < newCells; i++){
-        var c = document.createElement('div');
-        c.className = 'cell';
-        c.innerHTML = '<span style="opacity:.15">రా</span>';
-        g.appendChild(c);
-        cells.push(c);
-      }
-    }
-    T = currentGoal;
-    updateUI();
-  };
-
-  // Category
-  window.setCategory = function(cat){
-    currentCategory = cat;
-    document.querySelectorAll('.cat-btn').forEach(function(b){ b.classList.remove('active'); });
-    document.getElementById('cat-' + cat).classList.add('active');
-  };
-
-  // Storage
-  var store = (function(){
-    function test(s){ try{ s.setItem('__t','1'); s.removeItem('__t'); return true; } catch(e){ return false; } }
-    if(test(localStorage)) return localStorage;
-    if(test(sessionStorage)) return sessionStorage;
-    var mem = {};
-    return { getItem: function(k){ return mem[k] || null; }, setItem: function(k,v){ mem[k] = v; }, removeItem: function(k){ delete mem[k]; } };
-  })();
-
-  function today(){
-    var d = new Date();
-    return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
-  }
-
-  function fmtD(s){ var p = s.split('-'); return p[2] + '/' + p[1] + '/' + p[0]; }
-
-  function setSaveStatus(cls, msg){
-    var el = document.getElementById('saveStatus');
-    el.className = 'status-bar status-' + cls;
-    el.textContent = msg;
-  }
-
-  function load(){
-    var ok = false;
-    currentLang = localStorage.getItem('lang') || 'te';
-    try{
-      var raw = store.getItem('SR_today');
-      if(raw){ var o = JSON.parse(raw); if(o.date === today()){ todayN = o.count || 0; } }
-      var hr = store.getItem('SR_hist');
-      if(hr){ hist = JSON.parse(hr); }
-      var sr = store.getItem('SR_streak');
-      if(sr){ streak = JSON.parse(sr); }
-      var g = store.getItem('goal');
-      if(g){ currentGoal = parseInt(g); T = currentGoal; }
-      var dur = store.getItem('duration');
-      if(dur){ setDuration(parseInt(dur)); }
-      ok = true;
-    } catch(e){}
-
-    updateLanguage();
-    document.getElementById('goalInput').value = currentGoal;
-    setGoal(currentGoal);
-    for(var i = 0; i < todayN; i++){ cells[i].innerHTML = 'శ్రీరామ'; cells[i].className = 'cell f'; }
-
-    updateQuote();
-    updateTimerDisplay();
-    updateUI();
-    renderHist();
-
-    if(ok && todayN > 0){
-      setSaveStatus('ok','✅ ' + todayN);
-    } else if(ok){
-      setSaveStatus('ok','✅ సిద్ధం');
-    }
-
-    if('Notification' in window && Notification.permission === 'default'){
-      Notification.requestPermission();
-    }
-
-    var reminderTime = localStorage.getItem('reminderTime');
-    if(reminderTime){
-      document.getElementById('reminderEnabled').checked = true;
-      document.getElementById('reminderTime').value = reminderTime;
-      scheduleReminder(reminderTime);
-    }
-  }
-
-  function save(){
-    try{
-      store.setItem('SR_today', JSON.stringify({date: today(), count: todayN}));
-      hist[today()] = todayN;
-      store.setItem('SR_hist', JSON.stringify(hist));
-      setSaveStatus('ok','✅');
-      setTimeout(function(){ setSaveStatus('info','💾'); }, 2000);
-    } catch(e){
-      setSaveStatus('warn','⚠️');
-    }
-  }
-
-  function updateUI(){
-    document.getElementById('todayCount').textContent = todayN;
-    document.getElementById('goalDisplay').textContent = '/' + T;
-    document.getElementById('todayRemain').textContent = T - todayN;
-    var pct = Math.round(todayN / T * 100);
-    document.getElementById('todayPct').textContent = pct + '%';
-    
-    var circumference = 2 * Math.PI * 90;
-    var offset = circumference - (pct / 100) * circumference;
-    document.getElementById('progressRing').style.strokeDashoffset = offset;
-
-    var total = 0, days = 0;
-    var ks = Object.keys(hist);
-    for(var i = 0; i < ks.length; i++){ var n = hist[ks[i]] || 0; total += n; if(n >= 1000) days++; }
-    document.getElementById('ltTotal').textContent = total.toLocaleString('en-IN');
-    document.getElementById('ltDays').textContent = days;
-    document.getElementById('ltStreak').textContent = streak.n;
-  }
-
-  window.addOne = function(){
-    if(todayN >= T) return;
-    var c = cells[todayN];
-    c.innerHTML = 'శ్రీరామ';
-    c.className = 'cell f pop';
-    playSound();
-    setTimeout(function(){ c.classList.remove('pop'); }, 600);
-    todayN++;
-    save();
-    updateUI();
-    renderHist();
-    if(todayN >= T){
-      var yest = new Date();
-      yest.setDate(yest.getDate() - 1);
-      var ys = yest.getFullYear() + '-' + pad(yest.getMonth() + 1) + '-' + pad(yest.getDate());
-      if(streak.last === ys || streak.last === today()){ if(streak.last !== today()) streak.n++; }
-      else streak.n = 1;
-      streak.last = today();
-      try{ store.setItem('SR_streak', JSON.stringify(streak)); } catch(e){}
-      updateUI();
-      var t = document.getElementById('ltTotal').textContent;
-      document.getElementById('comptotal').textContent = '🙏 ' + t + ' | ' + streak.n + ' 🔥';
-      setTimeout(function(){ document.getElementById('overlay').classList.add('show'); }, 700);
-    }
-  };
-
-  function playSound(){
-    try{
-      var ctx = new (window.AudioContext || window.webkitAudioContext)();
-      var osc = ctx.createOscillator();
-      var gain = ctx.createGain();
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.frequency.value = 900;
-      gain.gain.setValueAtTime(0.12, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.12);
-      osc.start(ctx.currentTime);
-      osc.stop(ctx.currentTime + 0.12);
-    } catch(e){}
-  }
-
-  function renderHist(){
-    var tb = document.getElementById('histbody');
-    tb.innerHTML = '';
-    var ks = Object.keys(hist).sort().reverse();
-    if(!ks.length) return;
-    for(var i = 0; i < Math.min(ks.length, 30); i++){
-      var d = ks[i], n = hist[d] || 0, done = n >= 1000;
-      var tr = document.createElement('tr');
-      tr.innerHTML = '<td>' + fmtD(d) + '</td><td>' + n + '</td><td>' + (done ? '✅' : '⏳') + '</td>';
-      tb.appendChild(tr);
-    }
-  }
-
-  window.toggleHist = function(){
-    var w = document.getElementById('histwrap');
-    w.classList.toggle('open');
-  };
-
-  window.showStats = function(){
-    var total = 0, days = 0, avg = 0;
-    var ks = Object.keys(hist);
-    for(var i = 0; i < ks.length; i++){ var n = hist[ks[i]] || 0; total += n; if(n >= 1000) days++; }
-    avg = ks.length > 0 ? Math.round(total / ks.length) : 0;
-    var html = '<div style="display:grid;gap:12px;"><div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,215,0,0.1);padding-bottom:8px;"><span>📊 గణన:</span><span style="color:var(--gold);font-weight:700;">' + total + '</span></div><div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,215,0,0.1);padding-bottom:8px;"><span>📅 రోజులు:</span><span style="color:var(--gold);font-weight:700;">' + days + '</span></div><div style="display:flex;justify-content:space-between;"><span>📈 సరాసరి:</span><span style="color:var(--gold);font-weight:700;">' + avg + '</span></div></div>';
-    document.getElementById('statsBody').innerHTML = html;
-    document.getElementById('statsModal').classList.add('show');
-  };
-
-  window.closeStats = function(){
-    document.getElementById('statsModal').classList.remove('show');
-  };
-
-  window.scrollToTop = function(){
-    document.querySelector('.container').scrollTo({top: 0, behavior: 'smooth'});
-  };
-
-  window.toggleMic = function(){
-    if(!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)){
-      setSaveStatus('warn', '⚠️ Chrome ఆ్ఛ్యంధ');
-      return;
-    }
-    listening ? stopMic() : startMic();
-  };
-
-  function startMic(){
-    var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-    rec = new SR();
-    rec.lang = 'te-IN';
-    rec.continuous = true;
-    rec.onresult = function(e){
-      var now = Date.now();
-      if(now - lastT < CD) return;
-      for(var i = e.resultIndex; i < e.results.length; i++)
-        for(var j = 0; j < e.results[i].length; j++){
-          var t = e.results[i][j].transcript.toLowerCase();
-          if(t.indexOf('రామ') !== -1 || t.indexOf('राम') !== -1 || t.indexOf('ram') !== -1){ lastT = now; addOne(); }
-        }
-    };
-    try{ rec.start(); listening = true; } catch(e){}
-  }
-
-  function stopMic(){
-    listening = false;
-    if(rec){ try{ rec.abort(); } catch(e){} rec = null; }
-  }
-
-  window.resetToday = function(){
-    if(!todayN) return;
-    if(!confirm('రీసెట్ చేయాలా?')) return;
-    todayN = 0;
-    stopMic();
-    for(var i = 0; i < T; i++){ cells[i].className = 'cell'; cells[i].innerHTML = '<span style="opacity:.15">రా</span>'; }
-    save();
-    updateUI();
-    setSaveStatus('ok', '✅');
-  };
-
-  loadTheme();
-  document.getElementById('cat-general').classList.add('active');
-  setDuration(10);
-  load();
-})();
-</script>
+<script type="module" src="script.js"></script>
 </body>
 </html>
