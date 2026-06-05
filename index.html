@@ -727,7 +727,14 @@
     document.body.classList.toggle('light-theme');
     localStorage.setItem('theme', document.body.classList.contains('light-theme') ? 'light' : 'dark');
   };
-  window.changeLanguage = function(lang){ currentLang = lang; localStorage.setItem('lang', lang); updateLanguage(); };
+  
+  // Bind language selection directly to the window layer
+  window.changeLanguage = function(lang){ 
+    currentLang = lang; 
+    localStorage.setItem('lang', lang); 
+    updateLanguage(); 
+    updateQuote(); // Dynamically translates your daily blessing quote too!
+  };
   window.toggleSettings = function(){ document.getElementById('settingsPanel').classList.toggle('show'); document.getElementById('languageSelect').value = currentLang; };
   window.setDuration = function(mins){ sessionDuration = mins * 60; sessionTimeLeft = sessionDuration; updateTimerDisplay(); };
   window.setCategory = function(cat){ currentCategory = cat; };
@@ -854,6 +861,13 @@
 
   document.getElementById('fb-signin-btn').addEventListener('click', () => { signInWithPopup(auth, provider); });
   document.getElementById('fb-signout-btn').addEventListener('click', () => { signOut(auth).then(() => window.location.reload()); });
+
+  // Run initialization parameters safely
+  loadTheme();
+  
+  // Read saved language from past sessions, or default to Telugu
+  currentLang = localStorage.getItem('lang') || 'te';
+  changeLanguage(currentLang);
 
   // RUN NATIVE RECOVERY STORAGE ON BOOTUP
   try {
