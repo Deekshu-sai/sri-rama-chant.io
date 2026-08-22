@@ -18,15 +18,15 @@ const DEFAULT_CONFIG = {
 
   // Firebase configuration - REPLACE WITH YOUR OWN CONFIG
   // For production, use environment variables or a separate config file
-  firebaseConfig = {
-  apiKey: "AIzaSyAJzxtA1fv-Hziscs8Ltdo1LM4pfqzTxOw",
-  authDomain: "sri-rama-chant-counter.firebaseapp.com",
-  projectId: "sri-rama-chant-counter",
-  storageBucket: "sri-rama-chant-counter.firebasestorage.app",
-  messagingSenderId: "159460923018",
-  appId: "1:159460923018:web:dc5f84f907947b74733f73",
-  measurementId: "G-8QQVEDLWDK"
-},
+  firebase: {
+    apiKey: "AIzaSyAJzxtA1fv-Hziscs8Ltdo1LM4pfqzTxOw",
+    authDomain: "sri-rama-chant-counter.firebaseapp.com",
+    projectId: "sri-rama-chant-counter",
+    storageBucket: "sri-rama-chant-counter.firebasestorage.app",
+    messagingSenderId: "159460923018",
+    appId: "1:159460923018:web:dc5f84f907947b74733f73",
+    measurementId: "G-8QQVEDLWDK"
+  },
 
   // Feature flags
   features: {
