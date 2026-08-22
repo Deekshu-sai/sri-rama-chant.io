@@ -1,0 +1,40 @@
+{
+  "name": "Sri Rama Chant Counter",
+  "short_name": "Rama Chant",
+  "description": "A beautiful Sri Rama chanting counter app for daily spiritual practice",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0d0200",
+  "theme_color": "#FF6B00",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "te",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "sri rama image.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["lifestyle", "health"],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Start Chanting",
+      "short_name": "Chant",
+      "description": "Start a new chanting session",
+      "url": "/?action=chant",
+      "icons": [{ "src": "sri rama image.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "View History",
+      "short_name": "History",
+      "description": "View your chanting history",
+      "url": "/?action=history",
+      "icons": [{ "src": "sri rama image.png", "sizes": "192x192" }]
+    }
+  ],
+  "prefer_related_applications": false
+}

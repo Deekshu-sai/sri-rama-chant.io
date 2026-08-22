@@ -654,3 +654,6 @@ class LanguageManager {
 
 // Initialize Language Manager
 const i18n = new LanguageManager();
+
+// Expose translations globally for modules
+window.translations = translations;
